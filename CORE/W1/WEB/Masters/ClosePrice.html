@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsClosePrice.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div id="WinImportClosePrice" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Extension Type
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="ParamExtensionType" id="ParamExtensionType" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="ParamExtensionType"></span>
+                    </td>
+                </tr>
+                <tr id="lblParamDate">
+                    <td>
+                        Date
+                    </td>
+                    <td>
+                        <input class="textboxDate" id="ParamDate">
+                    </td>
+                </tr>
+
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkImportClosePrice" class="k-button" type="button">OK</button>
+                <button id="BtnCancelImportClosePrice" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <input type="file" name="FileImportClosePrice" id="FileImportClosePrice" title="Select a files..." accept="*.dbf,*.dbf,*.xlsx,*.zip" hidden />
+                    <!--<input type="file" name="FileImportHaircutMKBD" id="FileImportHaircutMKBD" title="Select a files..." accept="*.dbf,*.txt,*.zip" hidden />-->
+                    <input type="file" name="FileImportClosePriceBond" id="FileImportClosePriceBond" title="Select a files..." accept="*.xlsx,*.xls" hidden />
+                    <input type="file" name="FileImportIBPA" id="FileImportIBPA" title="Select a files..." accept="*.csv" hidden />
+                    <input type="file" name="FileImportOldIBPA" id="FileImportOldIBPA" title="Select a files..." accept="*.csv" hidden />
+                    <button type="button" id="BtnImportOldIBPA">Import Old IBPA</button>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnApproveBySelected">Approve</button>
+                    <button type="button" id="BtnRejectBySelected">Reject</button>
+                    <button type="button" id="BtnVoidBySelected">Void</button>
+                    <button type="button" id="BtnImportClosePrice">Import Close Price Equity</button>
+                    <button type="button" id="BtnImportClosePriceBond">Import Close Price Bond</button>
+                    <button type="button" id="BtnImportIBPA">Import IBPA</button>
+                    <input type="file" name="FileImportClosePriceReksadana" id="FileImportClosePriceReksadana" title="Select a files..." accept="*.xlsx,*.xls" hidden />
+                    <button type="button" id="BtnImportClosePriceReksadana">Import Close Price Reksadana</button>
+                    <!--<button type="button" id="BtnImportHaircutMKBD">Import Haircut MKBD</button>-->
+                    <a href="http://localhost:17050/WEB/Masters/ClosePrice.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    CLOSE PRICE
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By |
+                </td>
+                <td>
+                    Date From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    Date To
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateTo">
+                </td>
+                <td>
+                    (MM/DD/YYYY)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div id="TabClosePrice" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridClosePriceApproved"></div>
+        </div>
+        <div>
+            <div id="gridClosePricePending"></div>
+        </div>
+        <div>
+            <div id="gridClosePriceHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+    <div id="WinListInstrument">
+        <div class="Margin10" id="gridListInstrument"></div>
+    </div>
+    <div id="WinClosePrice" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="ClosePricePK" id="ClosePricePK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width20">Date</td>
+                <td class="width100">
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Date" id="Date" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Date"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Instrument</td>
+                <td>
+                    <input type="text" hidden name="InstrumentPK" id="InstrumentPK" required validationmessage="*" />
+                    <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="InstrumentID" id="InstrumentID">
+                    <button id="btnListInstrumentPK" class="k-button" type="button">List</button>
+                    <span class="k-invalid-msg" data-for="InstrumentPK"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Close Price Value</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="ClosePriceValue" id="ClosePriceValue" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ClosePriceValue"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Low Price Value</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="LowPriceValue" id="LowPriceValue" /> <span class="k-invalid-msg" data-for="LowPriceValue"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>High Price Value</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="HighPriceValue" id="HighPriceValue" /> <span class="k-invalid-msg" data-for="HighPriceValue"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Close NAV</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="CloseNAV" id="CloseNAV" />
+                </td>
+            </tr>
+            <tr>
+                <td>Total NAV Reksadana</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="TotalNAVReksadana" id="TotalNAVReksadana" />
+                </td>
+            </tr>
+            <tr>
+                <td>NAWC Haircut</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="NAWCHaircut" id="NAWCHaircut" />
+                </td>
+            </tr>
+            <tr>
+                <td>Liquidity Percent (%)</td>
+                <td>
+                    <input type="number" min="0" max="100" class="textboxSmallNumber" name="LiquidityPercent" id="LiquidityPercent" />
+                </td>
+            </tr>
+            <tr>
+                <td>Haircut Percent (%)</td>
+                <td>
+                    <input type="number" min="0" max="100" class="textboxSmallNumber" name="HaircutPercent" id="HaircutPercent" />
+                </td>
+            </tr>
+            <tr>
+                <td>Bond Rating</td>
+                <td>
+                    <input type="text" class="SmallCombo" name="BondRating" id="BondRating">
+                </td>
+            </tr>
+            <tr hidden>
+                <td>Type</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Type" id="Type">
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Accounting/JsAccountLedgerBalance.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div id="WinTB">
+        <div>
+            <table class="TbReconTitle">
+                <tr>
+                    <td>
+                        Date :
+                    </td>
+                    <td>
+                        <input class="textboxDate" id="ValueDate">
+                    </td>        
+                    <td>
+                        Status :
+                    </td>
+                    <td>
+                        <input class="LongCombo350" id="Status">
+                    </td>
+                </tr>
+               <!--<tr>
+                   <td>
+                      ASSET
+                   </td>
+                   <td id="lblTotalAsset"></td>
+               </tr>
+                <tr>
+                    <td>
+                        LIABILITIES 
+                    </td>
+                    <td id="lblTotalLiablities"></td>
+                </tr>
+                <tr>
+                    <td>
+                        INCOME
+                    </td>
+                    <td id="lblTotalIncome"></td>
+                </tr>
+                <tr>
+                    <td>
+                        EXPENSE
+                    </td>
+                    <td id="lblTotalExpense"></td>
+                </tr>-->
+            </table>
+        </div>
+        <div id="gridTB"></div>
+    </div>
+
+  
+
+    <div id="winAccountActivity">
+        <table class="TbReconTitle">
+            <tr hidden>
+                <td>
+                    Account ID :
+                </td>
+                <td>
+                    <input readonly class="textboxLongReadOnly" id="ParamAccountID">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Account Name :
+                </td>
+                <td>
+                    <input readonly class="textboxLong500" id="ParamAccountName">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Status :
+                </td>
+                <td>
+                    <input class="LongCombo350" id="ParamStatus">
+                </td>
+            </tr>
+        </table>
+        <table class="TbReconDate">
+            <tr>
+                <td>
+                    Date From :
+                </td>
+                <td>
+                    <input class="textboxDate" id="ParamValueDateFrom">
+                </td>
+                <td>
+                    Date To :
+                </td>
+                <td>
+                    <input class="textboxDate" id="ParamValueDateTo">
+                </td>
+                <td>
+                    Start Balance :
+                </td>
+                <td>
+                    <input readonly class="textboxMediumNumberReadOnly" id="ParamStartBalance">
+                </td>
+            </tr>
+
+        </table>
+        <div id="gridAccountActivity"></div>
+    </div>
+</body>
+</html>

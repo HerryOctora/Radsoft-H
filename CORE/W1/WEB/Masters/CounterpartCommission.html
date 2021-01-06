@@ -1,0 +1,397 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsCounterpartCommission.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/CounterpartCommission.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    COUNTERPART COMMISSION
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="TabCounterpartCommission" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridCounterpartCommissionApproved"></div>
+        </div>
+        <div>
+            <div id="gridCounterpartCommissionPending"></div>
+        </div>
+        <div>
+            <div id="gridCounterpartCommissionHistory"></div>
+        </div>
+    </div>
+    <div id="WinListCounterpart">
+        <div id="gridListCounterpart"></div>
+    </div>
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinCounterpartCommission" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="CounterpartCommissionPK" id="CounterpartCommissionPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td class="FormLabel150">Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Date" id="Date" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Date"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fund</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="FundPK" id="FundPK" required validationmessage="*" /><span class="k-invalid-msg" data-for="FundPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Counterpart</td>
+                            <td>
+                                <input type="text" hidden name="CounterpartPK" id="CounterpartPK" required validationmessage="*" />
+                                <input type="text" readonly class="textboxLongReadOnly" placeholder="Click List" name="CounterpartID" id="CounterpartID">
+                                <button id="btnListCounterpartPK" class="k-button" type="button">List</button>
+                                <span class="k-invalid-msg" data-for="CounterpartPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Board Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="BoardType" id="BoardType" required validationmessage="*" /> <span class="k-invalid-msg" data-for="BoardType"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Include Tax</td>
+                            <td>
+                                <input type="checkbox" id="BitIncludeTax" name="BitIncludeTax" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Capital Gain Tax</td>
+                            <td>
+                                <input type="checkbox" id="BitNoCapitalGainTax" name="BitNoCapitalGainTax" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblBrokerFeePercent">
+                            <td>Brokerage Fee (%)</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="BrokerFeePercent" id="BrokerFeePercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Commission (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="CommissionPercent" id="CommissionPercent" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Levy (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="LevyPercent" id="LevyPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KPEI (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="KPEIPercent" id="KPEIPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>VAT (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="VATPercent" id="VATPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>WHT (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="WHTPercent" id="WHTPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OTC (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="OTCPercent" id="OTCPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OTC Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="OTCAmount" id="OTCAmount" />
+                            </td>
+                        </tr>
+
+
+
+                        <tr id="LblTotalSumFee">
+                            <td>Total (sum) Fee</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumberReadOnly" name="TotalSumFee" id="TotalSumFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Sell (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="IncomeTaxSellPercent" id="IncomeTaxSellPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Interest (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="IncomeTaxInterestPercent" id="IncomeTaxInterestPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Gain (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="IncomeTaxGainPercent" id="IncomeTaxGainPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding Commission</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingCommission" id="RoundingCommission" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingCommission"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal Commission</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalCommission" id="DecimalCommission" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalCommission"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td class="FormLabel150">Rounding Levy</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingLevy" id="RoundingLevy" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingLevy"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal Levy</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalLevy" id="DecimalLevy" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalLevy"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding KPEI</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingKPEI" id="RoundingKPEI" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingKPEI"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal KPEI</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalKPEI" id="DecimalKPEI" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalKPEI"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding VAT</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingVAT" id="RoundingVAT" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingVAT"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal VAT</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalVAT" id="DecimalVAT" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalVAT"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding WHT</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingWHT" id="RoundingWHT" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingWHT"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal WHT</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalWHT" id="DecimalWHT" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalWHT"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding OTC</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingOTC" id="RoundingOTC" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingOTC"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal OTC</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalOTC" id="DecimalOTC" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalOTC"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding Tax Sell</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingTaxSell" id="RoundingTaxSell" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingTaxSell"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal Tax Sell</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalTaxSell" id="DecimalTaxSell" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalTaxSell"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding Tax Interest</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingTaxInterest" id="RoundingTaxInterest" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingTaxInterest"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal Tax Interest</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalTaxInterest" id="DecimalTaxInterest" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalTaxInterest"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rounding Tax Gain</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="RoundingTaxGain" id="RoundingTaxGain" required validationmessage="*" /> <span class="k-invalid-msg" data-for="RoundingTaxGain"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Decimal Tax Gain</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="DecimalTaxGain" id="DecimalTaxGain" required validationmessage="*" /> <span class="k-invalid-msg" data-for="DecimalTaxGain"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

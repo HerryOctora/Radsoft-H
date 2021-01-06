@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsFFSSetup_02.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/FFSSetup_02.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    FFSSetup
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabFFSSetup_02" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridFFSSetup_02Approved"></div>
+        </div>
+        <div>
+            <div id="gridFFSSetup_02Pending"></div>
+        </div>
+        <div>
+            <div id="gridFFSSetup_02History"></div>
+        </div>
+    </div>
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinFFSSetup_02" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="FFSSetup_02PK" id="FFSSetup_02PK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                                <input type="file" name="ProfilResiko" id="ProfilResiko" title="Select a files..." accept="*.jpeg,*.jpg,*.png" hidden />
+                                <td id="btnUploadImage" hidden>
+                                    <button id="BtnUploadProfilResiko" type="button">Upload Profil Resiko</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td>Fund</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="FundPK" id="FundPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="FundPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel150">Value Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="ValueDate" id="ValueDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDate"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Kebijakan Investasi</td>
+                            <td><input type="text" class="textboxAddress" name="KebijakanInvestasi" id="KebijakanInvestasi" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Tujuan & Strategi Investasi</td>
+                            <td><input type="text" class="textboxAddress" name="TujuanStrategiInvestasi" id="TujuanStrategiInvestasi" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Market Review</td>
+                            <td><input type="text" class="textboxAddress" name="MarketReview" id="MarketReview" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Ungkapan Sanggahan</td>
+                            <td><input type="text" class="textboxAddress" name="UngkapanSanggahan" id="UngkapanSanggahan" /></td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Tanggal Perdana</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="TanggalPerdana" id="TanggalPerdana" required validationmessage="*" /> <span class="k-invalid-msg" data-for="TanggalPerdana"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Nilai Aktiva Bersih</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="NilaiAktivaBersih" id="NilaiAktivaBersih" required validationmessage="*" /> <span class="k-invalid-msg" data-for="NilaiAktivaBersih"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Total Unit Penyertaan</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="TotalUnitPenyertaan" id="TotalUnitPenyertaan" required validationmessage="*" /> <span class="k-invalid-msg" data-for="TotalUnitPenyertaan"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Nilai Aktiva Bersih/Unit</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="NilaiAktivaBersihUnit" id="NilaiAktivaBersihUnit" required validationmessage="*" /> <span class="k-invalid-msg" data-for="NilaiAktivaBersihUnit"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel150">Faktor Resiko Yang Utama</td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="FaktorResikoYangUtama" id="FaktorResikoYangUtama" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Manfaat Investasi</td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="ManfaatInvestasi" id="ManfaatInvestasi" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Imbal Jasa Manajer Investasi</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="ImbalJasaManajerInvestasi" id="ImbalJasaManajerInvestasi" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ImbalJasaManajerInvestasi"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Imbal Jasa Bank Kustodian</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="ImbalJasaBankKustodian" id="ImbalJasaBankKustodian" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ImbalJasaBankKustodian"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Biaya Pembelian</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="BiayaPembelian" id="BiayaPembelian" required validationmessage="*" /> <span class="k-invalid-msg" data-for="BiayaPembelian"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Biaya Penjualan</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="BiayaPenjualan" id="BiayaPenjualan" required validationmessage="*" /> <span class="k-invalid-msg" data-for="BiayaPenjualan"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Biaya Pengalihan</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="BiayaPengalihan" id="BiayaPengalihan" required validationmessage="*" /> <span class="k-invalid-msg" data-for="BiayaPengalihan"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Bank Kustodian</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="BankKustodianPK" id="BankKustodianPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="BankKustodianPK"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel150">Bank Account</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="BankAccountPK" id="BankAccountPK" required validationmessage="*" readonly /> <span class="k-invalid-msg" data-for="BankAccountPK"></span>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

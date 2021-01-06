@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+</head>
+<body>
+
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/UnitRegistry/JsClientSwitching.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <!--<div class="FormHeaderButton">
+        <button type="button" id="BtnNew">Add</button>
+        <button type="button" id="BtnRefresh">Refresh</button>
+        <button type="button" id="BtnApproveBySelected">Approve</button>
+        <button type="button" id="BtnUnApproveBySelected">UnApprove</button>
+        <button type="button" id="BtnRejectBySelected">Reject</button>
+        <button type="button" id="BtnPostingBySelected">Posting</button>
+        <button type="button" id="BtnGetNavBySelected">Get Nav</button>
+        <button type="button" id="BtnBatchFormBySelected">Batch</button>
+        <a href="http://localhost:17050/WEB/UnitRegistry/ClientSwitching.html" target="_blank">
+            <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+        </a>
+    </div>-->
+    <div hidden>
+        <a id="downloadRadsoftFile" href="" download=""></a>
+    </div>
+    <div id="WinAddAgentTrx" class="ContentDetail">
+
+        <table>
+            <tr>
+                <td>
+                    Agent
+                </td>
+                <td>
+                    <input type="text" class="LongCombo300" name="ParamTrxAgent" id="ParamTrxAgent" />
+                </td>
+                <td>Agent Trx %</td>
+                <td>
+                    <input type="number" min="0" class="textboxSmallNumber" name="ParamTrxAgentPercent" id="ParamTrxAgentPercent" />
+                </td>
+            </tr>
+
+
+        </table>
+
+        <p align="center">
+            <br />
+            <button id="BtnOkAddAgentTrx" class="k-button" type="button">OK</button>
+            <button id="BtnCancelAddAgentTrx" class="k-button" type="button">CLOSE</button>
+        </p>
+    </div>
+
+    <div id="WinAddAgentFeeTrx" class="ContentDetail">
+
+        <table>
+            <tr>
+                <td>
+                    Agent
+                </td>
+                <td>
+                    <input type="text" class="LongCombo300" name="ParamTrxAgentFee" id="ParamTrxAgentFee" />
+                </td>
+                <td>Agent Fee %</td>
+                <td>
+                    <input type="number" min="0" class="textboxSmallNumber" name="ParamTrxAgentFeePercent" id="ParamTrxAgentFeePercent" />
+                </td>
+            </tr>
+
+
+        </table>
+
+        <p align="center">
+            <br />
+            <button id="BtnOkAddAgentFeeTrx" class="k-button" type="button">OK</button>
+            <button id="BtnCancelAddAgentFeeTrx" class="k-button" type="button">CLOSE</button>
+        </p>
+    </div>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnApproveBySelected">Approve</button>
+                    <button type="button" id="BtnUnApproveBySelected">UnApprove</button>
+                    <button type="button" id="BtnRejectBySelected">Reject</button>
+                    <button type="button" id="BtnPostingBySelected">Posting</button>
+                    <button type="button" id="BtnVoidBySelected">Void</button>
+                    <!--<button type="button" id="BtnReviseBySelected">Revise</button>-->
+                    <button type="button" id="BtnGetNavBySelected">Get Nav</button>
+                    <button type="button" id="BtnBatchFormBySelected">Batch</button>
+                    <button type="button" id="BtnSInvestSwitchingRptBySelected">S-INVEST</button>
+                    <!--<a href="http://localhost:17050/WEB/UnitRegistry/ClientSwitching.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>-->
+                </td>
+
+                <td id="LblDownloadMode">
+                    Download Mode
+                </td>
+                <td id="tdDownloadMode">
+                    <input type="text" class="LongCombo300" name="DownloadMode" id="DownloadMode" />
+                </td>
+
+                <td class="formNameHeader">
+                    CLIENT SWITCHING
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By Settlement Date |
+                </td>
+                <td>
+                    From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    To
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateTo">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="lblSignature">
+        <table>
+            <tr>
+                <td>
+                    Sign 1
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature1">
+                </td>
+                <td>
+                    Sign 2
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature2">
+                </td>
+                <td>
+                    Sign 3
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature3">
+                </td>
+                <td>
+                    Sign 4
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature4">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position 1
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position1">
+                </td>
+                <td>
+                    Position 2
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position2">
+                </td>
+                <td>
+                    Position 3
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position3">
+                </td>
+                <td>
+                    Position 4
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position4">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabClientSwitching" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridClientSwitchingApproved"></div>
+        </div>
+        <div>
+            <div id="gridClientSwitchingPending"></div>
+        </div>
+        <div>
+            <div id="gridClientSwitchingHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinListFundClient">
+        <div id="gridListFundClient"></div>
+    </div>
+
+    <div id="WinValidationSwi" class="ContentDetail">
+        <div>
+            <div id="gridValidationClientSwitching"></div>
+        </div>
+        <p align="center">
+            <br />
+            <button id="BtnContinueValidation" class="k-button" type="button">SAVE</button>
+            <button id="BtnCancelValidation" class="k-button" type="button">CLOSE</button>
+        </p>
+    </div>
+
+    <div id="WinClientSwitching" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="ClientSwitchingPK" id="ClientSwitchingPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <!--<td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>-->
+                                <!--<td><button id="BtnPosting" type="button">Posting</button></td>-->
+                                <td><button id="BtnRevise" type="button">Revise</button></td>
+                                <!--<td><button id="BtnRecalculate" type="button">Recalculate</button></td>-->
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="TrxInformation" class="FormHeaderState">
+            <table>
+                <tr>
+                    <td class="FormLabel150">
+                        TRX STATUS
+                    </td>
+                    <td>
+                        <label id="State"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POST TIME
+                    </td>
+                    <td>
+                        <label id="PostedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POSTED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Posted" id="Posted" />
+                                </td>
+
+                                <td>
+                                    <label id="PostedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+                <tr>
+                    <td>
+                        REVISED TIME
+                    </td>
+                    <td>
+                        <label id="RevisedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        REVISED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Revised" id="Revised" />
+                                </td>
+                                <td>
+                                    <label id="RevisedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+            </table>
+        </div>
+
+        <div id="TabSub">
+            <ul>
+                <li class="k-state-active">
+                    <img src="../../Images/Menu/IcAUM.png" /> General
+                </li>
+                <li>
+                    <img src="../../Images/Menu/IcAUM.png" /> Agent Trailer Fee
+                </li>
+                <li>
+                    <img src="../../Images/Menu/IcAUM.png" /> Agent Transaction Fee
+                </li>
+
+            </ul>
+            <!-- GENERAL -->
+            <div id="General">
+                <table class="width100">
+                    <tr class="width100">
+                        <td class="width100">
+                            <table>
+                                <tr>
+                                    <td>Fund From</td>
+                                    <td>
+                                        <input type="text" class="LongCombo500" name="FundPKFrom" id="FundPKFrom" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="FundPKFrom"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fund To</td>
+                                    <td>
+                                        <input type="text" class="LongCombo500" name="FundPKTo" id="FundPKTo" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="FundPKTo"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FormLabel200">Type</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDateReadOnly" name="Type" id="Type" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td id="lblEntryDate">Entry Date</td>
+                                    <td hidden id="lblTradeDate">Trade Date</td>
+                                    <td>
+                                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="(DDMMYYYY)" name="ValueDate" id="ValueDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDate"></span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>NAV Date</td>
+                                    <td>
+                                        <input id="NAVDate" type="date" class="MediumComboAndDate" placeholder="(DDMMYYYY)" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Payment Date</td>
+                                    <td>
+                                        <input id="PaymentDate" type="date" class="MediumComboAndDate" placeholder="(DDMMYYYY)" />
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Client</td>
+                                    <td>
+                                        <input type="text" hidden name="FundClientPK" id="FundClientPK" required validationmessage="*" />
+                                        <input type="text" readonly class="textboxLongReadOnly" placeholder="Click List" name="FundClientID" id="FundClientID">
+                                        <button id="btnListFundClientPK" class="k-button" type="button">List</button>
+                                        <span class="k-invalid-msg" data-for="FundClientPK"></span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cash Ref From</td>
+                                    <td>
+                                        <input type="text" class="LongCombo500" name="CashRefPKFrom" id="CashRefPKFrom" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cash Ref To</td>
+                                    <td>
+                                        <input type="text" class="LongCombo500" name="CashRefPKTo" id="CashRefPKTo" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Agent</td>
+                                    <td>
+                                        <input type="text" class="LongCombo350" name="AgentPK" id="AgentPK" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Currency</td>
+                                    <td>
+                                        <input type="text" class="LongCombo350" name="CurrencyPK" id="CurrencyPK" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Reference for SInvest</td>
+                                    <td>
+                                        <input type="text" class="textboxLong" placeholder="Optional,If emtpy will use SysNo as Reference" name="ReferenceSInvest" id="ReferenceSInvest" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>
+                                        <textarea class="textboxAddress" name="Description" id="Description"></textarea>
+                                        <span class="k-invalid-msg" data-for="Description"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Switching All</td>
+                                    <td>
+                                        <input type="text" class="SmallCombo" name="BitSwitchingAll" id="BitSwitchingAll" />
+                                    </td>
+                                </tr>
+                                <tr hidden id="trTransferType">
+                                    <td>Transfer Type</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="TransferType" id="TransferType" />
+                                    </td>
+                                </tr>
+
+
+                                <!--<tr hidden>
+                                    <td>TransactionPK</td>
+                                    <td>
+                                        <input type="text" id="TransactionPK" />
+                                    </td>
+                                </tr>-->
+                                <tr id="lblTransactionPK" hidden>
+                                    <td>TransactionPK</td>
+                                    <td>
+                                        <input type="text" readonly class="textboxSmallReadOnly" name="TransactionPK" id="TransactionPK" />
+                                    </td>
+                                </tr>
+
+                                <tr hidden>
+                                    <td>UserSwitchingPK</td>
+                                    <td>
+                                        <input type="text" id="UserSwitchingPK" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="width100">
+                    <tr class="width100">
+                        <td class="width50">
+                            <table>
+                                <tr>
+                                    <td>Unit Position</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="UnitPosition" id="UnitPosition" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Unit Amount</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="UnitAmount" id="UnitAmount" validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="UnitAmount"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FormLabel200">NAV Fund From</td>
+                                    <td>
+                                        <input type="number" class="textboxMediumNumberReadOnly" min="0" name="NAVFundFrom" id="NAVFundFrom" />
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Total Unit Amount Fund From</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalUnitAmountFundFrom" id="TotalUnitAmountFundFrom" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="TotalUnitAmountFundFrom"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Cash Amount From</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalCashAmountFundFrom" id="TotalCashAmountFundFrom" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="TotalCashAmountFundFrom"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Switch. Fee Type</td>
+                                    <td>
+                                        <input type="text" class="SmallCombo" name="FeeType" id="FeeType" />
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td>Fee Type Method</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="FeeTypeMethod" id="FeeTypeMethod" validationmessage="*" required />
+                                        <span class="k-invalid-msg" data-for="FeeTypeMethod"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Switch. Fee Percent</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="SwitchingFeePercent" id="SwitchingFeePercent" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Switch. Fee Amount</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="SwitchingFeeAmount" id="SwitchingFeeAmount" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="width50" valign="top">
+                            <table>
+                                <tr>
+                                    <td>Estimated Cash Projection</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="EstimatedCashProjection" id="EstimatedCashProjection" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cash Amount</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumber" name="CashAmount" id="CashAmount" validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="CashAmount"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>NAV Fund To</td>
+                                    <td>
+                                        <input type="number" class="textboxMediumNumberReadOnly" min="0" name="NAVFundTo" id="NAVFundTo" />
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Total Unit Amount Fund To</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalUnitAmountFundTo" id="TotalUnitAmountFundTo" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="TotalUnitAmountFundTo"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Cash Amount To</td>
+                                    <td>
+                                        <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalCashAmountFundTo" id="TotalCashAmountFundTo" required validationmessage="*" />
+                                        <span class="k-invalid-msg" data-for="TotalCashAmountFundTo"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="AgentTrx">
+                <table>
+                    <tr>
+                        <td>Gross Cash Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxCashAmount" id="TrxCashAmount" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Net Cash Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxTotalCashAmount" id="TrxTotalCashAmount" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Switch. Fee Percent</td>
+                        <td>
+                            <input type="number" min="0" max="100" class="textboxMediumNumberReadOnly" name="TrxSwitchingFeePercent" id="TrxSwitchingFeePercent" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Switch. Fee Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxSwitchingFeeAmount" id="TrxSwitchingFeeAmount" />
+                        </td>
+                    </tr>
+                </table>
+
+                <button type="button" id="BtnAddAgentTrx">Add Agent</button>
+                <div>
+                    <div id="gridAgentTrx"></div>
+                </div>
+            </div>
+
+            <div id="AgentFee">
+                <table>
+                    <tr>
+                        <td>Gross Cash Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxFeeCashAmount" id="TrxFeeCashAmount" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Net Cash Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxFeeTotalCashAmount" id="TrxFeeTotalCashAmount" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Switch. Fee Percent</td>
+                        <td>
+                            <input type="number" min="0" max="100" class="textboxMediumNumberReadOnly" name="TrxFeeSwitchingFeePercent" id="TrxFeeSwitchingFeePercent" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Switch. Fee Amount</td>
+                        <td>
+                            <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TrxFeeSwitchingFeeAmount" id="TrxFeeSwitchingFeeAmount" />
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" id="BtnAddAgentFeeTrx">Add Agent Fee</button>
+                <div>
+                    <div id="gridAgentFeeTrx"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="LastUpdateReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

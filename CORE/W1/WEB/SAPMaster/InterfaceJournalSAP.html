@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/SAPMaster/JsInterfaceJournalSAP.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <!--<button type="button" id="BtnRefresh">Refresh</button>-->
+                </td>
+                <td class="formNameHeader">
+                    INTERFACE JOURNAL SAP
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="WinReportLPTI" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                    </td>
+                </tr>
+
+
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkReportLPTI" class="k-button" type="button">Download</button>
+                <button id="BtnCancelReportLPTI" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinAmortize" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Fund ID
+                    </td>
+                    <td>
+                        <input type="text" class="LongCombo400" name="ParamFundID" id="ParamFundID" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="ParamFundID"></span>
+                    </td>
+                    <td>
+                        Journal Type
+                    </td>
+                    <td>
+                        <input type="text" class="MediumComboAndDate" name="ParamJournalType" id="ParamJournalType" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="ParamJournalType"></span>
+                    </td>
+                    <td hidden><button type="button" id="BtnCheckMonthly">Check Monthly</button></td>
+                    <td><button id="BtnSendToSAP" class="k-button" type="button">Send To SAP</button></td>
+                </tr>
+
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <div id="gridAmortize"></div>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+
+    <div id="WinPostingAmortize" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Date From
+                    </td>
+                    <td>
+                        <input class="textboxDate" id="PostingDateFrom">  (DD/MMM/YYYY)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Date To
+                    </td>
+                    <td>
+                        <input class="textboxDate" id="PostingDateTo">  (DD/MMM/YYYY)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Fund ID
+                    </td>
+                    <td>
+                        <input type="text" class="LongCombo400" name="PostingParamFundID" id="PostingParamFundID" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="PostingParamFundID"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Journal Type
+                    </td>
+                    <td>
+                        <input type="text" class="MediumComboAndDate" name="PostingParamJournalType" id="PostingParamJournalType" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="PostingParamJournalType"></span>
+                    </td>
+                </tr>
+
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnPreview" class="k-button" type="button">Preview</button>
+
+            </p>
+
+        </div>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By |
+                </td>
+                <td>
+                    Date
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    (DD/MMM/YYYY)
+                </td>
+                <td>
+                    | Fund ID
+                </td>
+                <td>
+                    <input type="text" class="LongCombo400" name="FilterFundID" id="FilterFundID" required validationmessage="*" />
+                    <span class="k-invalid-msg" data-for="FilterFundID"></span>
+                </td>
+                <td><button type="button" id="BtnRefresh">Refresh</button></td>
+                <td><button type="button" id="BtnAmortize">Amortize/Interest/Reval</button></td>
+                <td><button type="button" id="BtnPostingBySelected">Send To SAP</button></td>
+                <td><button type="button" id="BtnReportLPTI">Report LPTI</button></td>
+                
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabInterfaceJournalSAP" class="FormGrid">
+        
+        <div>
+            <div id="gridInterfaceJournalSAPApproved"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinDetailData">
+        <div id="gridDetailInterfaceJournalSAP"></div>
+    </div>
+
+</body>
+</html>

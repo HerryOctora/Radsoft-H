@@ -1,0 +1,866 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsFundClientAffiliated.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <!--<button type="button" id="BtnNew">Add</button>-->
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Settings/FundClientAffiliated.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    FUND CLIENT DATA MASTER
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="TabFundClientAffiliated" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridFundClientAffiliatedApproved"></div>
+        </div>
+        <div>
+            <div id="gridFundClientAffiliatedPending"></div>
+        </div>
+        <div>
+            <div id="gridFundClientAffiliatedHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinFundClientAffiliated" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="FundClientAffiliatedPK" id="FundClientAffiliatedPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <!--<td><button id="BtnOldData" type="button">Compare Data</button></td>-->
+                                <td><button id="BtnUpdate" type="button" hidden>Update</button></td>
+                                <td><button id="BtnAdd" type="button">Update</button></td>
+                                <!--<td><button id="BtnVoid" type="button">Void</button></td>-->
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="TabSub">
+            <ul>
+                <li class="k-state-active">
+                    <img src="../../Images/Menu/IcAUM.png" /> General System
+                </li>
+                <!--<li>
+                    <img src="../../Images/Menu/IcAUM.png" /> Bank Information
+                </li>-->
+                <li>
+                    <img src="../../Images/Menu/IcAUM.png" /> Individual Opening Form
+                </li>
+                <li>
+                    <img src="../../Images/Menu/IcAUM.png" /> Other
+                </li>
+                <!--<li>
+            <img src="../../Images/Menu/IcAUM.png" /> Institution Opening Form
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> Other
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> FATCA
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> SUMMARY
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> Last 20 Activity Transaction
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> History Request
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> Bank List Default
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> HISTORICAL & POSITION SUMMARY
+        </li>
+        <li>
+            <img src="../../Images/Menu/IcAUM.png" /> RISK QUESTIONNAIRE
+        </li>-->
+            </ul>
+            <!-- GENERAL -->
+            <div id="General">
+                <table class="width100">
+                    <tr class="width100">
+                        <td class="width50">
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">Investor Type</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="InvestorType" id="InvestorType" required validationmessage="*" /> <span class="k-invalid-msg" data-for="InvestorType"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Internal Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SID</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="SID" id="SID" /> <span class="k-invalid-msg" data-for="SID"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tax ID (NPWP)</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NPWP" id="NPWP" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="FormLabel200">Registration NPWP</td>
+                                    <td>
+                                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="RegistrationNPWP" id="RegistrationNPWP" /> <span class="k-invalid-msg" data-for="RegistrationNPWP"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Investors Risk Apetite Profile</td>
+                                    <td>
+                                        <input type="text" readonly class="MediumComboAndDate" name="InvestorsRiskProfile" id="InvestorsRiskProfile" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>KYC Risk Profile</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="KYCRiskProfile" id="KYCRiskProfile" />
+                                    </td>
+                                </tr>
+                                <tr id="LblBitShareAbleToGroup">
+                                    <td>ShareAble To Group</td>
+                                    <td>
+                                        <input type="text" class="SmallCombo" name="BitShareAbleToGroup" id="BitShareAbleToGroup" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Asset Owner</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="AssetOwner" id="AssetOwner" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date Update KYC</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDateReadOnly" readonly placeholder="DDMMYYYY" name="DatePengkinianData" id="DatePengkinianData" /> <span class="k-invalid-msg" data-for="DatePengkinianData"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+
+            <!--Individual Opening Form-->
+            <div id="ARIAIndividual">
+                <table class="width100">
+                    <tr class="width100">
+                        <td class="width50" valign="top">
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">First Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NamaDepanInd" id="NamaDepanInd" validationmessage="*" /> <span class="k-invalid-msg" data-for="NamaDepanInd"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Middle Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NamaTengahInd" id="NamaTengahInd" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NamaBelakangInd" id="NamaBelakangInd" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <div class="FormHeaderDetail">
+                                IDENTITY (1) & IDENTITY (2)
+                            </div>
+                            <table class="width100">
+                                <tr class="width100">
+                                    <td class="width50">
+                                        <table>
+                                            <tr style="vertical-align:top">
+                                                <td class="FormLabel200">Identity Type (1)</td>
+                                                <td>
+                                                    <input type="text" class="SmallCombo" name="IdentitasInd1" id="IdentitasInd1" validationmessage="*" /> <span class="k-invalid-msg" data-for="IdentitasInd1"></span>
+                                                    <button id="btnDisplayIdentity1" hidden type="button">Show</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Identity Number (1)</td>
+                                                <td>
+                                                    <input type="text" class="textboxMedium" name="NoIdentitasInd1" id="NoIdentitasInd1" validationmessage="*" /> <span class="k-invalid-msg" data-for="NoIdentitasInd1"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regs. Date Identity (1)</td>
+                                                <td>
+                                                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="RegistrationDateIdentitasInd1" id="RegistrationDateIdentitasInd1" /> <span class="k-invalid-msg" data-for="RegistrationDateIdentitasInd1"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expr. Date Identity (1)</td>
+                                                <td>
+                                                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="ExpiredDateIdentitasInd1" id="ExpiredDateIdentitasInd1" /> <span class="k-invalid-msg" data-for="ExpiredDateIdentitasInd1"></span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="width50" valign="top">
+                                        <table>
+                                            <tr>
+                                                <td class="FormLabel200">Identity Type (2)</td>
+                                                <td>
+                                                    <input type="text" class="SmallCombo" name="IdentitasInd2" id="IdentitasInd2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Identity Number (2)</td>
+                                                <td>
+                                                    <input type="text" class="textboxMedium" name="NoIdentitasInd2" id="NoIdentitasInd2" />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Regs. Date Identity (2)</td>
+                                                <td>
+                                                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="RegistrationDateIdentitasInd2" id="RegistrationDateIdentitasInd2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expr. Date Identity (2)</td>
+                                                <td>
+                                                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="ExpiredDateIdentitasInd2" id="ExpiredDateIdentitasInd2" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">Identity Address (1)</td>
+                                    <td>
+                                        <textarea class="textboxAddress" name="OtherAlamat" id="OtherAlamatInd1" validationmessage="*"></textarea><span class="k-invalid-msg" data-for="OtherAlamatInd1"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblIdentity1RT" hidden>
+                                    <td>Identity 1 RT</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="Identity1RT" id="Identity1RT" /> <span class="k-invalid-msg" data-for="Identity1RT"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblIdentity1RW" hidden>
+                                    <td>Identity 1 RW</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="Identity1RW" id="Identity1RW" /> <span class="k-invalid-msg" data-for="Identity1RW"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Identity City (1)</td>
+                                    <td>
+                                        <input type="text" hidden name="OtherKodeKotaInd1" id="OtherKodeKotaInd1" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="OtherKodeKotaInd1Desc" id="OtherKodeKotaInd1Desc">
+                                        <button id="btnListOtherKodeKotaInd1" class="k-button" type="button">List</button>
+                                        <button id="btnClearListOtherKodeKotaInd1" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="OtherKodeKotaInd1"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Identity Province (1)</td>
+                                    <td>
+                                        <input type="text" hidden name="OtherPropinsiInd1" id="OtherPropinsiInd1" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="OtherPropinsiInd1Desc" id="OtherPropinsiInd1Desc">
+                                        <button id="btnListOtherPropinsiInd1" class="k-button" type="button">List</button>
+                                        <button id="btnClearListOtherPropinsiInd1" class="k-button" type="button">Clear</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Identity Country (1)</td>
+                                    <td>
+                                        <input type="text" hidden name="OtherNegaraInd1" id="OtherNegaraInd1" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="OtherNegaraInd1Desc" id="OtherNegaraInd1Desc">
+                                        <button id="btnListOtherNegaraInd1" class="k-button" type="button">List</button>
+                                        <button id="btnClearListOtherNegaraInd1" class="k-button" type="button">Clear</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Identity Zip Code (1)</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherKodePosInd1" id="OtherKodePosInd1" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <div class="FormHeaderDetail">
+                                DOMICILE
+                            </div>
+
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">Domicile Address</td>
+                                    <td>
+                                        <textarea class="textboxAddress" name="AlamatInd2" id="AlamatInd2"></textarea>
+                                        <span class="k-invalid-msg" data-for="AlamatInd2"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblDomicileRT" hidden>
+                                    <td>Domicile RT</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="DomicileRT" id="DomicileRT" /> <span class="k-invalid-msg" data-for="DomicileRT"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblDomicileRW" hidden>
+                                    <td>Domicile RW</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="DomicileRW" id="DomicileRW" /> <span class="k-invalid-msg" data-for="DomicileRW"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Domicile City</td>
+                                    <td>
+                                        <input type="text" hidden name="KodeKotaInd2" id="KodeKotaInd2" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="KodeKotaInd2Desc" id="KodeKotaInd2Desc">
+                                        <button id="btnListKodeKotaInd2" class="k-button" type="button">List</button>
+                                        <button id="btnClearListKodeKotaInd2" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="KodeKotaInd2"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblDomicileProvince">
+                                    <td>Domicile Province</td>
+                                    <td>
+                                        <input type="text" hidden name="KodeDomisiliPropinsi" id="KodeDomisiliPropinsi" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="KodeDomisiliPropinsiDesc" id="KodeDomisiliPropinsiDesc">
+                                        <button id="btnListDomicileProvince" class="k-button" type="button">List</button>
+                                        <button id="btnClearDomicileProvince" class="k-button" type="button">Clear</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Country of Domicile</td>
+                                    <td>
+                                        <input type="text" hidden name="CountryofDomicile" id="CountryofDomicile" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="CountryofDomicileDesc" id="CountryofDomicileDesc">
+                                        <button id="btnCountryofDomicile" class="k-button" type="button">List</button>
+                                        <button id="btnClearCountryofDomicile" class="k-button" type="button">Clear</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Domicile Zip Code</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="KodePosInd2" id="KodePosInd2" /> <span class="k-invalid-msg" data-for="KodePosInd2"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="FormHeaderDetail">
+                                INFORMATION I
+                            </div>
+                            <table>
+
+                                <tr>
+                                    <td>Birth Place</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="TempatLahir" id="TempatLahir" validationmessage="*" /> <span class="k-invalid-msg" data-for="TempatLahir"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Birth Date</td>
+                                    <td>
+                                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="TanggalLahir" id="TanggalLahir" validationmessage="*" /> <span class="k-invalid-msg" data-for="TanggalLahir"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sex</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="JenisKelamin" id="JenisKelamin" validationmessage="*" /> <span class="k-invalid-msg" data-for="JenisKelamin"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>Nationality</td>
+                                    <td>
+                                        <input type="text" hidden name="Nationality" id="Nationality" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="NationalityDesc" id="NationalityDesc">
+                                        <button id="btnListNationality" class="k-button" type="button">List</button>
+                                        <button id="btnClearListNationality" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="Nationality"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Country of Birth</td>
+                                    <td>
+                                        <input type="text" hidden name="CountryOfBirth" id="CountryOfBirth" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="CountryOfBirthDesc" id="CountryOfBirthDesc">
+                                        <button id="btnListCountryOfBirth" class="k-button" type="button">List</button>
+                                        <button id="btnClearListCountryOfBirth" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="CountryOfBirth"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Religion</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="Agama" id="Agama" validationmessage="*" /> <span class="k-invalid-msg" data-for="Agama"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblotherreligion" hidden>
+                                    <td>Other Religion</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherAgama" id="OtherAgama" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherAgama"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Education</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="Pendidikan" id="Pendidikan" validationmessage="*" /> <span class="k-invalid-msg" data-for="Pendidikan"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblotherEducation" hidden>
+                                    <td>Other Education</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherPendidikan" id="OtherPendidikan" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherPendidikan"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FormLabel200">Mother Maiden Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="MotherMaidenName" id="MotherMaidenName" /> <span class="k-invalid-msg" data-for="MotherMaidenName"></span>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+                            <table id="lblHeir">
+                                <tr>
+                                    <td class="FormLabel200">Heir</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="AhliWaris" id="AhliWaris" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Heir Relation</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="HubunganAhliWaris" id="HubunganAhliWaris" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <table>
+
+                                <tr>
+                                    <td class="FormLabel200">Occupation</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="Pekerjaan" id="Pekerjaan" validationmessage="*" /> <span class="k-invalid-msg" data-for="Pekerjaan"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lbloccupation" hidden>
+                                    <td>Other Occupation</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherOccupation" id="OtherOccupation" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherOccupation"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table hidden id="lblNatureOfBusiness">
+                                <tr>
+                                    <td class="FormLabel200">Nature Of Business</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="NatureOfBusiness" id="NatureOfBusiness" /> <span class="k-invalid-msg" data-for="NatureOfBusiness"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>N.O.B (Text)</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NatureOfBusinessLainnya" id="NatureOfBusinessLainnya" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">Income per Annum</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="PenghasilanInd" id="PenghasilanInd" validationmessage="*" /> <span class="k-invalid-msg" data-for="PenghasilanInd"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Source Of Funds</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="SumberDanaInd" id="SumberDanaInd" validationmessage="*" /> <span class="k-invalid-msg" data-for="SumberDanaInd"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblOtherSourceOfFunds" hidden>
+                                    <td>Other Source Of Funds</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherSourceOfFunds" id="OtherSourceOfFunds" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherSourceOfFunds"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Investment Objectives</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="MaksudTujuanInd" id="MaksudTujuanInd" validationmessage="*" /> <span class="k-invalid-msg" data-for="MaksudTujuanInd"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblInvestmentObjectives" hidden>
+                                    <td>Other Investment Objectives</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherInvestmentObjectives" id="OtherInvestmentObjectives" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherInvestmentObjectives"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Marital Status</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="StatusPerkawinan" id="StatusPerkawinan" validationmessage="*" /> <span class="k-invalid-msg" data-for="StatusPerkawinan"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="lblSpouse" hidden>
+
+                                <tr>
+                                    <td class="FormLabel200">Spouse Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="SpouseName" id="SpouseName" /> <span class="k-invalid-msg" data-for="SpouseName"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse Birth Date</td>
+                                    <td>
+                                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="SpouseDateOfBirth" id="SpouseDateOfBirth" validationmessage="*" /> <span class="k-invalid-msg" data-for="SpouseDateOfBirth"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                <tr>
+                                    <td>Spouse Birth Place</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="SpouseBirthPlace" id="SpouseBirthPlace" validationmessage="*" /> <span class="k-invalid-msg" data-for="SpouseBirthPlace"></span>
+                                    </td>
+                                <tr>
+                                <tr>
+                                    <td>Spouse Occupation</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="SpouseOccupation" id="SpouseOccupation" validationmessage="*" /> <span class="k-invalid-msg" data-for="SpouseOccupation"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblOtherSpouseOccupation" hidden>
+                                    <td>Other Spouse Occupation</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="OtherSpouseOccupation" id="OtherSpouseOccupation" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherSpouseOccupation"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse Nature Of Business</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="SpouseNatureOfBusiness" id="SpouseNatureOfBusiness" /> <span class="k-invalid-msg" data-for="SpouseNatureOfBusiness"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse N.O.B (Text)</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="SpouseNatureOfBusinessOther" id="SpouseNatureOfBusinessOther" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse ID Number</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="SpouseIDNo" id="SpouseIDNo" validationmessage="*" /> <span class="k-invalid-msg" data-for="SpouseIDNo"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse Nationality</td>
+                                    <td>
+                                        <input type="text" hidden name="SpouseNationality" id="SpouseNationality" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="SpouseNationalityDesc" id="SpouseNationalityDesc">
+                                        <button id="btnListSpouseNationality" class="k-button" type="button">List</button>
+                                        <button id="btnClearListSpouseNationality" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="SpouseNationality"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Spouse Annual Income</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="SpouseAnnualIncome" id="SpouseAnnualIncome" validationmessage="*" /> <span class="k-invalid-msg" data-for="SpouseAnnualIncome"></span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                    </tr>
+                </table>
+                <div class="FormHeaderDetail">
+                    INFORMATION II
+                </div>
+                <table>
+                    <tr>
+                        <td class="width50" valign="top">
+                            <table>
+
+
+                                <tr id="LblOfficeName">
+                                    <td>Office Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="NamaKantor" id="NamaKantor" /> <span class="k-invalid-msg" data-for="NamaKantor"></span>
+                                    </td>
+                                </tr>
+
+                                <tr id="LblEmployerLineOfBusiness">
+                                    <td>Employer Line Of Business</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="EmployerLineOfBusiness" id="EmployerLineOfBusiness" /> <span class="k-invalid-msg" data-for="EmployerLineOfBusiness"></span>
+                                    </td>
+                                </tr>
+
+                                <tr id="LblOfficePosition">
+                                    <td>Office Position</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="JabatanKantor" id="JabatanKantor" /> <span class="k-invalid-msg" data-for="JabatanKantor"></span>
+                                    </td>
+                                </tr>
+
+                                <tr id="LblOfficePhone">
+                                    <td>Office Phone</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="TeleponKantor" id="TeleponKantor" /> <span class="k-invalid-msg" data-for="TeleponKantor"></span>
+                                    </td>
+                                </tr>
+
+                                <tr id="LblOfficeaddress">
+                                    <td class="FormLabel200">Office address</td>
+                                    <td>
+                                        <textarea class="textboxAddress" name="AlamatKantorInd" id="AlamatKantorInd"></textarea><span class="k-invalid-msg" data-for="AlamatKantorInd"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblOfficeCity">
+                                    <td>Office City</td>
+                                    <td>
+                                        <input type="text" hidden name="KodeKotaKantorInd" id="KodeKotaKantorInd" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="KodeKotaKantorInd" id="KodeKotaKantorIndDesc">
+                                        <button id="btnListOfficeCity" class="k-button" type="button">List</button>
+                                        <button id="btnClearListOfficeCity" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="OfficeCity"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblOfficeProvince">
+                                    <td>Office Province</td>
+                                    <td>
+                                        <input type="text" hidden name="KodePropinsiKantorInd" id="KodePropinsiKantorInd" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="KodePropinsiKantorInd" id="KodePropinsiKantorIndDesc">
+                                        <button id="btnListOfficeProvince" class="k-button" type="button">List</button>
+                                        <button id="btnClearOfficeProvince" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="OfficeProvince"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblOfficeCountry">
+                                    <td>Office Country</td>
+                                    <td>
+                                        <input type="text" hidden name="KodeCountryofKantor" id="KodeCountryofKantor" validationmessage="*" />
+                                        <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="KodeCountryofKantor" id="KodeCountryofKantorDesc">
+                                        <button id="btnListOfficeCountry" class="k-button" type="button">List</button>
+                                        <button id="btnClearOfficeCountry" class="k-button" type="button">Clear</button>
+                                        <span class="k-invalid-msg" data-for="KodePropinsiKantorInd"></span>
+                                    </td>
+                                </tr>
+                                <tr id="LblOfficezipcode">
+                                    <td>Office zipcode</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="KodePosKantorInd" id="KodePosKantorInd" /> <span class="k-invalid-msg" data-for="KodePosKantorInd"></span>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="KYCIndividual">
+
+                <div class="FormHeaderDetail">
+                    OTHERS
+                </div>
+                <table class="width100">
+                    <tr class="width100">
+                        <td class="width50" valign="top">
+                            <table>
+                                <tr>
+                                    <td class="FormLabel200">Politically Exposed</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="Politis" id="Politis" /> <span class="k-invalid-msg" data-for="Politis"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>P.E (Text)</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="PolitisLainnya" id="PolitisLainnya" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FormLabel200">Political Relation</td>
+                                    <td>
+                                        <input type="text" class="MediumComboAndDate" name="PolitisRelation" id="PolitisRelation" /> <span class="k-invalid-msg" data-for="PolitisRelation"></span>
+                                    </td>
+                                </tr>
+                                <tr id="lblPolitisName">
+                                    <td>Political Name</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="PolitisName" id="PolitisName" />
+                                    </td>
+                                </tr>
+                                <tr id="lblPolitisFT">
+                                    <td>Political Position</td>
+                                    <td>
+                                        <input type="text" class="textboxMedium" name="PolitisFT" id="PolitisFT" />
+                                    </td>
+                                </tr>
+
+                            </table>
+
+
+                        </td>
+                        
+                    </tr>
+                </table>
+                
+
+                
+            </div>
+
+        </div>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+</html>

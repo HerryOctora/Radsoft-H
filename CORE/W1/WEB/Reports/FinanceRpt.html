@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Reports/JsFinanceRpt.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+</head>
+<body>
+    <div id="WinFinanceRpt" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnDownload" type="button">Download</button></td>
+                                <td>
+                                    Download Mode
+                                </td>
+                                <td>
+                                    <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                                    <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table class="width100">
+            <tr class="width100">
+                <td class="FormLabel150">
+                    Report Name
+                </td>
+                <td>
+                    <input type="text" class="LongCombo350" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Value Date From
+                </td>
+                <td>
+                    <input type="text" class="textboxDate" name="ValueDateFrom" id="ValueDateFrom" placeholder="DDMMYYYY" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDateFrom"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Value Date To
+                </td>
+                <td>
+                    <input type="text" class="textboxDate" name="ValueDateTo" id="ValueDateTo" placeholder="DDMMYYYY" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDateTo"></span>
+                </td>
+            </tr>
+            <tr id="paramBank">
+                <td>
+                    Bank From
+                </td>
+                <td>
+                    <select id="BankFrom" multiple></select>
+                </td>
+            </tr>
+            <tr id="paramAccount">
+                <td class="FormLabel150">
+                    Account
+                </td>
+                <td>
+                    <select id="AccountFrom" multiple></select>
+                </td>
+            </tr>
+            <tr id="paramCashierType">
+                <td>
+                    Type
+                </td>
+                <td>
+                    <input type="text" name="CashierType" id="CashierType" required validationmessage="is Required">
+                    <span class="k-invalid-msg" data-for="CashierType"></span>
+                </td>
+            </tr>
+            <tr id="paramReference">
+                <td class="FormLabel150">
+                    Reference
+                </td>
+                <td>
+                    <select id="ReferenceFrom" multiple></select>
+                </td>
+            </tr>
+
+            <tr id="paramCurrency">
+                <td>
+                    Currency From
+                </td>
+                <td>
+                    <select id="CurrencyFrom" multiple></select>
+                </td>
+            </tr>
+            <tr id="paramStatus">
+                <td>
+                    Status
+                </td>
+                <td>
+                    <input type="text" class="LongCombo400" name="Status" id="Status" required validationmessage="is Required">
+                    <span class="k-invalid-msg" data-for="Status"></span>
+                </td>
+            </tr>
+            <tr id="paramData">
+                <td>
+                    Data Account
+                </td>
+                <td>
+                    <input type="text" class="LongCombo400" name="ParamData" id="ParamData" required validationmessage="is Required">
+                    <span class="k-invalid-msg" data-for="ParamData"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    PageBreak
+                </td>
+                <td>
+                    <input type="text" class="ComboBoxmed" name="PageBreak" id="PageBreak" required validationmessage="is Required">
+                    <span class="k-invalid-msg" data-for="PageBreak"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

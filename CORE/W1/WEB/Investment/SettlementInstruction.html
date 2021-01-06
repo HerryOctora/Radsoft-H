@@ -1,0 +1,1538 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Investment/JsSettlementInstruction.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+    <div hidden>
+        <a id="downloadFileRadsoft" href="" download=""></a>
+    </div>
+    <!--<div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnListing">Listing</button>
+                    <button type="button" id="BtnApproveBySelected">Approve</button>
+                    <button type="button" id="BtnRejectBySelected">Reject</button>
+                    <button type="button" id="BtnVoidBySelected">Void</button>
+                    <a href="http://localhost:17050/WEB/Investment/SettlementInstruction.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    DEALING INSTRUCTION
+                </td>
+            </tr>
+        </table>
+    </div>-->
+
+
+    <div id="WinSettlementListing" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Inst. Type
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="ParamInsType" id="ParamInsType" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="ParamInsType"></span>
+                    </td>
+                </tr>
+                <tr id="lblParamTrxType">
+                    <td>
+                        Trx Type
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="ParamTrxType" id="ParamTrxType" />
+                        <span class="k-invalid-msg" data-for="ParamTrxType"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Message</td>
+                    <td>
+                        <textarea class="textboxAddress" name="Message" id="Message"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                    </td>
+                </tr>
+                <tr id="LblParamListingBitIsMature">
+                    <td>Mature</td>
+                    <td>
+                        <input type="checkbox" id="ParamListingBitIsMature" name="ParamListingBitIsMature" />
+                    </td>
+
+                </tr>
+            </table>
+            <table>
+                <tr id="detailMature">
+                    <td>
+                        <div id="gridMature"></div>
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkSettlementListing" class="k-button" type="button">OK</button>
+                <button id="BtnCancelSettlementListing" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinSettlementAmmendMatureDeposito" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Payment Mode On Maturity
+                    </td>
+                    <td>
+                        <input type="text" class="LongCombo350" name="AmmendPaymentModeOnMaturity" id="AmmendPaymentModeOnMaturity" />
+                    </td>
+                    <td>
+                        <button id="BtnAmmendMatureDeposito" class="k-button" type="button">Update</button>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <div id="gridAmmendMatureDeposito"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateEquityBuyOnly">
+        <div class="OMSGridHeaderBuy">
+            EQUITY |
+            BUY    | <button type="button" class="k-button" id="BtnApproveBySelectedEquityBuy">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedEquityBuy">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedEquityBuy">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+            NET   : <a id="NetBuySellSettlementEquity"></a>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateEquitySellOnly">
+        <div class="OMSGridHeaderSell">
+            SELL  | <button type="button" class="k-button" id="BtnApproveBySelectedEquitySell">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedEquitySell">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedEquitySell">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateBondBuyOnly">
+        <div class="OMSGridHeaderBuy">
+            BOND |
+            BUY    | <button type="button" class="k-button" id="BtnApproveBySelectedBondBuy">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedBondBuy">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedBondBuy">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+            | <button type="button" class="k-button" id="BtnAmortize">AMORTIZE</button>
+            NET   : <a id="NetBuySellSettlementBond"></a>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateBondSellOnly">
+        <div class="OMSGridHeaderSell">
+            SELL  | <button type="button" class="k-button" id="BtnApproveBySelectedBondSell">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedBondSell">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedBondSell">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateTimeDepositBuyOnly">
+        <div class="OMSGridHeaderBuy">
+            TIME DEPOSIT |
+            PLACEMENT    | <button type="button" class="k-button" id="BtnApproveBySelectedTimeDepositBuy">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedTimeDepositBuy">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedTimeDepositBuy">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+            NET   : <a id="NetBuySellSettlementTimeDeposit"></a>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateTimeDepositSellOnly">
+        <div class="OMSGridHeaderSell">
+            LIQUIDATE  | <button type="button" class="k-button" id="BtnApproveBySelectedTimeDepositSell">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedTimeDepositSell">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedTimeDepositSell">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateReksadanaBuyOnly">
+        <div class="OMSGridHeaderBuy">
+            REKSADANA |
+            BUY    | <button type="button" class="k-button" id="BtnApproveBySelectedReksadanaBuy">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedReksadanaBuy">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedReksadanaBuy">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+            NET   : <a id="NetBuySellSettlementReksadana"></a>
+        </div>
+    </script>
+
+    <script type="text/x-kendo-template" id="gridSettlementInstructionTemplateReksadanaSellOnly">
+        <div class="OMSGridHeaderSell">
+            SELL  | <button type="button" class="k-button" id="BtnApproveBySelectedReksadanaSell">APPROVE</button>
+            | <button type="button" class="k-button" id="BtnRejectBySelectedReksadanaSell">REJECT</button>
+            | <button type="button" class="k-button" id="BtnUnApproveBySelectedReksadanaSell">UNAPPROVE</button>
+            | <button type="button" class="k-button k-button-icontext k-grid-excel" id="BtnExcel">TRF TO EXCEL</button>
+
+        </div>
+    </script>
+
+    <div class="FormHeaderButton">
+    </div>
+
+
+    <div class="FormGrid">
+        <table class="width100">
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Filter By |
+                            </td>
+                            <td>
+                                Date
+                            </td>
+                            <td>
+                                <input class="textboxDate" id="DateFrom">
+                            </td>
+                            <td>
+                                Date To
+                            </td>
+                            <td style="padding-left:10px">
+                                <input class="textboxDate" id="DateTo">
+                            </td>
+                            <td style="padding-left:10px">
+                                <button type="button" id="BtnRefresh">Refresh</button>
+                            </td>
+                            <!--<td style="padding-left:10px">
+        <button type="button" id="BtnListing">Listing</button>
+    </td>-->
+                            <!--<td style="padding-left:10px">
+        <button type="button" id="BtnListingEquity">List Equity</button>
+    </td>
+    <td style="padding-left:10px">
+        <button type="button" id="BtnListingBond">List Bond</button>
+    </td>
+    <td style="padding-left:10px">
+        <button type="button" id="BtnListingTimeDeposit">List Deposito</button>
+    </td>-->
+                            <td style="padding-left:10px">
+                                <button type="button" id="BtnNetting">Netting</button>
+                            </td>
+                            <td style="padding-left:10px">
+                                <button type="button" id="BtnCheckDataDealing">Check Data Dealing</button>
+                            </td>
+                            <td>
+                                <button type="button" id="BtnSettlementListing">Listing</button>
+                            </td>
+                            <!--<td style="padding-left:10px">
+        <button type="button" id="BtnAllListing">List By</button>
+    </td>-->
+                            <td style="padding-left:10px">
+                                <button type="button" id="BtnAllPTP">S-Invest</button>
+                            </td>
+                            <td style="padding-left:10px">
+                                <button type="button" id="BtnAllKertasKerja">Kertas Kerja</button>
+                            </td>
+                            <td>
+                                <input type="file" name="ImportSIDeposito" id="ImportSIDeposito" title="Select a files..." accept="*.xls,*.xlsx" hidden />
+                                <button type="button" id="BtnImportSIDeposito">Import SI Deposito</button>
+                            </td>
+                            <td>
+                                <button type="button" id="BtnUpdateDepositoMature">Ammend Deposito Mature</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToShow">SHOW ALL</button>
+                            </td>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToHide">HIDE ALL</button>
+                            </td>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToEquity">EQUITY</button>
+                            </td>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToBond">BOND</button>
+                            </td>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToTimeDeposit">TIME DEPOSIT</button>
+                            </td>
+                            <td>
+                                <button type="button" class="k-button" id="BtnToReksadana">REKSADANA</button>
+                            </td>
+
+                            <td style="padding-left:10px">
+                                Fund
+                            </td>
+                            <td>
+                                <input class="MediumComboAndDate" id="FilterFundID">
+                            </td>
+                            <td style="padding-left:10px">
+                                Counterpart
+                            </td>
+                            <td>
+                                <input class="MediumComboAndDate" id="FilterCounterpartID">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr id="lblSignature">
+                            <td>
+                                Sign 1
+                            </td>
+                            <td>
+                                <input class="SmallCombo" id="Signature1">
+                            </td>
+                            <td>
+                                Sign 2
+                            </td>
+                            <td>
+                                <input class="SmallCombo" id="Signature2">
+                            </td>
+                            <td>
+                                Sign 3
+                            </td>
+                            <td>
+                                <input class="SmallCombo" id="Signature3">
+                            </td>
+                            <td>
+                                Sign 4
+                            </td>
+                            <td>
+                                <input class="SmallCombo" id="Signature4">
+                            </td>
+                        </tr>
+                        <tr id="lblPosition">
+                            <td>
+                                Position 1
+                            </td>
+                            <td>
+                                <input class="textboxSmallReadOnly" id="Position1">
+                            </td>
+                            <td>
+                                Position 2
+                            </td>
+                            <td>
+                                <input class="textboxSmallReadOnly" id="Position2">
+                            </td>
+                            <td>
+                                Position 3
+                            </td>
+                            <td>
+                                <input class="textboxSmallReadOnly" id="Position3">
+                            </td>
+                            <td>
+                                Position 4
+                            </td>
+                            <td>
+                                <input class="textboxSmallReadOnly" id="Position4">
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td class="formNameHeader">
+                    SETTLEMENT
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <div class="FormGrid">
+        <ul></ul>
+    </div>
+    <div id="splitter" style="height: 3800px;margin-left:2px;">
+
+        <div id="PaneEquity">
+            <table>
+                <tr>
+                    <td><div id="gridSettlementInstructionEquityBuyOnly"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="gridSettlementInstructionEquitySellOnly"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="PaneBond">
+            <table>
+                <tr>
+                    <td><div id="gridSettlementInstructionBondBuyOnly"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="gridSettlementInstructionBondSellOnly"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="PaneTimeDeposit">
+            <table>
+                <tr>
+                    <td><div id="gridSettlementInstructionTimeDepositBuyOnly"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="gridSettlementInstructionTimeDepositSellOnly"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="PaneReksadana">
+            <table>
+                <tr>
+                    <td><div id="gridSettlementInstructionReksadanaBuyOnly"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="gridSettlementInstructionReksadanaSellOnly"></div></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+    <div id="WinListInstrument">
+        <div id="gridListInstrument"></div>
+    </div>
+    <!--<div id="WinListCounterpart">
+        <div id="gridListCounterpart"></div>
+    </div>-->
+
+
+
+
+    <div id="WinAllPTP" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        PTP By
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="PTPBy" id="PTPBy" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="PTPBy"></span>
+                    </td>
+                </tr>
+                <tr id="LblParamPTPBitIsMature">
+                    <td>Mature</td>
+                    <td>
+                        <input type="checkbox" id="ParamPTPBitIsMature" name="ParamPTPBitIsMature" />
+                    </td>
+
+                </tr>
+            </table>
+            <table>
+                <tr id="detailMaturePTP">
+                    <td>
+                        <div id="gridMaturePTP"></div>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr id="detailDepositoPTP">
+                    <td>
+                        <div id="gridDepositoPTP"></div>
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkAllPTP" class="k-button" type="button">Download</button>
+                <button id="BtnCancelAllPTP" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinAllKertasKerja" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Kertas Kerja By
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="KertasKerjaBy" id="KertasKerjaBy" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="KertasKerjaBy"></span>
+                    </td>
+                </tr>
+                <tr id="LblParamListingKertasKerjaBitIsMature">
+                    <td>Mature</td>
+                    <td>
+                        <input type="checkbox" id="ParamListingKertasKerjaBitIsMature" name="ParamListingKertasKerjaBitIsMature" />
+                    </td>
+
+                </tr>
+            </table>
+            <table>
+                <tr id="detailKertasKerjaMature">
+                    <td>
+                        <div id="gridKertasKerjaMature"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <p align="center">
+                <br />
+                <button id="BtnOkAllKertasKerja" class="k-button" type="button">Download</button>
+                <button id="BtnCancelAllKertasKerja" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinAllListing" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Listing By
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="ListingBy" id="ListingBy" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="ListingBy"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadModeAll" id="DownloadModeAll" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadModeAll"></span>
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkAllListing" class="k-button" type="button">Download</button>
+                <button id="BtnCancelAllListing" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinSettlementListingEquity" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+
+
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                    </td>
+                </tr>
+
+
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkListingEquity" class="k-button" type="button">Download</button>
+                <button id="BtnCancelListingEquity" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinSettlementListingBond" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+
+
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadModeBond" id="DownloadModeBond" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadModeBond"></span>
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkListingBond" class="k-button" type="button">Download</button>
+                <button id="BtnCancelListingBond" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+
+    <div id="WinSettlementListingTimeDeposit" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+
+
+                <tr>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadModeTimeDeposit" id="DownloadModeTimeDeposit" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadModeTimeDeposit"></span>
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkListingTimeDeposit" class="k-button" type="button">Download</button>
+                <button id="BtnCancelListingTimeDeposit" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="WinSettlementInstruction" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="InvestmentPK" id="InvestmentPK" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">DealingPK</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="DealingPK" id="DealingPK" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">OrderStatus</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="OrderStatus" id="OrderStatus" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">Status Investment</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="StatusInvestment" id="StatusInvestment" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">Status Dealing</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="StatusDealing" id="StatusDealing" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">Status Settlement</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="StatusSettlement" id="StatusSettlement" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">Deal No</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="DealingPK" id="DealingPK" /></td>
+                            </tr>
+                            <tr hidden>
+                                <td class="sysAndHisLabel">Settle No</td>
+                                <td><input type="text" readonly class="textboxSmallReadOnly" name="SettlementPK" id="SettlementPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <!--<td><button id="BtnOldData" type="button">Compare Data</button></td>-->
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <!--<td><button id="BtnVoid" type="button">Void</button></td>-->
+                                <!--<td hidden id="LblBtnMatch"><button id="BtnApproved" type="button">Match</button></td>-->
+                                <!--<td><button id="BtnReject" type="button">Reject</button></td>-->
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="FormHeaderState">
+            <table id="TrxInformation">
+                <tr>
+                    <td class="FormLabel150">
+                        TRX STATUS
+                    </td>
+                    <td>
+                        <label id="State"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POST TIME
+                    </td>
+                    <td>
+                        <label id="PostedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POSTED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Posted" id="Posted" />
+                                </td>
+
+                                <td>
+                                    <label id="PostedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+                <tr>
+                    <td>
+                        REVERSED TIME
+                    </td>
+                    <td>
+                        <label id="ReversedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        REVERSED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Reversed" id="Reversed" />
+                                </td>
+                                <td>
+                                    <label id="ReversedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+            </table>
+        </div>
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td>Cash Ref</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="FundCashRefPK" id="FundCashRefPK" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="FundCashRefPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Instruction Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="InstructionDate" id="InstructionDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="InstructionDate"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Value Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="ValueDate" id="ValueDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDate"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Period</td>
+                            <td>
+                                <input type="text" class="SmallComboReadOnly" name="PeriodPK" id="PeriodPK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Reference</td>
+                            <td>
+                                <input type="text" readonly class="textboxSmallReadOnly" name="Reference" id="Reference" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SI Reference</td>
+                            <td>
+                                <input type="text" readonly class="textboxSmallReadOnly" name="SIReference" id="SIReference" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Instrument Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDateReadOnly" name="InstrumentTypePK" id="InstrumentTypePK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Trx Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDateReadOnly" name="TrxType" id="TrxType" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Instrument</td>
+                            <td>
+                                <input type="text" hidden name="InstrumentPK" id="InstrumentPK" />
+                                <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="InstrumentID" id="InstrumentID">
+                                <!--<button id="btnListInstrumentPK" class="k-button" type="button">List</button>-->
+                                <!--<span class="k-invalid-msg" data-for="InstrumentPK"></span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fund</td>
+                            <td>
+                                <input type="text" class="LongCombo350ReadOnly" name="FundPK" id="FundPK" />
+                            </td>
+                        </tr>
+                        <tr id="LblCrossFundFrom">
+                            <td>Cross Fund</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDateReadOnly" name="CrossFundFromPK" id="CrossFundFromPK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BankBranchPK</td>
+                            <td>
+                                <input type="text" class="LongCombo500" name="BankBranchPK" id="BankBranchPK" />
+                            </td>
+                        </tr>
+                        <tr hidden>
+                            <td>Category</td>
+                            <td>
+                                <input type="text" readonly class="textboxSmallReadOnly" name="Category" id="Category" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblInterestPercent">
+                            <td>Interest (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumberReadOnly" name="InterestPercent" id="InterestPercent" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblBreakInterestPercent">
+                            <td>Break Interest (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="BreakInterestPercent" id="BreakInterestPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Counterpart</td>
+                            <td>
+                                <input type="text" class="LongCombo350ReadOnly" name="CounterpartPK" id="CounterpartPK" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="CounterpartPK"></span>
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDateBefore">
+                            <td>Placement Date Before</td>
+                            <td>
+                                <input type="text" class="textboxSmallReadOnly" readonly name="AcqDateBefore" id="AcqDateBefore" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate">
+                            <td>Acq Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="AcqDate" id="AcqDate" validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="AcqDate"></span>
+                            </td>
+                        </tr>
+                        <tr id="LblSettlementDate">
+                            <td>Settled Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="SettledDate" id="SettledDate" validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="SettledDate"></span>
+                            </td>
+                        </tr>
+                        <tr hidden id="LblLastCouponDate">
+                            <td>Last Coupon Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="LastCouponDate" id="LastCouponDate" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblNextCouponDate">
+                            <td>Next Coupon Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="NextCouponDate" id="NextCouponDate" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblMaturityDate">
+                            <td>Maturity Date</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDateReadOnly" placeholder="MM/DD/YYYY" name="MaturityDate" id="MaturityDate" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblTenor">
+                            <td>Tenor (Days)</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="Tenor" id="Tenor" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>InvestmentTrType</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="InvestmentTrType" id="InvestmentTrType" />
+                            </td>
+                        </tr>
+                        <tr id="LblBIRate" hidden>
+                            <td>BI Rate</td>
+                            <td>
+                                <input type="number" min="0" class="textboxSmallNumberReadOnly" name="BIRate" id="BIRate" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblInvestmentStrategy" hidden>
+                            <td>Investment Strategy</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="InvestmentStrategy" id="InvestmentStrategy" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblInvestmentStyle" hidden>
+                            <td>Investment Style</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="InvestmentStyle" id="InvestmentStyle" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblOtherInvestmentStyle" hidden>
+                            <td>Other Investment Style</td>
+                            <td>
+                                <input readonly type="text" class="textboxMediumReadOnly" name="OtherInvestmentStyle" id="OtherInvestmentStyle" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblInvestmentObjective" hidden>
+                            <td>Investment Objective</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="InvestmentObjective" id="InvestmentObjective" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblOtherInvestmentObjective" hidden>
+                            <td>Other Investment Objective</td>
+                            <td>
+                                <input readonly type="text" class="textboxMediumReadOnly" name="OtherInvestmentObjective" id="OtherInvestmentObjective" />
+                            </td>
+
+                        </tr>
+
+                        <tr id="LblRevision" hidden>
+                            <td>Revision</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="Revision" id="Revision" />
+                            </td>
+
+                        </tr>
+                        <tr id="LblOtherRevision" hidden>
+                            <td>Other Revision</td>
+                            <td>
+                                <input readonly type="text" class="textboxMediumReadOnly" name="OtherRevision" id="OtherRevision" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Investment Notes</td>
+                            <td>
+                                <textarea class="textboxLong" name="InvestmentNotes" id="InvestmentNotes"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td class="FormLabel200">Currency Rate</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="CurrencyRate" id="CurrencyRate" />
+                            </td>
+                        </tr>
+                        <tr id="LblSettlementMode">
+                            <td>Settlement Mode</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="SettlementMode" id="SettlementMode" validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="SettlementMode"></span>
+                            </td>
+                        </tr>
+                        <tr id="LblBoardType">
+                            <td>Board Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="BoardType" id="BoardType" validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="BoardType"></span>
+                            </td>
+                        </tr>
+                        <tr id="LblPrice">
+                            <td>Price</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="OrderPrice" id="OrderPrice" />
+                            </td>
+                        </tr>
+                        <tr id="LblDonePrice">
+                            <td>Done Price</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="DonePrice" id="DonePrice" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblRangePrice">
+                            <td>Range Price</td>
+                            <td>
+                                <input type="text" readonly class="textboxSmallReadOnly" name="RangePrice" id="RangePrice" />
+                            </td>
+                        </tr>
+                        <tr id="LblLot">
+                            <td>Lot</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="Lot" id="Lot" />
+                            </td>
+                        </tr>
+                        <tr id="LblDoneLot">
+                            <td>Done Lot</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="DoneLot" id="DoneLot" />
+                            </td>
+                        </tr>
+                        <tr id="LblLotInShare">
+                            <td>Lot In Share</td>
+                            <td>
+                                <input type="text" readonly class="textboxSmallReadOnly" name="LotInShare" id="LotInShare" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Volume</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="Volume" id="Volume" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Done Volume</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="DoneVolume" id="DoneVolume" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="Amount" id="Amount" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Done Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="DoneAmount" id="DoneAmount" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAccruedInterest">
+                            <td>Accrued Interest</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="AccruedInterest" id="AccruedInterest" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblDoneAccruedInterest">
+                            <td>Done Accrued Interest</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="DoneAccruedInterest" id="DoneAccruedInterest" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax Expense (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxMediumNumber" name="TaxExpensePercent" id="TaxExpensePercent" />
+                            </td>
+                        </tr>
+                        <tr hidden>
+                            <td>Price Mode</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="PriceMode" id="PriceMode" />
+                            </td>
+                        </tr>
+                        <tr hidden>
+                            <td>Bit Breakable</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="BitBreakable" id="BitBreakable" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Interest Days Type</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="InterestDaysType" id="InterestDaysType" />
+                            </td>
+                        </tr>
+                        <tr id="LblInterestPaymentType">
+                            <td>Interest Payment Type</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="InterestPaymentType" id="InterestPaymentType" />
+                            </td>
+                        </tr>
+                        <tr id="LblPaymentModeOnMaturity">
+                            <td>Payment Mode On Maturity</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="PaymentModeOnMaturity" id="PaymentModeOnMaturity" />
+                            </td>
+                        </tr>
+                        <tr id="LblPurposeOfTransaction">
+                            <td>Purpose Of Transaction</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="PurposeOfTransaction" id="PurposeOfTransaction" />
+                            </td>
+                        </tr>
+                        <tr id="LblStatutoryType">
+                            <td>Statutory Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="StatutoryType" id="StatutoryType" />
+                            </td>
+                        </tr>
+                        <tr id="LblCPSafekeepingAccNumber">
+                            <td>CP Safekeeping Acc Number</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="CPSafekeepingAccNumber" id="CPSafekeepingAccNumber" />
+                            </td>
+                        </tr>
+                        <tr id="LblPlaceOfSettlement">
+                            <td>Place Of Settlement</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="PlaceOfSettlement" id="PlaceOfSettlement" />
+                            </td>
+                        </tr>
+                        <tr id="LblFundSafekeepingAccountNumber">
+                            <td>Fund Safekeeping Acc Number</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="FundSafekeepingAccountNumber" id="FundSafekeepingAccountNumber" />
+                            </td>
+                        </tr>
+                        <tr id="LblSecurityCodeType">
+                            <td>Security Code Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="SecurityCodeType" id="SecurityCodeType" />
+                            </td>
+                        </tr>
+                        <tr id="lblAmountToTransfer" hidden>
+                            <td>Amount To Transfer</td>
+                            <td>
+                                <input type="number" class="textboxMediumNumber" name="AmountToTransfer" id="AmountToTransfer" />
+                            </td>
+                        </tr>
+                        <tr hidden>
+                            <td>Foreign Trx</td>
+                            <td>
+                                <input type="checkbox" id="BitForeignTrx" name="BitForeignTrx" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="FormHeaderDetail" hidden id="LblHeaderAcq">
+            ACQUISITION PRICE AND DATE
+        </div>
+        <table class="width100" hidden id="TblAcq">
+            <tr class="width100">
+                <td class="width50">
+                    <table>
+                        <tr hidden id="LblAcqPrice">
+                            <td class="FormLabel200">Acq Price</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumberReadOnly" name="AcqPrice" id="AcqPrice" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume">
+                            <td>Acq Volume</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume" id="AcqVolume" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice1">
+                            <td>Acq Price 1</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice1" id="AcqPrice1" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume1">
+                            <td>Acq Volume 1</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume1" id="AcqVolume1" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate1">
+                            <td>Acq Date 1</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate1" id="AcqDate1" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice2">
+                            <td>Acq Price 2</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice2" id="AcqPrice2" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume2">
+                            <td>Acq Volume 2</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume2" id="AcqVolume2" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate2">
+                            <td>Acq Date 2</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate2" id="AcqDate2" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice3">
+                            <td>Acq Price 3</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice3" id="AcqPrice3" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume3">
+                            <td>Acq Volume 3</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume3" id="AcqVolume3" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate3">
+                            <td>Acq Date 3</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate3" id="AcqDate3" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice4">
+                            <td>Acq Price 4</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice4" id="AcqPrice4" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume4">
+                            <td>Acq Volume 4</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume4" id="AcqVolume4" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate4">
+                            <td>Acq Date 4</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate4" id="AcqDate4" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr hidden id="LblAcqPrice5">
+                            <td>Acq Price 5</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice5" id="AcqPrice5" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume5">
+                            <td>Acq Volume 5</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume5" id="AcqVolume5" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate5">
+                            <td>Acq Date 5</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate5" id="AcqDate5" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice6">
+                            <td>Acq Price 6</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice6" id="AcqPrice6" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume6">
+                            <td>Acq Volume 6</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume6" id="AcqVolume6" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate6">
+                            <td>Acq Date 6</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate6" id="AcqDate6" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice7">
+                            <td>Acq Price 7</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice7" id="AcqPrice7" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume7">
+                            <td>Acq Volume 7</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume7" id="AcqVolume7" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate7">
+                            <td>Acq Date 7</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate7" id="AcqDate7" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice8">
+                            <td>Acq Price 8</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice8" id="AcqPrice8" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume8">
+                            <td>Acq Volume 8</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume8" id="AcqVolume8" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate8">
+                            <td>Acq Date 8</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate8" id="AcqDate8" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqPrice9">
+                            <td>Acq Price 9</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqPrice9" id="AcqPrice9" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqVolume9">
+                            <td>Acq Volume 9</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="AcqVolume9" id="AcqVolume9" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblAcqDate9">
+                            <td>Acq Date 9</td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="AcqDate9" id="AcqDate9" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="FormHeaderDetail">
+            SETTLEMENT COMMISSION DETAIL
+        </div>
+        <table>
+            <tr>
+                <td class="FormLabel200">Total Amount</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalAmount" id="TotalAmount" />
+                </td>
+            </tr>
+        </table>
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table>
+
+                        <tr>
+                            <td class="FormLabel200">Commission (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="CommissionPercent" id="CommissionPercent" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Levy (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="LevyPercent" id="LevyPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel150">KPEI (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="KPEIPercent" id="KPEIPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>VAT (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="VATPercent" id="VATPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>WHT (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="WHTPercent" id="WHTPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OTC (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="OTCPercent" id="OTCPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Sell (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="IncomeTaxSellPercent" id="IncomeTaxSellPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Interest (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="IncomeTaxInterestPercent" id="IncomeTaxInterestPercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inc. Tax Gain (%)</td>
+                            <td>
+                                <input type="number" min="0" max="100" class="textboxLongNumberReadOnly" name="IncomeTaxGainPercent" id="IncomeTaxGainPercent" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td class="FormLabel200">Commission Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="CommissionAmount" id="CommissionAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Levy Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="LevyAmount" id="LevyAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>KPEI Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="KPEIAmount" id="KPEIAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>VAT Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="VATAmount" id="VATAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>WHT Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="WHTAmount" id="WHTAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>OTC Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxLongNumber" name="OTCAmount" id="OTCAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Income Tax Sell</td>
+                            <td>
+                                <input type="number" class="textboxLongNumber" name="IncomeTaxSellAmount" id="IncomeTaxSellAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Income Tax Interest</td>
+                            <td>
+                                <input type="number" class="textboxLongNumber" name="IncomeTaxInterestAmount" id="IncomeTaxInterestAmount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Income Tax Gain</td>
+                            <td>
+                                <input type="number" class="textboxLongNumber" name="IncomeTaxGainAmount" id="IncomeTaxGainAmount" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntrySettlementTime" id="EntrySettlementTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateSettlementTime" id="UpdateSettlementTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedSettlementTime" id="ApprovedSettlementTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidSettlementTime" id="VoidSettlementTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntrySettlementID" id="EntrySettlementID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateSettlementID" id="UpdateSettlementID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedSettlementID" id="ApprovedSettlementID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidSettlementID" id="VoidSettlementID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

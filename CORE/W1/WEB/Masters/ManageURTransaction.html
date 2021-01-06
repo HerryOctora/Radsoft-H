@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsManageURTransaction.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div id="WinManageURTransaction" class="ContentDetail">
+        <table class="width100">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+                        <tr>
+                            <td>Date From</td>
+                            <td>
+                                <input id="ValueDateFrom" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Date To
+                            </td>
+                            <td>
+                                <input id="ValueDateTo" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fund
+                            </td>
+                            <td>
+                                <!--<input type="text" class="LongCombo400" name="FundFrom" id="FundFrom"  validationmessage="*" /> <span class="k-invalid-msg" data-for="FundFrom"></span>-->
+                                <select id="FundFrom" multiple></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Client
+                            </td>
+                            <td id="LblClient">
+                                <button id="ShowGrid"> Add FundClient</button>
+                                <input type="checkbox" id="BitAllClient" name="BitAllClient" data-bind="checked: Account.IsLink" />
+                                All Client
+                            </td>
+                            <td hidden>
+                                <select id="FundClientFrom" multiple></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="Type" id="Type" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Type"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Trx Type</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="TrxType" id="TrxType" required validationmessage="*" /> <span class="k-invalid-msg" data-for="TrxType"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Status
+                            </td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="Status" id="Status" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Status"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <!--<td><button id="BtnGetSysNo" type="button">Apply Parameter</button></td>-->
+                            <td></td>
+                            <td id="lblUpdateNAVDate" hidden>
+                            <button id="BtnUpdateNAVDate" type="button">Update NAV Date</button>
+                            </td>
+                            <!--<td id="lblPostingBySelectedZMANAGE_UR" hidden><button id="BtnPostingBySelectedZMANAGE_UR" type="button">Posting MANAGE_UR</button></td>-->
+                      
+                            <td id="lblPostingBySelectedZMANAGE_UR" hidden>
+                                <button type="button" id="BtnPostingBySelectedZMANAGE_UR">Posting</button>
+                            </td>                           
+                            
+                        </tr>
+
+           
+
+                    </table>
+                    <table>
+                        <tr id="LblSysNo">
+                            <td></td>
+                            <td>
+                                <div id="gridApplyParameter"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div id="WinUpdateNavDate" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>NAV Date</td>
+                    <td>
+                        <input id="ParamNavDate" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" />
+                    </td>
+                </tr>
+
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkUpdateNavDate" class="k-button" type="button">UPDATE</button>
+                <button id="BtnCancelUpdateNavDate" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+
+ 
+
+    <div id="WinFundClient">
+        <div id="gridFundClient"></div>
+        <button id="CloseGrid"> Close</button>
+    </div>
+
+
+
+
+</body>
+</html>
