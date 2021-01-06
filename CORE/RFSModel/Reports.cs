@@ -415,6 +415,11 @@ namespace RFSModel
         public bool ZeroBalance { get; set; }
         public string TrxTypeDeposito { get; set; }
         public string AgentFrom { get; set; }
+
+        public int Signature11 { get; set; }
+        public int Signature22 { get; set; }
+        public int Signature33 { get; set; }
+        public int Signature44 { get; set; }
     }
 
 
