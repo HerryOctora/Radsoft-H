@@ -37,13 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>C:\Users\HerryPC\Dropbox\SOURCE_NEW\DLL\EPPlus.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="ExcelFinancialFunctions">
-      <HintPath>C:\Users\HerryPC\Dropbox\SOURCE_NEW\DLL\ExcelFinancialFunctions.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\ExcelFinancialFunctions.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core">
-      <HintPath>C:\Users\HerryPC\Dropbox\SOURCE_NEW\DLL\FSharp.Core.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

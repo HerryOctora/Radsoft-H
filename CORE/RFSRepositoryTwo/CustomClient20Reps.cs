@@ -9418,8 +9418,6 @@ SELECT @FundPK,12,@totalTrx
                                                                             worksheet.Cells[_equity, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                             worksheet.Cells[_equity, 2, _equity, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                         }
-
-
                                                                         else if (rsDetail1.Baris == 3)
                                                                         {
                                                                             _bond = _inc + 5;
@@ -9454,8 +9452,6 @@ SELECT @FundPK,12,@totalTrx
                                                                             worksheet.Cells[_bond, 2, _bond, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                             //worksheet.Cells[_bond, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                         }
-
-
                                                                         else if (rsDetail1.Baris == 5)
                                                                         {
                                                                             _deposito = _inc + 9;
@@ -9516,8 +9512,6 @@ SELECT @FundPK,12,@totalTrx
                                                                             worksheet.Cells[_deposito, 2, _deposito, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                             //worksheet.Cells[_deposito, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                                                         }
-
-
                                                                         else if (rsDetail1.Baris == 9)
                                                                         {
                                                                             _deposito = _inc + 15;
@@ -9575,47 +9569,7 @@ SELECT @FundPK,12,@totalTrx
 
                                                                         }
 
-                                                                        //worksheet.Cells[incRowExcel + 2, 1].Value = "Netting Instruction";
-                                                                        //worksheet.Cells[incRowExcel + 2, 2, incRowExcel + 2, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 2, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 2, 2, incRowExcel + 2, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 2, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 5, 1].Value = "Purchase IPO";
-                                                                        //worksheet.Cells[incRowExcel + 5, 2, incRowExcel + 5, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 5, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 5, 2, incRowExcel + 5, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 5, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 7, 1].Value = "Stock / Bond Closeing Price";
-                                                                        //worksheet.Cells[incRowExcel + 7, 2, incRowExcel + 7, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 7, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 7, 2, incRowExcel + 7, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 7, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 8, 1].Value = "Others (Specify)";
-                                                                        //worksheet.Cells[incRowExcel + 8, 2, incRowExcel + 8, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 8, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 8, 2, incRowExcel + 8, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 8, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 9, 1].Value = "Instruction Payment";
-                                                                        //worksheet.Cells[incRowExcel + 9, 2, incRowExcel + 9, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 9, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 9, 2, incRowExcel + 9, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 9, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 10, 1].Value = "Instruction Change of Custody Fee";
-                                                                        //worksheet.Cells[incRowExcel + 10, 2, incRowExcel + 10, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 10, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 10, 2, incRowExcel + 10, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 10, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-
-                                                                        //worksheet.Cells[incRowExcel + 11, 1].Value = "Instruction Transfer Money";
-                                                                        //worksheet.Cells[incRowExcel + 11, 2, incRowExcel + 11, 3].Merge = true;
-                                                                        //worksheet.Cells[incRowExcel + 11, 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        //worksheet.Cells[incRowExcel + 11, 2, incRowExcel + 11, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                                                        ////worksheet.Cells[incRowExcel + 11, 4].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                        
 
                                                                     }
 
@@ -9625,7 +9579,9 @@ SELECT @FundPK,12,@totalTrx
                                                                     worksheet.Cells[incRowExcel + 11, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                                                     worksheet.Cells[incRowExcel + 11, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                                                                     incRowExcel = incRowExcel + 7;
-                                                                    worksheet.Cells[incRowExcel + 11, 1].Value = "Authorized signature";
+                                                                    //worksheet.Cells[incRowExcel + 11, 1].Value = "Authorized signature";
+
+                                                                    worksheet.Cells[incRowExcel + 11, 1].Value = _host.Get_SignatureName(_FundAccountingRpt.Signature11);
                                                                     worksheet.Cells[incRowExcel + 11, 1].Style.WrapText = true;
                                                                     worksheet.Cells[incRowExcel + 11, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                                                     worksheet.Cells[incRowExcel + 11, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
@@ -9638,6 +9594,11 @@ SELECT @FundPK,12,@totalTrx
 
 
                                                             }
+
+                                                            
+
+
+
 
                                                         }
                                                     }

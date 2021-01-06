@@ -316,6 +316,180 @@
             }
         }
 
+
+
+        //Signature 1
+        $.ajax({
+            url: window.location.origin + "/Radsoft/Signature/GetDefaultSignature1Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
+            type: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#Signature11").kendoComboBox({
+                    dataValueField: "SignaturePK",
+                    dataTextField: "Name",
+                    dataSource: data,
+                    change: OnChangeSignature11,
+                    filter: "contains",
+                    suggest: true
+                });
+            },
+            error: function (data) {
+                alertify.alert(data.responseText);
+            }
+        });
+
+        function OnChangeSignature11() {
+            if (this.value() && this.selectedIndex == -1) {
+                var dt = this.dataSource._data[0];
+                this.text('');
+            }
+            if ($("#Signature11").val() == 0 || $("#Signature11").val() == "") {
+                $("#Position11").val("");
+            }
+            else {
+                $.ajax({
+                    url: window.location.origin + "/Radsoft/Signature/GetPosition1Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + this.value(),
+                    type: 'GET',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#Position11").val(data.Position);
+                    }
+                });
+            }
+
+        }
+
+
+        //Signature 2
+        $.ajax({
+            url: window.location.origin + "/Radsoft/Signature/GetDefaultSignature2Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
+            type: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#Signature22").kendoComboBox({
+                    dataValueField: "SignaturePK",
+                    dataTextField: "Name",
+                    dataSource: data,
+                    change: OnChangeSignature22,
+                    filter: "contains",
+                    suggest: true
+                });
+            },
+            error: function (data) {
+                alertify.alert(data.responseText);
+            }
+        });
+
+        function OnChangeSignature22() {
+            if (this.value() && this.selectedIndex == -1) {
+                var dt = this.dataSource._data[0];
+                this.text('');
+            }
+            if ($("#Signature22").val() == 0 || $("#Signature22").val() == "") {
+                $("#Position22").val("");
+            }
+            else {
+                $.ajax({
+                    url: window.location.origin + "/Radsoft/Signature/GetPosition2Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + this.value(),
+                    type: 'GET',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#Position22").val(data.Position);
+                    }
+                });
+            }
+        }
+
+        //Signature 3
+        $.ajax({
+            url: window.location.origin + "/Radsoft/Signature/GetDefaultSignature3Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
+            type: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#Signature33").kendoComboBox({
+                    dataValueField: "SignaturePK",
+                    dataTextField: "Name",
+                    dataSource: data,
+                    change: OnChangeSignature33,
+                    filter: "contains",
+                    suggest: true
+                });
+            },
+            error: function (data) {
+                alertify.alert(data.responseText);
+            }
+        });
+
+        function OnChangeSignature33() {
+            if (this.value() && this.selectedIndex == -1) {
+                var dt = this.dataSource._data[0];
+                this.text('');
+            }
+
+            if ($("#Signature33").val() == 0 || $("#Signature33").val() == "") {
+                $("#Position33").val("");
+            }
+            else {
+                $.ajax({
+                    url: window.location.origin + "/Radsoft/Signature/GetPosition3Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + this.value(),
+                    type: 'GET',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#Position33").val(data.Position);
+                    }
+                });
+            }
+        }
+
+        //Signature 4
+        $.ajax({
+            url: window.location.origin + "/Radsoft/Signature/GetDefaultSignature4Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
+            type: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#Signature44").kendoComboBox({
+                    dataValueField: "SignaturePK",
+                    dataTextField: "Name",
+                    dataSource: data,
+                    change: OnChangeSignature44,
+                    filter: "contains",
+                    suggest: true
+                });
+            },
+            error: function (data) {
+                alertify.alert(data.responseText);
+            }
+        });
+
+        function OnChangeSignature44() {
+            if (this.value() && this.selectedIndex == -1) {
+                var dt = this.dataSource._data[0];
+                this.text('');
+            }
+
+            if ($("#Signature44").val() == 0 || $("#Signature44").val() == "") {
+                $("#Position44").val("");
+            }
+            else {
+                $.ajax({
+                    url: window.location.origin + "/Radsoft/Signature/GetPosition4Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + this.value(),
+                    type: 'GET',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#Position44").val(data.Position);
+                    }
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
         WinFundClient = $("#WinFundClient").kendoWindow({
             height: 500,
             title: "Fund Client List Detail",
@@ -2525,7 +2699,7 @@
                 }
             }
 
-            else if (_GlobClientCode == '20') {
+            else if (_GlobClientCode == '20') { 
                 $("#Name").kendoComboBox({
                     dataValueField: "text",
                     dataTextField: "text",
@@ -2648,6 +2822,8 @@
                     else if (this.text() == 'Daily Deal Board') {
                         $("#trValueDateFrom").show();
                         $("#trFundFrom").show();
+                        $("#lblSignature1").show();
+                        //$("#lblPosition").show();
                     }
 
                 }
@@ -4174,6 +4350,13 @@
                     Signature2: $("#Signature2").data("kendoComboBox").value(),
                     Signature3: $("#Signature3").data("kendoComboBox").value(),
                     Signature4: $("#Signature4").data("kendoComboBox").value(),
+
+                    Signature11: $("#Signature11").data("kendoComboBox").value(),
+                    Signature22: $("#Signature22").data("kendoComboBox").value(),
+                    Signature33: $("#Signature33").data("kendoComboBox").value(),
+                    Signature44: $("#Signature44").data("kendoComboBox").value(),
+
+
                     ZeroBalance: $("#ZeroBalance").data("kendoComboBox").value(),
                     TrxType: $('#ParamTrxType').val(),
                     TrxTypeDeposito: $('#ParamTrxTypeDeposito').val(),
@@ -4249,6 +4432,14 @@
         $("#trFund").hide();
         $("#lblSignature").hide();
         $("#lblPosition").hide();
+        $("#lblSignature1").hide();
+        $("#lblPosition1").hide();
+        $("#lblSignature2").hide();
+        $("#lblPosition2").hide();
+        $("#lblSignature3").hide();
+        $("#lblPosition3").hide();
+        $("#lblSignature4").hide();
+        $("#lblPosition4").hide();
         $("#LblShownZeroBalance").hide();
         $("#lblParamTrxType").hide();
         $("#lblParamTrxTypeDeposito").hide();
