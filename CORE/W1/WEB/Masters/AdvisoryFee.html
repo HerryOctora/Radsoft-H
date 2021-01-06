@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsAdvisoryFee.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/AdvisoryFee.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    Advisory Fee
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabAdvisoryFee" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridAdvisoryFeeApproved"></div>
+        </div>
+        <div>
+            <div id="gridAdvisoryFeePending"></div>
+        </div>
+        <div>
+            <div id="gridAdvisoryFeeHistory"></div>
+        </div>
+       
+    </div>
+
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinAdvisoryFeeClient">
+        <button id="BtnCloseAdvisoryFeeClient" type="button">Close</button>
+        <button id="BtnSaveAdvisoryFeeClient" type="button">Save</button>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table class="width100">
+                        <!--<tr hidden>
+                            <td class="FormLabel150">Direct Investment No</td>
+                            <td><input readonly name="AdvisoryFeePK" id="AdvisoryFeePK" /></td>
+                        </tr>-->
+                        <tr class="width100">
+                            <td>
+                                Client Name
+                            </td>
+                            <td>
+                                <input type="text" class="textboxLong500" name="ClientName" id="ClientName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Client Description
+                            </td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="ClientDescription" id="ClientDescription" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+       
+    </div>
+
+    <div id="WinAdvisoryFeeTOP">
+        <button id="BtnCloseAdvisoryFeeTOP" type="button">Close</button>
+        <button id="BtnSaveAdvisoryFeeTOP" type="button">Save</button>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table class="width100">
+                        <!--<tr hidden>
+                            <td class="FormLabel150">Direct Investment No</td>
+                            <td><input readonly name="AdvisoryFeePK" id="AdvisoryFeePK" /></td>
+                        </tr>-->
+                        <tr class="width100">
+                            <td>
+                                TOP Date
+                            </td>
+                            <td>
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="TOPDate" id="TOPDate" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                TOP Percent
+                            </td>
+                            <td>
+                                <input type="number" min="0" class="textboxSmallNumber" name="TOPPercent" id="TOPPercent" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+
+    <div id="WinAdvisoryFeeExpense">
+        <button id="BtnCloseAdvisoryFeeExpense" type="button">Close</button>
+        <button id="BtnSaveAdvisoryFeeExpense" type="button">Save</button>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table class="width100">
+                        <!--<tr hidden>
+                            <td class="FormLabel150">Direct Investment No</td>
+                            <td><input readonly name="AdvisoryFeePK" id="AdvisoryFeePK" /></td>
+                        </tr>-->
+                        <tr class="width100">
+                            <td>
+                                Direct Expense
+                            </td>
+                            <td>
+                                <input type="text" class="textboxLong500" name="DirectExpense" id="DirectExpense" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Direct Exp Value
+                            </td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="DirectExpValue" id="DirectExpValue" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="WinAdvisoryFee">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="AdvisoryFeePK" id="AdvisoryFeePK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100" hidden>
+                <td class="width10">Advisory Fee PK</td>
+                <!--<td class="width100">
+                    <input type="number" min="0" class="textboxMediumNumber" name="AdvisoryFeePK" id="AdvisoryFeePK" />
+                </td>-->
+            </tr>
+            <tr>
+                <td>Project Name</td>
+                <td>
+                    <input type="text" class="textboxLong500" name="ProjectName" id="ProjectName" />
+                </td>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="StartDate" id="StartDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>End Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="EndDate" id="EndDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Remarks</td>
+                <td>
+                    <input type="text" class="textboxLong500" name="Remarks" id="Remarks" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 1</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Status1Project" id="Status1Project" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 1 Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Status1ProjectDate" id="Status1ProjectDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 2</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Status2Project" id="Status2Project" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 2 Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Status2ProjectDate" id="Status2ProjectDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 3</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Status3Project" id="Status3Project" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 3 Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Status3ProjectDate" id="Status3ProjectDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 4</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Status4Project" id="Status4Project" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 4 Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Status4ProjectDate" id="Status4ProjectDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 5</td>
+                <td>
+                    <input type="text" class="textboxSmall" name="Status5Project" id="Status5Project" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status Project 5 Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" name="Status5ProjectDate" id="Status5ProjectDate" />
+                </td>
+            </tr>
+          
+
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <button id="BtnAddAdvisoryFeeClient" type="button">Add Advisory Fee Client</button>
+                </td>
+                <td>
+                    <button id="BtnRefreshAdvisoryFeeClient" type="button">Refresh Advisory Fee Client</button>
+                </td>
+            </tr>
+        </table>
+
+        <div id="gridAdvisoryFeeClient"></div>
+        <table>
+            <tr>
+                <td>
+                    <button id="BtnAddAdvisoryFeeTOP" type="button">Add Advisory Fee TOP</button>
+                </td>
+                <td>
+                    <button id="BtnRefreshAdvisoryFeeTOP" type="button">Refresh Advisory Fee TOP</button>
+                </td>
+            </tr>
+        </table>
+        <div id="gridAdvisoryFeeTOP"></div>
+        <table>
+            <tr>
+                <td>
+                    <button id="BtnAddAdvisoryFeeExpense" type="button">Add Advisory Fee Expense</button>
+                </td>
+                <td>
+                    <button id="BtnRefreshAdvisoryFeeExpense" type="button">Refresh Advisory Fee Expense</button>
+                </td>
+            </tr>
+        </table>
+        <div id="gridAdvisoryFeeExpense"></div>
+       
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>

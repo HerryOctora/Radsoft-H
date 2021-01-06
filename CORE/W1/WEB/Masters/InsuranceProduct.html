@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsInsuranceProduct.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/InsuranceProduct.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    Insurance Product
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabInsuranceProduct" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridInsuranceProductApproved"></div>
+        </div>
+        <div>
+            <div id="gridInsuranceProductPending"></div>
+        </div>
+        <div>
+            <div id="gridInsuranceProductHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinInsuranceProduct" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="InsuranceProductPK" id="InsuranceProductPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width10">Product ID</td>
+                <td class="width100">
+                    <input type="text" class="textboxMedium" name="ID" id="ID" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ID"></span>
+                    <!--<input type="text" readonly class="textboxSmallReadOnly" name="ID" id="ID" />-->
+                </td>
+            </tr>
+            <tr>
+                <td>Internal Name</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="FormHeaderDetail" id="lblBank1">
+            BANK (1)
+        </div>
+        <table class="width100" id="lblBank1Detail">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+                        <tr hidden>
+                            <td class="FormLabel200">Default Payment Bank 1</td>
+                            <td>
+                                <input type="checkbox" id="BitDefaultPayment1" name="BitDefaultPayment1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Name</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="NamaBank1" id="NamaBank1" required validationmessage="*" /> <span class="k-invalid-msg" data-for="NamaBank1"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Bank Country</td>
+                            <td>
+                                <input type="text" hidden name="BankCountry1" id="BankCountry1" />
+                                <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="BankCountry1Desc" id="BankCountry1Desc">
+                                <!--<button id="btnListBankCountry1" class="k-button" type="button">List</button>
+                                <button id="btnClearListBankCountry1" class="k-button" type="button">Clear</button>-->
+                                <!--<span class="k-invalid-msg" data-for="BankCountry1"></span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Account No</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NomorRekening1" id="NomorRekening1" required validationmessage="*" /> <span class="k-invalid-msg" data-for="NomorRekening1"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Branch Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="BankBranchName1" id="BankBranchName1" />
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td>BIC Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BICCode1Name" id="BICCode1Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BI Member Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BIMemberCode1" id="BIMemberCode1" />
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>Account Holder Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NamaNasabah1" id="NamaNasabah1" required validationmessage="*" /> <span class="k-invalid-msg" data-for="NamaNasabah1"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="MataUang1" id="MataUang1" required validationmessage="*" /> <span class="k-invalid-msg" data-for="MataUang1"></span>
+                            </td>
+                        </tr>
+                        <tr id="lblOtherCurrency" hidden>
+                            <td>Other Currency</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="OtherCurrency" id="OtherCurrency" validationmessage="*" /> <span class="k-invalid-msg" data-for="OtherCurrency"></span>
+                            </td>
+                        </tr>
+                        <tr id="lblRemarkBank1">
+                            <td>Remark Bank</td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="RemarkBank1" id="RemarkBank1" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="FormHeaderDetail" id="lblBank2">
+            BANK (2)
+        </div>
+        <table class="width100" id="lblBank2Detail">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+                        <tr hidden>
+                            <td class="FormLabel200">Default Payment Bank 2</td>
+                            <td>
+                                <input type="checkbox" id="BitDefaultPayment2" name="BitDefaultPayment2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Bank Name</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="NamaBank2" id="NamaBank2" /> <span class="k-invalid-msg" data-for="NamaBank2"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Bank Country</td>
+                            <td>
+                                <input type="text" hidden name="BankCountry2" id="BankCountry2" />
+                                <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="BankCountry2Desc" id="BankCountry2Desc">
+                                <!--<button id="btnListBankCountry2" class="k-button" type="button">List</button>
+                                <button id="btnClearListBankCountry2" class="k-button" type="button">Clear</button>-->
+                                <!--<span class="k-invalid-msg" data-for="BankCountry2"></span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Account No</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NomorRekening2" id="NomorRekening2" /> <span class="k-invalid-msg" data-for="NomorRekening2"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Branch Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="BankBranchName2" id="BankBranchName2" />
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td>BIC Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BICCode2Name" id="BICCode2Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BI Member Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BIMemberCode2" id="BIMemberCode2" />
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>Account Holder Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NamaNasabah2" id="NamaNasabah2" /> <span class="k-invalid-msg" data-for="NamaNasabah2"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="MataUang2" id="MataUang2" /> <span class="k-invalid-msg" data-for="MataUang2"></span>
+                            </td>
+                        </tr>
+                        <tr id="lblRemarkBank2">
+                            <td>Remark Bank</td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="RemarkBank2" id="RemarkBank2" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="FormHeaderDetail" id="lblBank3">
+            BANK (3)
+        </div>
+        <table class="width100" id="lblBank3Detail">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+                        <tr hidden>
+                            <td class="FormLabel200">Default Payment Bank 3</td>
+                            <td>
+                                <input type="checkbox" id="BitDefaultPayment3" name="BitDefaultPayment3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Bank Name</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="NamaBank3" id="NamaBank3" /> <span class="k-invalid-msg" data-for="NamaBank3"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Bank Country</td>
+                            <td>
+                                <input type="text" hidden name="BankCountry3" id="BankCountry3" />
+                                <input type="text" readonly class="textboxMediumReadOnly" placeholder="Click List" name="BankCountry3Desc" id="BankCountry3Desc">
+                                <!--<button id="btnListBankCountry3" class="k-button" type="button">List</button>
+                                <button id="btnClearListBankCountry3" class="k-button" type="button">Clear</button>-->
+                                <!--<span class="k-invalid-msg" data-for="BankCountry3"></span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Account No</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NomorRekening3" id="NomorRekening3" /> <span class="k-invalid-msg" data-for="NomorRekening3"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Branch Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="BankBranchName3" id="BankBranchName3" />
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td>BIC Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BICCode3Name" id="BICCode3Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BI Member Code</td>
+                            <td>
+                                <input type="text" readonly class="textboxMediumReadOnly" name="BIMemberCode3" id="BIMemberCode3" />
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>Account Holder Name</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="NamaNasabah3" id="NamaNasabah3" /> <span class="k-invalid-msg" data-for="NamaNasabah3"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="MataUang3" id="MataUang3" /> <span class="k-invalid-msg" data-for="MataUang3"></span>
+                            </td>
+                        </tr>
+                        <tr id="lblRemarkBank3">
+                            <td>Remark Bank</td>
+                            <td>
+                                <input type="text" class="textboxAddress" name="RemarkBank3" id="RemarkBank3" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

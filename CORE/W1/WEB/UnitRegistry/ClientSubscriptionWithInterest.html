@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+</head>
+<body>
+
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/UnitRegistry/JsClientSubscriptionWithInterest.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <!--<div class="FormHeaderButton">
+        <button type="button" id="BtnNew">Add</button>
+        <button type="button" id="BtnRefresh">Refresh</button>
+        <button type="button" id="BtnApproveBySelected">Approve</button>
+        <button type="button" id="BtnUnApproveBySelected">UnApprove</button>
+        <button type="button" id="BtnRejectBySelected">Reject</button>
+        <button type="button" id="BtnPostingBySelected">Posting</button>
+        <button type="button" id="BtnGetNavBySelected">Get Nav</button>
+        <button type="button" id="BtnBatchFormBySelected">Batch</button>
+
+        <a href="http://localhost:17050/WEB/UnitRegistry/ClientSubscription.html" target="_blank">
+            <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+        </a>
+    </div>-->
+    <div hidden>
+        <a id="downloadRadsoftFile" href="" download=""></a>
+    </div>
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnApproveBySelected">Approve</button>
+                    <button type="button" id="BtnUnApproveBySelected">UnApprove</button>
+                    <button type="button" id="BtnRejectBySelected">Reject</button>
+                    <button type="button" id="BtnPostingBySelected">Posting</button>
+                    <button type="button" id="BtnGetNavBySelected">Get Nav</button>
+                    <button type="button" id="BtnBatchFormBySelected">Batch</button>
+                    <button type="button" id="BtnSInvestSubscriptionRptBySelected">Trx to S-INVEST</button>
+                    <!--<button type="button" id="BtnRegularForm">Regular</button>-->
+                    <!--<a href="http://localhost:17050/WEB/UnitRegistry/ClientSubscription.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>-->
+                </td>
+                <td class="formNameHeader">
+                    TRX MARKETING
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By Settlement Date |
+                </td>
+                <td>
+                    From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    To
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateTo">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div hidden>
+        <table>
+            <tr>
+                <td>
+                    Sign 1
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature1">
+                </td>
+                <td>
+                    Sign 2
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature2">
+                </td>
+                <td>
+                    Sign 3
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature3">
+                </td>
+                <td>
+                    Sign 4
+                </td>
+                <td>
+                    <input class="MediumComboAndDate" id="Signature4">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position 1
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position1">
+                </td>
+                <td>
+                    Position 2
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position2">
+                </td>
+                <td>
+                    Position 3
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position3">
+                </td>
+                <td>
+                    Position 4
+                </td>
+                <td>
+                    <input class="textboxSmallReadOnly" id="Position4">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabClientSubscriptionWithInterest" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridClientSubscriptionWithInterestApproved"></div>
+        </div>
+        <div>
+            <div id="gridClientSubscriptionWithInterestPending"></div>
+        </div>
+        <div>
+            <div id="gridClientSubscriptionWithInterestHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+    <div id="WinListRegulerInstruction">
+        <div id="gridListRegulerInstruction"></div>
+    </div>
+
+    <div id="WinListFundClient">
+        <div id="gridListFundClient"></div>
+    </div>
+
+    <div id="WinClientSubscriptionWithInterest" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="ClientSubscriptionPK" id="ClientSubscriptionPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <!--<td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>-->
+                                <!--<td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>-->
+                                <!--<td><button id="BtnPosting" type="button">Posting</button></td>-->
+                                <!--<td><button id="BtnRevise" type="button">Revise</button></td>
+                                <td><button id="BtnRecalculate" type="button">Recalculate</button></td>-->
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="TrxInformation" class="FormHeaderState">
+            <table>
+                <tr>
+                    <td class="FormLabel150">
+                        TRX STATUS
+                    </td>
+                    <td>
+                        <label id="State"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POST TIME
+                    </td>
+                    <td>
+                        <label id="PostedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        POSTED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Posted" id="Posted" />
+                                </td>
+
+                                <td>
+                                    <label id="PostedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+                <tr>
+                    <td>
+                        REVISED TIME
+                    </td>
+                    <td>
+                        <label id="RevisedTime"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        REVISED | BY
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input disabled="disabled" type="checkbox" name="Revised" id="Revised" />
+                                </td>
+                                <td>
+                                    <label id="RevisedBy"></label>
+                                </td>
+                            </tr>
+                        </table>
+                </tr>
+            </table>
+        </div>
+        <table class="width100">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+                        <tr>
+                            <td>Fund</td>
+                            <td>
+                                <input type="text" readonly class="LongCombo500" name="FundPK" id="FundPK" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="FundPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel200">Type</td>
+                            <td>
+                                <input type="text" readonly class="MediumComboAndDateReadOnly" name="Type" id="Type" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Entry Date</td>
+                            <td>
+                                <input type="text" maxlength="10" readonly class="MediumComboAndDate" placeholder="(DDMMYYYY)" name="ValueDate" id="ValueDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ValueDate"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>NAV Date</td>
+                            <td>
+                                <input id="NAVDate" type="date" readonly class="MediumComboAndDate" placeholder="(DDMMYYYY)" />
+                            </td>
+                        </tr>
+
+                        <!--<tr>
+                            <td>Payment Date</td>
+                            <td>
+                                <input id="PaymentDate" type="date" class="MediumComboAndDate" placeholder="(DDMMYYYY)" />
+                            </td>
+                        </tr>-->
+                        <!--<tr>
+                            <td class="FormLabel200">NAV</td>
+                            <td>
+                                <input type="number" min="0" class="widthMediumNumberReadOnly" name="NAV" id="NAV" />
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>NAV</td>
+                            <td>
+                                <input type="number" readonly class="textboxMediumNumberReadOnly" min="0" name="NAV" id="NAV" />
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Client</td>
+                            <td>
+                                <input type="text" hidden name="FundClientPK" id="FundClientPK" required validationmessage="*" />
+                                <input type="text" readonly class="textboxLongReadOnly" placeholder="Click List" name="FundClientID" id="FundClientID">
+                                <!--<button id="btnListFundClientPK" class="k-button" type="button">List</button>-->
+                                <span class="k-invalid-msg" data-for="FundClientPK"></span>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Cash Ref</td>
+                            <td>
+                                <input type="text" class="LongCombo800" readonly name="CashRefPK" id="CashRefPK" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="CashRefPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>
+                                <input type="text" class="LongCombo350" readonly name="CurrencyPK" id="CurrencyPK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Reference for SInvest</td>
+                            <td><input type="text" class="textboxLong" readonly placeholder="Optional,If emtpy will use SysNo as Reference" name="ReferenceSInvest" id="ReferenceSInvest" validationmessage="*" /> <span class="k-invalid-msg" data-for="ReferenceSInvest"></span></td>
+
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <textarea class="textboxAddress" readonly name="Description" id="Description" validationmessage="*" required /></textarea>
+                                <span class="k-invalid-msg" data-for="Description"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cash Amount</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="CashAmount" id="CashAmount" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="CashAmount"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Unit Amount</td>
+                            <td>
+                                <input type="number" min="0" readonly class="textboxMediumNumberReadOnly" name="UnitAmount" id="UnitAmount" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="UnitAmount"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fee Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" readonly name="FeeType" id="FeeType" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="FeeType"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subs. Fee Percent</td>
+                            <td>
+                                <input type="number" min="0" max="100" readonly class="textboxMediumNumber" name="SubscriptionFeePercent" id="SubscriptionFeePercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subs. Fee Amount</td>
+                            <td>
+                                <input type="number" min="0" readonly class="textboxMediumNumber" name="SubscriptionFeeAmount" id="SubscriptionFeeAmount" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Agent</td>
+                            <td>
+                                <input type="text" readonly class="LongCombo500" name="AgentPK" id="AgentPK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Agent Fee Percent</td>
+                            <td>
+                                <input type="number" min="0" max="100" readonly class="textboxMediumNumber" name="AgentFeePercent" id="AgentFeePercent" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Agent Fee Amount</td>
+                            <td>
+                                <input type="number" min="0" readonly class="textboxMediumNumber" name="AgentFeeAmount" id="AgentFeeAmount" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Cash Amount</td>
+                            <td>
+                                <input type="number" min="0" readonly class="textboxMediumNumberReadOnly" name="TotalCashAmount" id="TotalCashAmount" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="TotalCashAmount"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Unit Amount</td>
+                            <td>
+                                <input type="number" min="0" readonly class="textboxMediumNumberReadOnly" name="TotalUnitAmount" id="TotalUnitAmount" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="TotalUnitAmount"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tenor</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="Tenor" id="Tenor" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>interest rate</td>
+                            <td>
+                                <input type="number" class="textboxMediumNumber" name="InterestRate" id="InterestRate" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Payment Term</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="PaymentTerm" id="PaymentTerm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Immediate Transaction</td>
+                            <td>
+                                <input type="checkbox" readonly id="BitImmediateTransaction" name="BitImmediateTransaction" />
+                            </td>
+
+                        </tr>
+                        <tr hidden>
+                            <td>TransactionPK</td>
+                            <td>
+                                <input type="text" id="TransactionPK" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="LastUpdateReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

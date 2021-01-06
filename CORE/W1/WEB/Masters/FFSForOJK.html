@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsFFSForOJK.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div id="WinCopyFFSForOJK" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>
+                        Fund
+                    </td>
+                    <td>
+                        <input class="LongCombo450" id="ParamFund">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date From</td>
+                    <td>
+                        <input class="textboxDate" id="ParamDateFrom">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date To</td>
+                    <td>
+                        <input class="textboxDate" id="ParamDateTo">
+                    </td>
+                </tr>
+            </table>
+            <p align="center">
+                <br />
+                <button id="BtnOkCopyFFSForOJK" class="k-button" type="button">OK</button>
+                <button id="BtnCancelCopyFFSForOJK" class="k-button" type="button">CANCEL</button>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnCopyFFSForOJK">Copy</button>
+                    <button type="button" id="BtnFFSForOJK">FFS For OJK</button>
+                    <a href="http://localhost:17050/WEB/Settings/FFSForOJK.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                    <input type="file" name="FileImportPortfolioForFFS" id="FileImportPortfolioForFFS" title="Select a files..." accept="*.xlsx,*.xls" hidden />
+                    <button type="button" id="BtnImportPortfolioForFFS">Import Portfolio</button>
+                </td>
+                <td class="formNameHeader">
+                    FFS For OJK
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By Settlement Date |
+                </td>
+                <td>
+                    From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    To
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateTo">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+
+    <div id="TabFFSForOJK" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridFFSForOJKApproved"></div>
+        </div>
+        <div>
+            <div id="gridFFSForOJKPending"></div>
+        </div>
+        <div>
+            <div id="gridFFSForOJKHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinFFSForOJKRpt" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>Value Date</td>
+                    <td>
+                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="ParamDate" id="ParamDate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fund</td>
+                    <td>
+                        <input type="text" class="LongCombo450" name="ParamFundPK" id="ParamFundPK" required validationmessage="*" /><span class="k-invalid-msg" data-for="ParamFundPK"></span>
+                    </td>
+                </tr>
+
+                <tr hidden>
+                    <td>
+                        Download Mode
+                    </td>
+                    <td>
+                        <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                        <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p align="center">
+                <br />
+                <button id="BtnOkFFSForOJKRpt" class="k-button" type="button">OK</button>
+                <button id="BtnCancelFFSForOJKRpt" class="k-button" type="button">CLOSE</button>
+            </p>
+        </div>
+    </div>
+
+
+    <div id="WinFFSForOJK" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="FFSForOJKPK" id="FFSForOJKPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr>
+                <td>
+                    <table>
+                        <tr class="width100">
+                            <td class="width20">Date</td>
+                            <td class="width100">
+                                <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DD/MMM/YYYY" name="Date" id="Date" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Date"></span>
+                            </td>
+                        </tr>
+                        <tr class="width100">
+                            <td class="width10">Fund</td>
+                            <td class="width100">
+                                <input type="text" class="LongCombo450" name="FundPK" id="FundPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="FundPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TemplateType</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="TemplateType" id="TemplateType" /> <span class="k-invalid-msg" data-for="TemplateType"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Periode Penilaian</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="PeriodePenilaian" id="PeriodePenilaian" /> <span class="k-invalid-msg" data-for="PeriodePenilaian"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Dana Kegiatan Sosial</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="DanaKegiatanSosial" id="DanaKegiatanSosial" /> <span class="k-invalid-msg" data-for="DanaKegiatanSosial"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Akumulasi Dana CSR </td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="AkumulasiDanaCSR" id="AkumulasiDanaCSR" /> <span class="k-invalid-msg" data-for="AkumulasiDanaCSR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CSR</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="CSR" id="CSR" /> <span class="k-invalid-msg" data-for="CSR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 1</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko1" id="Resiko1" /> <span class="k-invalid-msg" data-for="Resiko1"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 2</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko2" id="Resiko2" /> <span class="k-invalid-msg" data-for="Resiko2"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 3</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko3" id="Resiko3" /> <span class="k-invalid-msg" data-for="Resiko3"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 4</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko4" id="Resiko4" /> <span class="k-invalid-msg" data-for="Resiko4"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 5</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko5" id="Resiko5" /> <span class="k-invalid-msg" data-for="Resiko5"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 6</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko6" id="Resiko6" /> <span class="k-invalid-msg" data-for="Resiko6"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 7</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko7" id="Resiko7" /> <span class="k-invalid-msg" data-for="Resiko7"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 8</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko8" id="Resiko8" /> <span class="k-invalid-msg" data-for="Resiko8"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resiko 9</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="Resiko9" id="Resiko9" /> <span class="k-invalid-msg" data-for="Resiko9"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KlasifikasiResiko</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="KlasifikasiResiko" id="KlasifikasiResiko" /> <span class="k-invalid-msg" data-for="KlasifikasiResiko"></span>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td>Manajer Investasi</td>
+                            <td>
+                                <textarea class="textboxAddress" name="ManajerInvestasi" id="ManajerInvestasi"></textarea> <span class="k-invalid-msg" data-for="ManajerInvestasi"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tujuan Investasi</td>
+                            <td>
+                                <textarea class="textboxAddress" name="TujuanInvestasi" id="TujuanInvestasi"></textarea>  <span class="k-invalid-msg" data-for="TujuanInvestasi"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KebijakanInvestasi 1</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="KebijakanInvestasi1" id="KebijakanInvestasi1" /> <span class="k-invalid-msg" data-for="KebijakanInvestasi1"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KebijakanInvestasi 2</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="KebijakanInvestasi2" id="KebijakanInvestasi2" /> <span class="k-invalid-msg" data-for="KebijakanInvestasi2"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>KebijakanInvestasi 3</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="KebijakanInvestasi3" id="KebijakanInvestasi3" /> <span class="k-invalid-msg" data-for="KebijakanInvestasi3"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProfilBankCustodian</td>
+                            <td>
+                                <textarea class="textboxAddress" name="ProfilBankCustodian" id="ProfilBankCustodian"></textarea> <span class="k-invalid-msg" data-for="ProfilBankCustodian"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>AksesProspektus</td>
+                            <td>
+                                <textarea class="textboxAddress" name="AksesProspektus" id="AksesProspektus"></textarea> <span class="k-invalid-msg" data-for="AksesProspektus"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Distributed Income Data</td>
+                            <td>
+                                <input type="checkbox" id="BitDistributedIncome" name="BitDistributedIncome" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

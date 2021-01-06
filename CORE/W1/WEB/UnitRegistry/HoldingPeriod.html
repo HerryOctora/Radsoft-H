@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/UnitRegistry/JsHoldingPeriod.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div id="WinFundClient">
+        <div id="gridFundClient"></div>
+        <button id="CloseGrid"> Close</button>
+
+    </div>
+
+    <div id="WinHoldingPeriod" class="ContentDetail">
+        <div class="tabIndent20">
+            <table>
+                <tr>
+                    <td>Date</td>
+                    <td>
+                        <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="ParamDate" id="ParamDate" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ParamDate"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fund</td>
+                    <td>
+                        <input type="text" class="LongCombo500" name="ParamHoldingFund" id="ParamHoldingFund" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ParamHoldingFund"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fund Client</td>
+                    <td>
+                        <button id="ParamHoldingFundClient" class="k-button" type="button">Select Fund Client</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cash Ref</td>
+                    <td>
+                        <input type="text" class="LongCombo500" name="CashRefPK" id="CashRefPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="CashRefPK"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unit</td>
+                    <td>
+                        <input type="number" class="textboxMediumNumber" min="0" name="Unit" id="Unit" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Unit"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="BtnCalculateTrx" class="k-button" type="button">Calculate Transaction</button></td>
+
+                    <td><button id="GenerateClientRedemption" class="k-button" type="button">Generate</button></td>
+                </tr>
+            </table>
+            <table>
+                <tr id="detailHoldingPeriod">
+                    <td>
+                        <div id="gridHoldingPeriod"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsAccount.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnAccountRestructure">Restructure</button>
+                    <a href="http://localhost:17050/WEB/Masters/Account.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    ACCOUNT
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div id="TabAccount" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridAccountApproved"></div>
+        </div>
+        <div>
+            <div id="gridAccountPending"></div>
+        </div>
+        <div>
+            <div id="gridAccountHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinAccount" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="AccountPK" id="AccountPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table>
+                        <tr>
+                            <td class="FormLabel150">ID</td>
+                            <td>
+                                <input type="text" class="textboxMedium" name="ID" id="ID" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ID"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input type="text" class="textboxLong" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Header Order</td>
+                            <td>
+                                <input type="text" class="textboxLong" name="HeaderOrder" id="HeaderOrder" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>
+                                <input type="text" class="MediumComboAndDate" name="Type" id="Type" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Type"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Groups</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="Groups" id="Groups" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Groups"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Show</td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="Show" id="Show" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Depth</td>
+                            <td>
+                                <input type="text" readonly style="background-color: lightgray" class="textboxSmall" name="Depth" id="Depth" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td class="FormLabel150">Parent</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="ParentPK" id="ParentPK" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Currency</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="CurrencyPK" id="CurrencyPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="CurrencyPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Office</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="OfficePK" id="OfficePK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Department</td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="DepartmentPK" id="DepartmentPK" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Levels</td>
+                            <td>
+                                <input type="text" class="textboxSmall" name="Levels" id="Levels" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MKBD Mapping</td>
+                            <td>
+                                <input type="text" class="textboxSmall" name="MKBDMapping" id="MKBDMapping" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

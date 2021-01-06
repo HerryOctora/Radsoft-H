@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Investment/JsEndDayTrailsFundPortfolioForPII.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <!--<div id="WinNavProjection">
+        <div id="gridData"></div>
+    </div>-->
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnParamGenerate">Generate</button>
+                    <!--<button type="button" id="BtnGenerate">Generate</button>-->
+                    <!--<button type="button" id="BtnNavProjection">NAV Projection</button>-->
+                    <!--<button type="button" id="BtnReportPortfolioValuation">Report Portfolio Valuation</button>-->
+                    <a href="http://localhost:17050/WEB/Investment/EndDayTrailsFundPortfolioForPII.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    END DAY TRAILS FUND PORTFOLIO FOR PII
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By |
+                </td>
+                <td>
+                    Date :
+                </td>
+                <td>
+                    <input class="textboxDate" id="FilterDate" type="date" maxlength="10" placeholder="DDMMYYYY" />
+                </td>
+                <td>
+                    (MM/DD/YYYY)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabEndDayTrailsFundPortfolioForPII" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridEndDayTrailsFundPortfolioForPIIApproved"></div>
+        </div>
+        <div>
+            <div id="gridEndDayTrailsFundPortfolioForPIIPending"></div>
+        </div>
+        <div>
+            <div id="gridEndDayTrailsFundPortfolioForPIIHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinParamGenerate" class="ContentDetail">
+        <div id="gridFund"></div>
+        <button type="button" id="BtnOkParamGenerate">Generate</button>
+        <!--<table>
+            <tr class="width100" id="LblFundFrom">
+
+                <td>
+                    <input type="text" class="LongCombo450" name="FundFrom" id="FundFrom" />
+                    <select id="FundFrom" multiple style="width:350px"></select>
+
+                </td>
+            </tr>
+            <tr class="width100">
+                <td class="width100">
+                    <button type="button" id="BtnOkParamGenerate">Generate</button>
+                </td>
+            </tr>
+        </table>-->
+    </div>
+
+    <div id="WinEndDayTrailsFundPortfolioForPII" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="EndDayTrailsFundPortfolioForPIIPK" id="EndDayTrailsFundPortfolioForPIIPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <!--<td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>-->
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width20">Validate</td>
+                <td class="width100">
+                    <input type="text" readonly class="textboxSmall" name="BitValidate" id="BitValidate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Value Date</td>
+                <td>
+                    <input type="text" maxlength="10" class="MediumComboAndDate" placeholder="DDMMYYYY" name="ValueDate" id="ValueDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>Log Messages</td>
+                <td>
+                    <textarea class="textboxLong" name="LogMessages" id="LogMessages" readonly></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime" />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime" />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime" />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate" /><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID" /><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID" /><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID" /><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

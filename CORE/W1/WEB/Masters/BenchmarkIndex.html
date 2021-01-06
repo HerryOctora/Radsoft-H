@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsBenchmarkIndex.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div id="WinImportBenchmark">
+        <input type="file" name="FileImportBenchmarkIndex" id="FileImportBenchmarkIndex" title="Select a files..." accept="*.xlsx,*.xls" hidden />
+        <table>
+            <tr>
+                <td>Source</td>
+                <td>
+                    <input type="text" class="LongCombo350" name="CmbSource" id="CmbSource" required validationmessage="*" /> <span class="k-invalid-msg" data-for="CmbSource"></span>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>Index</td>
+                <td>
+                    <input type="text" class="LongCombo350" name="CmbIndexPK" id="CmbIndexPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="CmbIndexPK"></span>
+                </td>
+                <td>
+                    <button type="button" id="BtnImportBenchmarkIndex">Import</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button type="button" id="BtnApproveBySelected">Approve</button>
+                    <button type="button" id="BtnRejectBySelected">Reject</button>
+                    <button type="button" id="BtnVoidBySelected">Void</button>
+                    <button type="button" id="BtnOpenBenchmarkImport">Import IDX Benchmark</button>
+                    <input type="file" name="BenchmarkIndex" id="BenchmarkIndex" title="Select a files..." accept="*.xls,*.xlsx" hidden />
+                    <button type="button" id="BtnBenchmarkIndex">Import Template Index</button>
+
+                    <a href="http://localhost:17050/WEB/Masters/BenchmarkIndex.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+
+
+                </td>
+                <td class="formNameHeader">
+                    Benchmark Index
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By |
+                </td>
+                <td>
+                    Date From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+                <td>
+                    Date To
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateTo">
+                </td>
+                <td>
+                    (DD/MMM/YYYY)
+                </td>
+
+                <td>
+                    <button type="button" id="BtnApprove1BySelected">Approved 1 </button>
+                </td>
+
+
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabBenchmarkIndex" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridBenchmarkIndexApproved"></div>
+        </div>
+        <div>
+            <div id="gridBenchmarkIndexPending"></div>
+        </div>
+        <div>
+            <div id="gridBenchmarkIndexHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+    <div id="WinListBenchmark">
+        <div id="gridListBenchmark"></div>
+    </div>
+    <div id="WinBenchmarkIndex" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="BenchmarkIndexPK" id="BenchmarkIndexPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr>
+                <td>Date</td>
+                <td>
+                    <input id="Date" name="Date" type="text" maxlength="11" class="textboxDate" required validationmessage="*" />
+                    <span class="k-invalid-msg" data-for="Date"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Index</td>
+                <td>
+                    <input type="text" class="LongCombo450" name="IndexPK" id="IndexPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="IndexPK"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Open</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="OpenInd" id="OpenInd" />
+                </td>
+            </tr>
+            <tr>
+                <td>High</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="HighInd" id="HighInd" />
+                </td>
+            </tr>
+            <tr>
+                <td>Low</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="LowInd" id="LowInd" />
+                </td>
+            </tr>
+            <tr>
+                <td>Close</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="CloseInd" id="CloseInd" />
+                </td>
+            </tr>
+            <tr>
+                <td>Volume</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="Volume" id="Volume" />
+                </td>
+            </tr>
+            <tr>
+                <td>Val</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="Value" id="Value" />
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsFFSSetup.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/FFSSetup.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    FFSSetup
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabFFSSetup" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridFFSSetupApproved"></div>
+        </div>
+        <div>
+            <div id="gridFFSSetupPending"></div>
+        </div>
+        <div>
+            <div id="gridFFSSetupHistory"></div>
+        </div>
+    </div>
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinFFSSetup" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="FFSSetupPK" id="FFSSetupPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50" valign="top">
+                    <table>
+                        <tr>
+                            <td>Value Date</td>
+                            <td><input id="ValueDate" class="MediumComboAndDate" placeholder="(DD/MM/YY)" /></td>
+                        </tr>
+                        <tr>
+                            <td>Fund</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="FundPK" id="FundPK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="FundPK"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Col 1</td>
+                            <td><textarea class="text" name="Col1" id="Col1" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 2</td>
+                            <td><textarea class="text" name="Col2" id="Col2" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 3</td>
+                            <td><textarea class="text" name="Col3" id="Col3" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 4</td>
+                            <td><textarea class="text" name="Col4" id="Col4" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 5</td>
+                            <td><textarea class="text" name="Col5" id="Col5" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 6</td>
+                            <td><textarea class="text" name="Col6" id="Col6" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 7</td>
+                            <td><textarea class="text" name="Col7" id="Col7" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 8</td>
+                            <td><textarea class="text" name="Col8" id="Col8" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 9</td>
+                            <td><textarea class="text" name="Col9" id="Col9" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 10</td>
+                            <td><textarea class="text" name="Col10" id="Col10" rows="10" cols="70"></textarea></td>
+                        </tr>
+
+                        <tr>
+                            <td>Col 11</td>
+                            <td><textarea class="text" name="Col11" id="Col11" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 12</td>
+                            <td><textarea class="text" name="Col12" id="Col12" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 13</td>
+                            <td><textarea class="text" name="Col13" id="Col13" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 14</td>
+                            <td><textarea class="text" name="Col14" id="Col14" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 15</td>
+                            <td><textarea class="text" name="Col15" id="Col15" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 16</td>
+                            <td><textarea class="text" name="Col16" id="Col16" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 17</td>
+                            <td><textarea class="text" name="Col17" id="Col17" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 18</td>
+                            <td><textarea class="text" name="Col18" id="Col18" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 19</td>
+                            <td><textarea class="text" name="Col19" id="Col19" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 20</td>
+                            <td><textarea class="text" name="Col20" id="Col20" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 21</td>
+                            <td><textarea class="text" name="Col21" id="Col21" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 22</td>
+                            <td><textarea class="text" name="Col22" id="Col22" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 23</td>
+                            <td><textarea class="text" name="Col23" id="Col23" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Col 24</td>
+                            <td><input type="number" min="0" class="textboxMediumNumber" name="Col24" id="Col24"></input></td>
+                        </tr>
+                        <tr>
+                            <td>Kinerja dan Tolak Ukur 1</td>
+                            <td><textarea class="textboxAddress" name="Col25" id="Col25"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Kinerja dan Tolak Ukur 2</td>
+                            <td><textarea class="text" name="Col26" id="Col26" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Kinerja dan Tolak Ukur 3</td>
+                            <td><textarea class="text" name="Col27" id="Col27" rows="10" cols="70"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Template Type</td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="TemplateType" id="TemplateType" required validationmessage="*" /> <span class="k-invalid-msg" data-for="TemplateType"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>InceptionIndex</td>
+                            <td>
+                                <input type="number" min="0" class="textboxMediumNumber" name="InceptionIndex" id="InceptionIndex" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="InceptionIndex"></span>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

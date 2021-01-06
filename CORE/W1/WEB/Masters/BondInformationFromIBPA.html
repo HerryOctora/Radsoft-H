@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsBondInformationFromIBPA.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/BondInformationFromIBPA.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                    <button type="button" id="BtnImportBondInformationFromIBPA">Import Bond Information</button>
+                    <button type="button" id="BtnUpdateToInstrument">Update To Instrument</button>
+                </td>
+                <td class="formNameHeader">
+                    Bond Information From IBPA
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="MarginTop10">
+        <table>
+            <tr>
+                <td>
+                    Filter By |
+                </td>
+                <td>
+                    Date From
+                </td>
+                <td>
+                    <input class="textboxDate" id="DateFrom">
+                </td>
+               
+
+            </tr>
+        </table>
+    </div>
+    <input type="file" name="FileImportBondInformationFromIBPA" id="FileImportBondInformationFromIBPA" title="Select a files..." accept="*.xlsx,*.xls,*.csv" hidden />
+
+
+    <div>
+        <div id="gridBondInformationFromIBPAApproved"></div>
+    </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,807 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsAccountingSetup.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/AccountingSetup.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    ACCOUNTING SETUP
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="TabAccountingSetup" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridAccountingSetupApproved"></div>
+        </div>
+        <div>
+            <div id="gridAccountingSetupPending"></div>
+        </div>
+        <div>
+            <div id="gridAccountingSetupHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinAccountingSetup" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="AccountingSetupPK" id="AccountingSetupPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="columnTable2Column">
+                    <div class="FormHeaderDetail">
+                        GENERAL
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="FormLabel300">Default Currency</td>
+                            <td><input type="text" class="ComboBoxMedium" name="DefaultCurrencyPK" id="DefaultCurrencyPK" /></td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Decimal Places</td>
+                            <td>
+                                <input type="number" min="0" class="widthMediumNumber" name="DecimalPlaces" id="DecimalPlaces" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">MKBD 06 Bank</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="MKBD06Bank" id="MKBD06Bank" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="MKBD06Bank"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">MKBD 06 Petty Cash</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="MKBD06PettyCash" id="MKBD06PettyCash" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="MKBD06PettyCash"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">AR Management Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARManagementFee" id="ARManagementFee" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ARManagementFee"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Management Fee Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ManagementFeeExpense" id="ManagementFeeExpense" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ManagementFeeExpense"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Tax AR Management Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="TaxARManagementFee" id="TaxARManagementFee" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="TaxARManagementFee"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Tax Management Fee Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="TaxManagementFeeExpense" id="TaxManagementFeeExpense" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="TaxManagementFeeExpense"></span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="FormLabel300">Brokerage Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="BrokerageFee" id="BrokerageFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">JSX Levy Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="JSXLevyFee" id="JSXLevyFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">VAT Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="VATFee" id="VATFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">WHT Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="WHTFee" id="WHTFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">KPEI Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="KPEIFee" id="KPEIFee" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Sales Tax</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="SalesTax" id="SalesTax" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Income Tax Art 23</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="IncomeTaxArt23" id="IncomeTaxArt23" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Unrealized Account SGD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealizedAccountSGD" id="UnrealizedAccountSGD" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Unrealized Account USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealizedAccountUSD" id="UnrealizedAccountUSD" />
+                            </td>
+                        </tr>
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Realised Gain/Loss from sale Aset</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedAset" id="RealisedAset" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedAset"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">AveragePriority</td>
+                            <td>
+                                <input type="text" class="ComboBoxSmall" name="AveragePriority" id="AveragePriority" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="AveragePriority"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Fixed Aset Buy PPN</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="FixedAsetBuyPPN" id="FixedAsetBuyPPN" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Fixed Aset Sell PPN</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="FixedAsetSellPPN" id="FixedAsetSellPPN" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Foreign Exchange Reval Account</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ForeignExchangeRevalAccount" id="ForeignExchangeRevalAccount" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ForeignExchangeRevalAccount"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">AR Subscription Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSubscriptionFee" id="ARSubscriptionFee" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Subscription Fee Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="SubscriptionFeeIncome" id="SubscriptionFeeIncome" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">AR Redemption Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARRedemptionFee" id="ARRedemptionFee" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Redemption Fee Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RedemptionFeeIncome" id="RedemptionFeeIncome" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">AR Switching Fee</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSwitchingFee" id="ARSwitchingFee" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Switching Fee Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="SwitchingFeeIncome" id="SwitchingFeeIncome" />
+                            </td>
+                        </tr>
+                        <tr id="LblSwitchingFundAcc">
+                            <td class="FormLabel300">Switching Fund Acc</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="SwitchingFundAcc" id="SwitchingFundAcc" />
+                            </td>
+                        </tr>
+                        <!--SAMPE SINI-->
+
+                    </table>
+                    <div class="FormHeaderDetail">
+                        EQUITY
+                    </div>
+                    <table>
+                        <tr>
+                            <td>Investment In Equity</td>
+                            <td class="FormLabel300">
+                                <input type="text" class="LongCombo450" name="InvInEquity" id="InvInEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInEquity"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Account Payable for Purchase Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="APPurchaseEquity" id="APPurchaseEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="APPurchaseEquity"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Account Receivable for Sell Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSellEquity" id="ARSellEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ARSellEquity"></span>
+                            </td>
+                        </tr>
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Cash Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CashEquity" id="CashEquity" />
+                            </td>
+                        </tr>
+                        <!--SAMPE SINI-->
+                        <tr>
+                            <td class="FormLabel300">Unrealised Gain/Loss from sale Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealisedEquity" id="UnrealisedEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="UnrealisedEquity"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Gain/Loss from sale Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedEquity" id="RealisedEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedEquity"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Income</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="Income" id="Income" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="Income"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Cadangan Kenaikan (Penurunan) Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CadanganEquity" id="CadanganEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="CadanganEquity"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Total Equity</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="TotalEquity" id="TotalEquity" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="TotalEquity"></span>
+                            </td>
+                        </tr>
+
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Equity Sell Method</td>
+                            <td>
+                                <input type="text" class="ComboBoxSmall" name="EquitySellMethod" id="EquitySellMethod" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="EquitySellMethod"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Expense</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="Expense" id="Expense" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="Expense"></span>
+                            </td>
+                        </tr>
+                        <!--SAMPE SINI-->
+
+                        
+                    </table>
+                    <div class="FormHeaderDetail">
+                        BOND
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="FormLabel300">PPHFinal</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="PPHFinal" id="PPHFinal" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="PPHFinal"></span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="FormLabel300">Investment In Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInBond" id="InvInBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInBond"></span>
+                            </td>
+                        </tr>
+
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Investment In Bond Goverment IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInBondGovIDR" id="InvInBondGovIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInBondGovIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Investment In Bond Goverment USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInBondGovUSD" id="InvInBondGovUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInBondGovUSD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Investment In Bond Corp IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInBondCorpIDR" id="InvInBondCorpIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInBondCorpIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Investment In Bond Corp USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInBondCorpUSD" id="InvInBondCorpUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInBondCorpUSD"></span>
+                            </td>
+                        </tr>
+                        <!--SAMPE SINI-->
+
+
+                        <tr>
+                            <td class="FormLabel300">Account Payable for Purchase Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="APPurchaseBond" id="APPurchaseBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="APPurchaseBond"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Account Receivable for Sell Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSellBond" id="ARSellBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ARSellBond"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Purchase Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestPurchaseBond" id="InterestPurchaseBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestPurchaseBond"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableBond" id="InterestReceivableBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableBond"></span>
+                            </td>
+                        </tr>
+
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Bond Goverment IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableBondGovIDR" id="InterestReceivableBondGovIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableBondGovIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Bond Corp IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableBondCorpIDR" id="InterestReceivableBondCorpIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableBondCorpIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Bond Goverment USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableBondGovUSD" id="InterestReceivableBondGovUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableBondGovUSD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Bond Corp USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableBondCorpUSD" id="InterestReceivableBondCorpUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableBondCorpUSD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Cash Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CashBond" id="CashBond" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Bond Goverment IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedBondGovIDR" id="RealisedBondGovIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedBondGovIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Bond Goverment USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedBondGovUSD" id="RealisedBondGovUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedBondGovUSD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Bond Corp IDR</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedBondCorpIDR" id="RealisedBondCorpIDR" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedBondCorpIDR"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Bond Corp USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedBondCorpUSD" id="RealisedBondCorpUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedBondCorpUSD"></span>
+                            </td>
+                        </tr>
+                        <!--SAMPE SINI-->
+                        
+                        <tr>
+                            <td class="FormLabel300">Unrealised Gain/Loss from sale Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealisedBond" id="UnrealisedBond" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Unrealised Gain/Loss from sale Bond USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealisedBondUSD" id="UnrealisedBondUSD" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Gain/Loss from sale Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedBond" id="RealisedBond" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Cadangan Kenaikan (Penurunan) Bond</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CadanganBond" id="CadanganBond" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="CadanganBond"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Cadangan Kenaikan (Penurunan) Bond USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CadanganBondUSD" id="CadanganBondUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="CadanganBondUSD"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="FormHeaderDetail">
+                        TIME DEPOSIT
+                    </div>
+                    <table>
+                        
+                        
+                        <!--TAMBAHAN-->
+                        <tr>
+                            <td class="FormLabel300">Investment In Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInTD" id="InvInTD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInTD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Investment In Time Deposit USD</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInTDUSD" id="InvInTDUSD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInTDUSD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Account Payable for Purchase Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="APPurchaseTD" id="APPurchaseTD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="APPurchaseTD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Account Receivable for Sell Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSellTD" id="ARSellTD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ARSellTD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Interest Receivable Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InterestReceivableTD" id="InterestReceivableTD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InterestReceivableTD"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Cash Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CashTD" id="CashTD" />
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td class="FormLabel300">Cash Time Deposit</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CashTD" id="CashTD" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="CashTD"></span>
+                            </td>
+                        </tr>-->
+                        <!--SAMPE SINI-->
+
+                    </table>
+                    <div class="FormHeaderDetail">
+                        REKSADANA
+                    </div>
+
+                    <div class="FormHeaderDetail">
+                        AGENT COMMISSION
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="FormLabel300">Agent Commission Expense</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="AgentCommissionExpense" id="AgentCommissionExpense" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Agent Commission Payable</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="AgentCommissionPayable" id="AgentCommissionPayable" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">WHT Payable PPH21</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="WHTPayablePPH21" id="WHTPayablePPH21" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">WHT Payable PPH23</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="WHTPayablePPH23" id="WHTPayablePPH23" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Vat In</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="VatIn" id="VatIn" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Vat Out</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="VatOut" id="VatOut" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="FormLabel300">Agent Commission Cash</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="AgentCommissionCash" id="AgentCommissionCash" />
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td class="FormLabel300">Investment In Reksadana</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="InvInReksadana" id="InvInReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="InvInReksadana"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Unrealised Gain/Loss from sale Reksadana</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="UnrealisedReksadana" id="UnrealisedReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="UnrealisedReksadana"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Realised Gain/Loss from sale Reksadana</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="RealisedReksadana" id="RealisedReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="RealisedReksadana"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Cadangan Kenaikan (Penurunan) Reksadana</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="CadanganReksadana" id="CadanganReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="CadanganReksadana"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">AP Purchase Reksadana</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="APPurchaseReksadana" id="APPurchaseReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="APPurchaseReksadana"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">AR Sell Reksadana </td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="ARSellReksadana " id="ARSellReksadana" required validationmessage="*">
+                                <span class="k-invalid-msg" data-for="ARSellReksadana "></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Agent CSR Expense</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="AgentCSRExpense " id="AgentCSRExpense">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="FormLabel300">Agent CSR Payable</td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="AgentCSRPayable " id="AgentCSRPayable">
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

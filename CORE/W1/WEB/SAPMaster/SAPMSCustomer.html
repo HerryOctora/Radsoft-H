@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/SAPMaster/JsSAPMSCustomer.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <button id="BtnGetData" type="button">Get Data From SAP</button>
+                    <button id="BtnCheckData" type="button">Check Data SAP</button>
+                </td>
+                <td class="formNameHeader">
+                    SAP Master Customer
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="TabSAPMSCustomer" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+        </ul>
+        <div>
+            <div id="gridSAPMSCustomerApproved"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinSAPMSCustomer" class="ContentDetail">
+        
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width10">ID</td>
+                <td class="width100">
+                    <input type="text" class="textboxSmall" name="ID" id="ID" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ID"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                </td>
+            </tr>
+        </table>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

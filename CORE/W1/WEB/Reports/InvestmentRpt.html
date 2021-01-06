@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Reports/JsInvestmentRpt.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div id="WinInvestmentRpt" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnDownload" type="button">Download</button></td>
+                                <td>
+                                    Download Mode
+                                </td>
+                                <td>
+                                    <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                                    <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table class="width100">
+            <tr class="width100">
+                <td class="width50">
+                    <table>
+                        <tr class="width100">
+                            <td class="width30">
+                                Report Name
+                            </td>
+                            <td>
+                                <input type="text" class="LongCombo450" name="Name" id="Name" required validationmessage="*" /> <span class="k-invalid-msg" data-for="Name"></span>
+                            </td>
+                        </tr>
+                        <tr id="LblDate">
+                            <td id="LblValueDate" class="FormLabel150">Date From</td>
+                            <td><input id="ValueDateFrom" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" /></td>
+                        </tr>
+                        <tr id="LblDateTo">
+                            <td id="LblValueDateTo" class="FormLabel150">Date To</td>
+                            <td><input id="ValueDateTo" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" /></td>
+                        </tr>
+                        <tr id="LblParamFund">
+                            <td>
+                                Fund From
+                            </td>
+                            <td>
+                                <!--<input type="text" class="LongCombo400" name="FundFrom" id="FundFrom"  validationmessage="*" /> <span class="k-invalid-msg" data-for="FundFrom"></span>-->
+                                <select id="FundFrom" multiple></select>
+                            </td>
+                        </tr>
+                        <tr id="LblParamInsType">
+                            <td>
+                                Inst. Type
+                            </td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="ParamInsType" id="ParamInsType" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="ParamInsType"></span>
+                            </td>
+                        </tr>
+                        <tr hidden id="trCounterpartFrom">
+                            <td>
+                                Counterpart
+                            </td>
+                            <td>
+                                <!--<input type="text" class="LongCombo400" name="FundFrom" id="FundFrom"  validationmessage="*" /> <span class="k-invalid-msg" data-for="FundFrom"></span>-->
+                                <select id="Counterpart" multiple></select>
+                            </td>
+                        </tr>
+                        <tr hidden id="trParamData">
+                            <td>
+                                Data Account
+                            </td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="ParamData" id="ParamData" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ParamData"></span>
+                            </td>
+                        </tr>
+                        <tr id="LblParamListingBitIsMature">
+                            <td>Mature</td>
+                            <td>
+                                <input type="checkbox" id="ParamListingBitIsMature" name="ParamListingBitIsMature" />
+                            </td>
+                        </tr>
+                        <tr hidden id="LblStatus">
+                            <td>
+                                Status
+                            </td>
+                            <td>
+                                <input type="text" class="LongCombo350" name="Status" id="Status" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Status"></span>
+                            </td>
+                        </tr>
+                        <tr hidden id="LblPeriodFrom">
+                            <td>
+                                Period From
+                            </td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="PeriodFrom" id="PeriodFrom" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td>
+                                <textarea class="textboxAddress" name="Message" id="Message"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr id="LblNoSurat">
+                            <td>No.Surat</td>
+                            <td>
+                                <textarea class="textboxMedium" name="NoSurat" id="NoSurat"></textarea>
+                            </td>
+                        </tr>
+                        <tr id="LblIndex">
+                            <td>
+                                Index
+                            </td>
+                            <td>
+
+                                <input type="text" class="MediumComboAndDate" name="Index" id="Index" validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Index"></span>
+                            </td>
+
+                        </tr>
+                        <tr id="LblSignature1">
+                            <td>
+                                Signature 1
+                            </td>
+                            <td>
+
+                                <input type="text" class="SmallCombo" name="Signature1" id="Signature1" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Signature1"></span>
+                            </td>
+
+                        </tr>
+                        <tr id="LblSignature2">
+                            <td>
+                                Signature 2
+                            </td>
+                            <td>
+
+                                <input type="text" class="SmallCombo" name="Signature2" id="Signature2" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Signature2"></span>
+                            </td>
+
+                        </tr>
+                        <tr id="LblSignature3">
+                            <td>
+                                Signature 3
+                            </td>
+                            <td>
+
+                                <input type="text" class="SmallCombo" name="Signature3" id="Signature3" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Signature3"></span>
+                            </td>
+
+                        </tr>
+                        <tr id="LblSignature4">
+                            <td>
+                                Signature 4
+                            </td>
+                            <td>
+
+                                <input type="text" class="SmallCombo" name="Signature4" id="Signature4" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="Signature4"></span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                PageBreak
+                            </td>
+                            <td>
+                                <input type="text" class="SmallCombo" name="PageBreak" id="PageBreak" required validationmessage="*" />
+                                <span class="k-invalid-msg" data-for="PageBreak"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

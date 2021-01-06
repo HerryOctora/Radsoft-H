@@ -1,0 +1,10 @@
+40279|1|Hutagurgur|ABED   NEGO TAMBUNAN|05 Jun 1990|BTN AIR BANG BLOK M NO 70|1702190506900001| |IDD0506L9672959|
+40279|1|Karanganyar|Riyanto   Miftahudin|14 Dec 1989|Bulu RT 01 RW 03 Jaten, Kec. Jaten|3313111412890004| |IDD1412S8633571|
+40279|1|Bandung|Sani   Guruh Himawan|06 Apr 1996|Blok Sakola Rt 007/007 Melong, Cimahi Selatan|3277010604960012| |IDD0604BA140101|
+40279|1|Bandar Lampung|Febi   Adi Wijayasw|21 Sep 1989|Sahid Sudirman Centre Lt. 50 Unit C, Jl. Jendral Sudirman No.86|1871112109890004| |IDD2109Z4229496|
+40279|1|Jakarta|Kristman   Sitinjak|25 Dec 1974|Jl gurame no 16 b rawamangun|3175022512740004| |IDD2512T9675673|
+40279|1|Jakarta|Irwano   Djanudin|10 Jun 1975|Banjar Wijaya Cluster Cemara 1 blok B1 no 24|3671051006750013| |IDD1006N0545885|
+40279|1|Semarang|Harnum   Mirsadiyani Santoso|28 Nov 1992|Gombel Lama|3374136811920004| |IDD2811BA139919|
+40279|1|Kediri|Sudarto|10 Apr 1982|Jl.h.munangwar.rt.02.madurejo|6201021004820009| |IDD1004AZ271555|
+40279|1|Blitar|Anisha   Pratiwi|07 Dec 1997|Jalan kalimas no 105|3572024712970004| |IDD0712AZ849172|
+40279|1|Surakarta|Martalia   Ayu Purnamasari|15 Mar 1998|Puri Alam Asri 3 A20 RT 002/ 009|3313125503980003| |IDD1503BA140037|

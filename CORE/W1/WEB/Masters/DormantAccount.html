@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsDormantAccount.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <!--<div class="HeaderMaster">
+        <div>Dormant Account List</div>
+    </div>
+
+    <div class="FormBackground">
+        <div>
+            <button type="button" class="k-button FormBackgroundButton" id="BtnRefresh"><p class="FormBackground-p">Refresh</p></button>
+            <button type="button" class="k-button FormBackgroundButton100" id="BtnAutoSuspend"><p class="FormBackground-p">Auto Suspend</p></button>
+            <a href="http://localhost:17050/WEB/Masters/DormantAccount.html" target="_blank">
+                <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+            </a>
+        </div>
+    </div>-->
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+
+                    <a href="http://localhost:17050/WEB/Masters/DormantAccount.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader" id="LblformDormantHeader" hidden>
+                    DORMANT ACCOUNT
+                </td>
+                <td class="formNameHeader" id="LblformSuspendHeader" hidden>
+                    SUSPEND ACCOUNT
+                </td>
+                <td class="formNameHeader" id="LblformPoolingHeader" hidden>
+                    POOLING ACCOUNT
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="FormGrid">
+        <table>
+            <tr>
+                <td hidden>
+                    Last :
+                </td>
+                <td hidden>
+                    <input type="number" min="0" class="widthSmallNumber" name="ParamMonth" id="ParamMonth" />
+                </td>
+                <td hidden>
+                    Month
+                </td>
+                <td hidden>
+                    |
+                </td>
+                <td class="FormLabel100">
+                    Value Date
+                </td>
+                <td>
+                    <input id="ValueDate" class="MediumComboAndDate" placeholder="" />
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr hidden id="LblParamAmount">
+
+                <td class="FormLabel100">
+                    Nominal
+                </td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="ParamAmount" id="ParamAmount" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <div id="gridDormantAccount"></div>
+    </div>
+
+</body>
+</html>

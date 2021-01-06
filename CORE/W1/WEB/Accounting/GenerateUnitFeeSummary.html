@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Accounting/JsGenerateUnitFeeSummary.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div id="WinGenerateUnitFeeSummary" class="ContentDetail">
+        <table class="width100">
+            <tr class="width100">
+                <td class="width100">
+                    <table>
+
+                        <tr>
+                            <td>
+                                Generate By
+                            </td>
+                            <td>
+                                <input type="text" class="LongCombo400" name="GenerateBy" id="GenerateBy" validationmessage="*" /> <span class="k-invalid-msg" data-for="GenerateBy"></span>
+                            </td>
+                        </tr>
+
+
+                        <tr id="trFundFrom">
+
+                            <td>
+                                Fund From
+                            </td>
+                            <td>
+                                <!--<input type="text" class="LongCombo400" name="FundFrom" id="FundFrom"  validationmessage="*" /> <span class="k-invalid-msg" data-for="FundFrom"></span>-->
+                                <select id="FundFrom" multiple></select>
+                            </td>
+                        </tr>
+                        <tr id="LblClientFrom">
+                            <td>
+                                Client
+                            </td>
+                            <td id="LblClient">
+                                <button id="ShowGrid"> Add FundClient</button>
+                                <input type="checkbox" id="BitAllClient" name="BitAllClient" data-bind="checked: Account.IsLink" />
+                                All Client
+                            </td>
+                            <td hidden>
+                                <select id="FundClientFrom" multiple></select>
+                            </td>
+                        </tr>
+                        <tr id="LblDateFrom">
+                            <td>Date From</td>
+                            <td>
+                                <input id="ValueDateFrom" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" />
+                            </td>
+                        </tr>
+                        <tr id="LblDateTo">
+                            <td>
+                                Date To
+                            </td>
+                            <td>
+                                <input id="ValueDateTo" type="text" maxlength="10" class="MediumComboAndDate" placeholder="MM/DD/YYYY" />
+                            </td>
+                        </tr>
+                        <!--<tr>
+                <td><button id="BtnGenerate" type="button">Generate</button></td>
+            </tr>-->
+                        <tr>
+                            <td><button id="BtnGenerateNew" type="button">GenerateNew</button></td>
+                        </tr>
+
+
+                    </table>
+
+
+                    <div>
+                        <div id="gridDailyDataForCommissionRptNewLogApproved"></div>
+                    </div>
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+ 
+
+    <div id="WinFundClient">
+        <div id="gridFundClient"></div>
+        <button id="CloseGrid"> Close</button>
+    </div>
+
+
+
+
+</body>
+</html>

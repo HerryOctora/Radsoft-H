@@ -1,0 +1,1367 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="../Images/Logo/00.PNG" />
+    <title>RCORE-SYSTEM</title>
+</head>
+<body>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/JPluggins/blockUI.js"></script>
+    <script src="../js/JPluggins/alertify.min.js"></script>
+    <script src="../js/Jlogic/JsUtility.js"></script>
+    <script src="../js/Jlogic/JsHome.js"></script>
+    <script src="../js/web.min.js"></script>
+
+    <link href="../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../styles/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../styles/reset.css" rel="stylesheet" />
+    <link href="../styles/Home/HomeStyle.css" rel="stylesheet" />
+    <!--<link href="../styles/style.css" rel="stylesheet" />-->
+
+    <div id="WinHomeNavigation" class="HomeTop">
+        <ul class="nav">
+            <li class="hm" id="HomeLogout">
+                <img class="icon" src="../Images/LogoutIC.png" alt="">
+                <span>Logout</span>
+            </li>
+            <li class="fb" id="HomeChangePassword">
+                <img class="icon" src="../Images/ChangePasswordIC.png" alt="">
+                <span>ChangePassword</span>
+            </li>
+            <li class="gp" id="HomeLockScreen">
+                <img class="icon" src="../Images/LockScreenIC.png" alt="">
+                <span>Lock Screen</span>
+            </li>
+            <li class="tw" id="HomeLoginTrail">
+                <img class="icon" src="../Images/LogIC.png" alt="">
+                <span>Login Trail</span>
+            </li>
+        </ul>
+        <br />
+        <table class="SearchMenu">
+            <tr>
+                <td class="SearchMenuText">Search Menu</td>
+                <td>
+                    <input type="text" class="MediumComboAndDate" name="MenuSearch" id="MenuSearch" />
+                    <button class="k-button" id="btnOpenForm">Open</button>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div>
+            <ul id="Menu">
+                <li id="Accounting">
+                    <img src="../Images/Menu/IcSetup.png" />Accounting
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Account
+                                </li>
+                                <li id="LblAccountBudget">
+                                    <img src="../Images/Menu/IcSetup.png" />Account Budget
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Budget Summary
+                                </li>
+                                <!--<li>
+        <img src="../Images/Menu/IcSetup.png" />Accounting Report Template
+    </li>-->
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Accounting Setup
+                                </li>
+                                <li id="LblAUMAccounting">
+                                    <img src="../Images/Menu/IcSetup.png" />AUM
+                                </li>
+                                <li id="LblBank">
+                                    <img src="../Images/Menu/IcSetup.png" />Bank
+                                </li>
+                                <li id="LblBankBranch">
+                                    <img src="../Images/Menu/IcSetup.png" />Bank Branch
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li id="LblClosePrice">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Company
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Company Account Trading
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Consignee
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency Rate
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Department
+                                </li>
+                                <li id="LblDepositoType">
+                                    <img src="../Images/Menu/IcSetup.png" />Deposito Type
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Finance Setup
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li id="LblMarket">
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Office
+                                </li>
+                                <li id="LblPeriod">
+                                    <img src="../Images/Menu/IcSetup.png" />Period
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />CurrencyReval
+                                </li>
+                                <li id="LblConsigneeMapping">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Client Consignee Mapping
+                                </li>
+                                <li id="LblRKAPAccounting">
+                                    <img src="../Images/Menu/IcSetup.png" />RKAP Accounting
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Accounting Rpt
+                        </li>
+                        <li id="LblAccountLedgerBalance">
+                            <img src="../Images/Menu/IcUsers.png" />Account Ledger Balance
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Fixed Asset
+            </li>-->
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Journal
+                        </li>
+                        <li id="LblTrxPortfolio">
+                            <img src="../Images/Menu/IcUsers.png" />Trx Portfolio
+                        </li>
+                        <li id="LblPortfolioRevaluation">
+                            <img src="../Images/Menu/IcUsers.png" />Portfolio Revaluation
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Retrieve MKBD Daily
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Haircut MKBD
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />MKBD Trails
+                        </li>
+                        <li id="LblRL504">
+                            <img src="../Images/Menu/IcUsers.png" />RL504
+                        </li>
+                        <li id="LblRL510CEquity">
+                            <img src="../Images/Menu/IcUsers.png" />RL510CEquity
+                        </li>
+                        <li id="LblRL510CBond">
+                            <img src="../Images/Menu/IcUsers.png" />RL510CBond
+                        </li>
+                        <li id="LblRL510CSbn">
+                            <img src="../Images/Menu/IcUsers.png" />RL510CSbn
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />End Year Closing
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Type Of Assets
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Prepaid
+            </li>-->
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Notification
+            </li>
+            <li>
+                <img src="../Images/Menu/IcUsers.png" />Dashboard
+            </li>-->
+                    </ul>
+                </li>
+
+                <li id="FundAdmin">
+                    <img src="../Images/Menu/IcSetup.png" />Fund Admin
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Cash Ref
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Accounting Setup
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />SInvest Setup
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank Interest Setup
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Type
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Holding
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Issuer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank Branch
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency Rate
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sub Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Department
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Office
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Period
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Journal Account
+                                </li>
+
+
+                                <li id="LblAgentCSRFund">
+                                    <img src="../Images/Menu/IcSetup.png" />AgentCSRFund
+                                </li>
+                                <li id="LblAUMFundAdmin">
+                                    <img src="../Images/Menu/IcSetup.png" />AUM
+                                </li>
+                                <li id="LblBenchmarkIndex">
+                                    <img src="../Images/Menu/IcSetup.png" />Benchmark Index
+                                </li>
+                                <li id="LblBloombergEquity">
+                                    <img src="../Images/Menu/IcSetup.png" />Bloomberg Equity
+                                </li>
+                                <li id="LblBoard">
+                                    <img src="../Images/Menu/IcSetup.png" />Board
+                                </li>
+                                <li id="LblBusinessType">
+                                    <img src="../Images/Menu/IcSetup.png" />Business Type
+                                </li>
+                                <li id="LblCounterpart">
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart
+                                </li>
+                                <li id="LblCounterpartCommission">
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart Commission
+                                </li>
+                                <li id="LblCustodianJournalAccountName">
+                                    <img src="../Images/Menu/IcSetup.png" />Custodian Journal Account Name Setup
+                                </li>
+                                <li id="LblFundExposure">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Exposure
+                                </li>
+                                <!--<li>
+                        <img src="../Images/Menu/IcSetup.png" />FFSSetup_21
+                    </li>-->
+                                <li id="LblFFSForOJK">
+                                    <img src="../Images/Menu/IcSetup.png" />FFS For OJK
+                                </li>
+                                <li id="LblFundRiskProfile">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Risk Profile
+                                </li>
+
+                                <li id="LblIndex">
+                                    <img src="../Images/Menu/IcSetup.png" />Index
+                                </li>
+                                <li id="LblNavMappingReport">
+                                    <img src="../Images/Menu/IcSetup.png" />Nav Mapping Report
+                                </li>
+                                <!--<li>
+                        <img src="../Images/Menu/IcSetup.png" />Rebate Fee Setup
+                    </li>-->
+                                <li id="LblReksadanaType">
+                                    <img src="../Images/Menu/IcSetup.png" />Reksadana Type
+                                </li>
+                                <li id="LblReksadanaInstrument">
+                                    <img src="../Images/Menu/IcSetup.png" />Reksadana Instrument
+                                </li>
+                                <li id="LblTemplateReport">
+                                    <img src="../Images/Menu/IcGroupRoles.png" />Template Import
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li id="FundFactSheetRpt">
+                <img src="../Images/Menu/IcUsers.png" />Fund Fact Sheet Rpt
+            </li>-->
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Admin Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Download File From IDX
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Close Price
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Internal Close Price
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />End Day Trails Fund Portfolio
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />End Day Trails Journal and Unit
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />TB Reconcile with BK
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Close Nav
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Fee
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Daily Fee Summary
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Corporate Action
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Settlement Instruction
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Exercise
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Journal
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSetup.png" />Fund Position Adjustment
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Position
+                        </li>
+                        <li id="LblImportFxd">
+                            <img src="../Images/Menu/IcUsers.png" />Import Fxd
+                        </li>
+                        <li id="LblRetreiveFromBridge">
+                            <img src="../Images/Menu/IcUsers.png" />Retrieve From Bridge
+                        </li>
+                        <li id="LblFundClientDataMaster">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Data Master
+                        </li>
+                        <li id="LblBondInformationFromIBPA">
+                            <img src="../Images/Menu/IcUsers.png" />Bond Information From IBPA
+                        </li>
+                        <li id="LblAgentFundPosition">
+                            <img src="../Images/Menu/IcUsers.png" />Agent Fund Position
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Fund Fee Setup
+            </li>-->
+
+                        <li id="LblExposureMonitoring">
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring
+                        </li>
+
+
+                        <li id="LblCouponScheduler">
+                            <img src="../Images/Menu/IcUsers.png" />Coupon Scheduler
+                        </li>
+                        <li id="LblGenerateUnitFeeSummary">
+                            <img src="../Images/Menu/IcUsers.png" />Generate Unit Fee Summary
+                        </li>
+                        <li id="LblFIFOBondPosition">
+                            <img src="../Images/Menu/IcUsers.png" />FIFO Bond Position
+                        </li>
+                        <li id="LblFundAvgPriority">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Avg Priority
+                        </li>
+                        <li id="LblDormantFundTrails">
+                            <img src="../Images/Menu/IcSetup.png" />Dormant Fund Trails
+                        </li>
+                        <li id="LblCloseNAVInfovesta">
+                            <img src="../Images/Menu/IcSetup.png" />CloseNAVInfovesta
+                        </li>
+
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Notification
+            </li>
+            <li>
+                <img src="../Images/Menu/IcUsers.png" />Dashboard
+            </li>-->
+                    </ul>
+                </li>
+
+                <li id="Finance">
+                    <img src="../Images/Menu/IcSetup.png" />Finance
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank Branch
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Cash Ref
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Consignee
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Currency Rate
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Department
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Finance Setup
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Office
+                                </li>
+                                <li id="LblPeriodF">
+                                    <img src="../Images/Menu/IcSetup.png" />Period
+                                </li>
+                                <li id="LblTypeOfAssets">
+                                    <img src="../Images/Menu/IcSetup.png" />Type Of Assets
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fixed Asset
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />FinanceRpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Cashier Payment
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Cashier Receipt
+                        </li>
+                        <li id="LblTrxPortfolioF">
+                            <img src="../Images/Menu/IcUsers.png" />Trx Portfolio
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Corporate Ar Ap Payment
+            </li>-->
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Notification
+            </li>
+            <li>
+                <img src="../Images/Menu/IcUsers.png" />Dashboard
+            </li>-->
+                    </ul>
+                </li>
+
+                <li id="UnitRegistry">
+                    <img src="../Images/Menu/IcSetup.png" />Unit Registry
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank Branch
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Agent
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Department
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Client Cash Ref
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Switching Fund
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Signature
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+
+                                <li id="LblAgentCSRFundUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Agent CSR Fund
+                                </li>
+                                <li id="LblAgentCSRBegBalanceUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Agent CSR BegBalance
+                                </li>
+                                <li id="LblInstrumentCompanyTypeUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Company Type
+                                </li>
+                                <!--<li>
+                <img src="../Images/Menu/IcSetup.png" />Agent Fee Setup
+            </li>-->
+                                <li id="LblBenchmarkIndexUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Benchmark Index
+                                </li>
+                                <li id="LblBlackListNameUR">
+                                    <img src="../Images/Menu/IcSetup.png" />BlackList Name
+                                </li>
+                                <li id="LblCAMInterfaceUR">
+                                    <img src="../Images/Menu/IcSetup.png" />CAM Interface
+                                </li>
+                                <!--<li>
+                <img src="../Images/Menu/IcSetup.png" />Client Dashboard
+            </li>-->
+                                <li id="LblClosePriceUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+                                <li id="LblCategoryScheme">
+                                    <img src="../Images/Menu/IcSetup.png" />Category Scheme
+                                </li>
+                                <li id="LblCompanyPosition">
+                                    <img src="../Images/Menu/IcSetup.png" />Company Position
+                                </li>
+
+                                <li id="LblDailyDataCommissionUR">
+                                    <img src="../Images/Menu/IcUsers.png" />Daily Data For Commission Rpt New Log
+                                </li>
+                                <li id="LblFundUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li id="LblFundCashRefUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Cash Ref
+                                </li>
+
+                                <li id="LblFundRiskProfileUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Risk Profile
+                                </li>
+                                <li id="LblInternalCategoryUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Internal Category
+                                </li>
+
+                                <li id="LblManageInvestmentUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Manage Investment
+                                </li>
+                                <!--<li>
+                <img src="../Images/Menu/IcSetup.png" />Manage UR Transaction
+            </li>-->
+                                <!--<li>
+                <img src="../Images/Menu/IcSetup.png" />Rebate Fee Setup
+            </li>-->
+
+                                <li id="LblRiskProfileScoreUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Profile Score
+                                </li>
+                                <li id="LblRiskQuestionnaireUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire
+                                </li>
+                                <li id="LblRiskQuestinnaireAnswerUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire Answer
+                                </li>
+                                <li id="LblKYCRIskProfileScoreSetupUR">
+                                    <img src="../Images/Menu/IcSetup.png" />KYC Risk Profile Score Setup
+                                </li>
+                                <li id="LblMFeeSetupOptionalUR">
+                                    <img src="../Images/Menu/IcSetup.png" />MFeeSetupOptional
+                                </li>
+
+
+                                <li id="LblInsuranceProductUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Insurance Product
+                                </li>
+                                <li id="LblTrxUnitPaymentProviderUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Trx Unit Payment Provider
+                                </li>
+                                <li id="LblTrxUnitPaymentTypeUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Trx Unit Payment Type
+                                </li>
+                                <li id="LblTrxUnitPaymentMappingUR">
+                                    <img src="../Images/Menu/IcSetup.png" />Trx Unit Payment Mapping
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Unit Registry Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Commission Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Client Subscription
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Client Redemption
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Client Switching
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Reguler Instruction
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Transaction from APERD
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />End Day Trails Journal and Unit
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Unit Reconcile
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Position
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Generate Unit Fee Summary
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Customer Service Book
+                        </li>
+                        <li id="LblDormantAccountUR">
+                            <img src="../Images/Menu/IcUsers.png" />Dormant Account
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Distributed Income
+                        </li>
+
+                        <li id="LblFundClientBankListUR">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Bank List
+                        </li>
+                        <li id="LblFundClientVerification">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Verification
+                        </li>
+                        <li id="LblSubsWithInterest">
+                            <img src="../Images/Menu/IcUsers.png" />Client Subscription With Interest
+                        </li>
+                        <!--<li>
+        <img src="../Images/Menu/IcUsers.png" />Generate Rebate
+    </li>-->
+                        <li id="LblRiskProfileMonitoringUR">
+                            <img src="../Images/Menu/IcUsers.png" />Risk Profile Monitoring
+                        </li>
+                        <li id="LblCustomerDashboard">
+                            <img src="../Images/Menu/IcUsers.png" />Customer Dashboard
+                        </li>
+                        <li id="LblBackLoadSetupUR">
+                            <img src="../Images/Menu/IcUsers.png" />Back Load Setup
+                        </li>
+                        <li id="LblHoldingPeriodUR">
+                            <img src="../Images/Menu/IcUsers.png" />Holding Period
+                        </li>
+                        <li id="LblDailyTransactionForInvestmentUR">
+                            <img src="../Images/Menu/IcUsers.png" />Daily Transaction For Investment
+                        </li>
+                        <!--<li>
+        <img src="../Images/Menu/IcUsers.png" />Good Fund Reconcile
+    </li>-->
+                        <!--<li>
+        <img src="../Images/Menu/IcUsers.png" />Notification
+    </li>
+    <li>
+        <img src="../Images/Menu/IcUsers.png" />Dashboard
+    </li>-->
+                    </ul>
+                </li>
+
+                <li id="Marketing">
+                    <img src="../Images/Menu/IcSetup.png" />Marketing
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Unit Registry Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="Compliance">
+                    <img src="../Images/Menu/IcSetup.png" />Compliance
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Client
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Issuer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Profile Score
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire Answer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Corporate Gov AM
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Compliance Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Admin Rpt
+                        </li>
+
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />High Risk Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Risk Profile Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Black List Name
+                        </li>
+                        <li id="LblDormantAccount">
+                            <img src="../Images/Menu/IcUsers.png" />Dormant Account
+                        </li>
+                        <li id="LblPoolingAccount" hidden>
+                            <img src="../Images/Menu/IcUsers.png" />Pooling Account
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Employee
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Client Position
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Exposure
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Risk Profile
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />High Risk Value Setup
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Range Price
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcUsers.png" />Notification
+            </li>
+            <li>
+                <img src="../Images/Menu/IcUsers.png" />Dashboard
+            </li>-->
+                    </ul>
+                </li>
+
+                <li id="APUPPT">
+                    <img src="../Images/Menu/IcSetup.png" />APU-PPT
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Client
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Profile Score
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Risk Questionnaire Answer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sub Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Issuer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Compliance Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />High Risk Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Risk Profile Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Black List Name
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSetup.png" />Fund Risk Profile
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />High Risk Value Setup
+                        </li>
+                        <!--<li>
+            <img src="../Images/Menu/IcUsers.png" />Corporate Ar Ap Payment
+        </li>-->
+                        <!--<li>
+            <img src="../Images/Menu/IcUsers.png" />Notification
+        </li>
+        <li>
+            <img src="../Images/Menu/IcUsers.png" />Dashboard
+        </li>-->
+                    </ul>
+                </li>
+
+                <li id="Investment">
+                    <img src="../Images/Menu/IcSetup.png" />Investment
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Exposure
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Holding
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Issuer
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Sub Sector
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Benchmark Index
+                                </li>
+
+
+                                <li id="LblMarketINV">
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li id="LblMarketHolidayINV">
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+                                <li id="LblFundINV">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Investment Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />OMS Bond
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />OMS Equity
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />OMS Time Deposit
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />OMS Reksadana
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Coupon Scheduler
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring
+                        </li>
+                        <li id="LblFundAdminRptINV">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Admin Rpt
+                        </li>
+                        <li id="LblDirectInvestmentINV">
+                            <img src="../Images/Menu/IcUsers.png" />Direct Investment
+                        </li>
+                        <li id="LblAdvisoryFeeINV">
+                            <img src="../Images/Menu/IcUsers.png" />Advisory Fee
+                        </li>
+
+                        <li id="LblExposireMonitoringDetailINV">
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring Detail
+                        </li>
+                        <!--<li hidden>
+            <img src="../Images/Menu/IcUsers.png" />Investment Instruction
+        </li>-->
+                        <!--<li>
+            <img src="../Images/Menu/IcUsers.png" />Notification
+        </li>
+        <li>
+            <img src="../Images/Menu/IcUsers.png" />Dashboard
+        </li>-->
+                    </ul>
+                </li>
+
+                <li id="Dealing">
+                    <img src="../Images/Menu/IcSetup.png" />Dealing
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart Commission
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+
+                                <li id="LblBenchmarkIndexDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Benchmark Index
+                                </li>
+                                <li id="LblBoardDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Board
+                                </li>
+                                <li id="LblBusinessTypeDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Business Type
+                                </li>
+                                <li id="LblCloseNavDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li id="LblClosePriceDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+
+                                <li id="LblFundDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li id="LblFundExposureDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Exposure
+                                </li>
+
+                                <li id="LblMarketDeal">
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li id="LblFundAdminRptDeal">
+                            <img src="../Images/Menu/IcUsers.png" />Fund Admin Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Dealing Instruction
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Coupon Scheduler
+                        </li>
+                        <!--<li>
+            <img src="../Images/Menu/IcUsers.png" />Dashboard
+        </li>
+        <li>
+            <img src="../Images/Menu/IcUsers.png" />Notification
+        </li>-->
+                    </ul>
+                </li>
+
+                <li id="Settlement">
+                    <img src="../Images/Menu/IcSetup.png" />Settlement
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcMaster.png" />Master
+                            <ul>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Bank
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />BankBranch
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Counterpart Commission
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Index
+                                </li>
+                                <li>
+                                    <img src="../Images/Menu/IcSetup.png" />Instrument Syariah
+                                </li>
+
+                                <li id="LblBenchmarkIndexSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Benchmark Index
+                                </li>
+                                <li id="LblBoardSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Board
+                                </li>
+                                <li id="LblBusinessTypeSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Business Type
+                                </li>
+                                <li id="LblCloseNavSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Nav
+                                </li>
+                                <li id="LblClosePriceSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Close Price
+                                </li>
+
+                                <li id="LblCurrencySet">
+                                    <img src="../Images/Menu/IcSetup.png" />Currency
+                                </li>
+                                <li id="LblCurrencyRateSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Currency Rate
+                                </li>
+                                <li id="LblFundSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund
+                                </li>
+                                <li id="LblFundExposureSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Fund Exposure
+                                </li>
+
+                                <li id="LblMarketSet">
+                                    <img src="../Images/Menu/IcSetup.png" />Market
+                                </li>
+                                <li id="LblMarkeHolidaySet">
+                                    <img src="../Images/Menu/IcSetup.png" />Market Holiday
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Fund Admin Rpt
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Settlement Instruction
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Coupon Scheduler
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Download File From IDX
+                        </li>
+                        <li id="LblExposureMonitoringSet">
+                            <img src="../Images/Menu/IcUsers.png" />Exposure Monitoring
+                        </li>
+                        <li id="LblNotificationSet">
+                            <img src="../Images/Menu/IcUsers.png" />Notification
+                        </li>
+                        <!--<li>
+            <img src="../Images/Menu/IcUsers.png" />Dashboard
+        </li>-->
+                        <li id="LblImportTrxFromBKSet">
+                            <img src="../Images/Menu/IcUsers.png" />Import Trx From BK
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="Administrator">
+                    <img src="../Images/Menu/IcSetup.png" />Administrator
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />Activity
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />Master Value
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />Roles Permission Notification
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />Security Setup
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcUsers.png" />Users
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcRoles.png" />Roles
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcGroups.png" />Groups
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcPermission.png" />Permission
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcRolesPermission.png" />Roles Permission
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcRoleUsers.png" />Roles Users
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcGroupUsers.png" />Groups Users
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcGroupRoles.png" />Groups Roles
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li id="SAP">
+                    <img src="../Images/Menu/IcSetup.png" />SAP
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />SAP MS Customer
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />SAP MS Account
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />SAP Bridge Journal
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />Interface Journal SAP
+                        </li>
+                    </ul>
+                </li>
+
+                <li id="BrokerageCommission">
+                    <img src="../Images/Menu/IcSetup.png" />Brokerage Commission
+                    <ul>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />MS Sales
+                        </li>
+                        <li>
+                            <img src="../Images/Menu/IcSecuritySetup.png" />MS Transaction
+                        </li>
+                        <!--<li>
+                <img src="../Images/Menu/IcSecuritySetup.png" />SAP MS Account
+            </li>
+            <li>
+                <img src="../Images/Menu/IcSecuritySetup.png" />SAP Bridge Journal
+            </li>
+            <li>
+                <img src="../Images/Menu/IcSecuritySetup.png" />Interface Journal SAP
+            </li>-->
+                    </ul>
+                </li>
+            </ul>
+</div>
+    </div>
+    <div>
+        <div class="HomeTopStripe">
+            <a href="#" id="RLogo"><img src="../Images/Logo/00.png" width="16" /></a>
+            <a href="#" class="Welcome">Welcome,</a><a href="#" class="Welcome" id="StripeUser"></a>
+            <a id="HomeMenu" class="FontMenu" href="#">Open Menu</a>
+            <a id="HomePage" class="FontMenu" href="#">Back to Home</a>
+         
+        </div>
+
+        <div>
+            <iframe id="Frame" scrolling="no" style="width:100%; height:7000px; border:none; margin:0; padding-right:0px;padding-left:0px; overflow:hidden; z-index: 0;" src="" frameborder="0"></iframe>
+        </div>
+
+        <div id="WinUsersDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td class="FormLabel300">Last Login Success</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LoginSuccessTimeLast" id="LoginSuccessTimeLast" /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Login Fail</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LoginFailTimeLast" id="LoginFailTimeLast" /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Logout</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LogoutTimeLast" id="LogoutTimeLast" /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Change Password</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="ChangePasswordTimeLast" id="ChangePasswordTimeLast" /></td>
+                    </tr>
+                    <tr>
+                        <td>Success Login Frequency</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LoginSuccessFreq" id="LoginSuccessFreq" /></td>
+                    </tr>
+                    <tr>
+                        <td>Fail Login Frequency</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LoginFailFreq" id="LoginFailFreq" /></td>
+                    </tr>
+                    <tr>
+                        <td>Logout Frequency</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="LogoutFreq" id="LogoutFreq" /></td>
+                    </tr>
+                    <tr>
+                        <td>Change Password Frequency</td>
+                        <td><input type="text" readonly class="textboxMediumReadOnly" name="ChangePasswordFreq" id="ChangePasswordFreq" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!--<div id="LockScreen" class="width100">
+            <div>
+                Please enter your password  To Unlock Screen       <input type="password" class="textboxMedium" name="unlockPassword" id="unlockPassword">         <button id="BtnUnlock" style="font-weight: bolder;" class="k-button" type="button">Unlock</button>
+            </div>
+        </div>
+        <div id="ChangePasswordScreen">
+            <div>  Please input new password      <input type="password" class="textboxMedium" name="ChangePassword" id="ChangePassword">    |    <button id="BtnChangePassword" style="font-weight: bolder;" class="k-button" type="button">Change</button>        <button id="BtnCancel" style="font-weight: bolder;" class="k-button" type="button">Close</button></div>
+        </div>-->
+
+        <div id="LockScreen">
+            <div>
+                <p>Please enter your password.</p>
+                <p>
+                    <input type="password" class="textboxMedium" name="unlockPassword" id="unlockPassword">
+                </p>
+                <p style="text-align: right; margin-top: -5px;">
+                    <button id="BtnUnlock" style="font-weight: bolder;" class="k-button" type="button">Unlock</button>
+                </p>
+            </div>
+        </div>
+
+        <div id="ChangePasswordScreen">
+            <div>
+                <p>Please input new password.</p>
+                <p>
+                    <input type="password" class="textboxMedium" name="ChangePassword" id="ChangePassword">
+                </p>
+                <p style="text-align: right; margin-top: -5px;">
+                    <button id="BtnChangePassword" style="font-weight: bolder;" class="k-button" type="button">Change</button>
+                    <button id="BtnCancel" style="font-weight: bolder;" class="k-button" type="button">Close</button>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

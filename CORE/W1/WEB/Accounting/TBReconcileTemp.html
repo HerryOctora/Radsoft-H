@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Accounting/JsTBReconcileTemp.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <div id="WinEndDayTrailsMatching">
+        <div id="gridEndDayTrailsMatching"></div>
+    </div>
+
+    <div id="WinDetailMovement">
+        <div id="gridDetailMovement"></div>
+    </div>
+
+    <div id="WinTBStatus">
+        <div id="gridTBStatus"></div>
+    </div>
+
+    <div id="WinTB">
+        <div>
+            <table class="TbReconTitle">
+                <tr>
+                    <td>
+                        FUND
+                    </td>
+                    <td id="lblFund"></td>
+                    <td>
+                        | AS OF :
+                    </td>
+                    <td id="lblDate"></td>
+
+
+                </tr>
+                <tr>
+                    <td>
+                        ASSET
+                    </td>
+                    <td id="lblTotalAsset"></td>
+                </tr>
+                <tr>
+                    <td>
+                        LIABILITIES
+                    </td>
+                    <td id="lblTotalLiablities"></td>
+                </tr>
+                <tr>
+                    <td>
+                        AUM
+                    </td>
+                    <td id="lblTotalAUM"></td>
+                </tr>
+                <tr>
+                    <td>
+                        UNIT
+                    </td>
+                    <td id="lblTotalUnit"></td>
+                </tr>
+                <tr>
+                    <td>
+                        NAV
+                    </td>
+                    <td id="lblNAVProjection"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Last NAV
+                    </td>
+                    <td id="lblLastNAVYesterday"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Last NAV Date
+                    </td>
+                    <td id="lblLastNavDate"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Change NAV
+                    </td>
+                    <td>
+                        : <a id="lblChangeNAV"></a> ( <a id="lblChangeNAVPercent"></a> )
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td id="lblEDTInformation"></td>
+                </tr>
+            </table>
+            <div>
+                <button type="button" id="BtnInsertJournal">Save to Journal</button>
+                <button type="button" id="BtnTBRpt">TB Rpt</button>
+                <td>
+                    Download Mode
+                </td>
+                <td>
+                    <input type="text" class="SmallCombo" name="DownloadMode" id="DownloadMode" required validationmessage="*" />
+                    <span class="k-invalid-msg" data-for="DownloadMode"></span>
+                </td>
+            </div>
+        </div>
+        <div id="gridTB"></div>
+    </div>
+
+    <div id="WinTBReconcileTemp" class="ContentDetail">
+        <table>
+            <tr hidden>
+                <td>
+                    <input type="file" name="FileImportTBReconcileTemp" id="FileImportTBReconcileTemp" title="Select a files..." accept="*.xlsx,*.xls" hidden />
+                    <button type="button" id="BtnImportTBReconcileTemp">Import</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Date
+                </td>
+                <td>
+                    <input class="textboxDate" id="ValueDate">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fund ID
+                </td>
+                <td>
+                    <input class="LongCombo400" id="FilterFundID">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" id="BtnGetTB">Trial Balance</button>
+                </td>
+                <td>
+                    <button type="button" id="BtnReleaseTime">Release Lock</button>
+                    <button type="button" id="BtnTBStatus">TB Status</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

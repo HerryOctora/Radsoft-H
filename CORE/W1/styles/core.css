@@ -1,0 +1,625 @@
+﻿
+.StatusSuspend {
+    color:blue;
+    font-size:20px;
+}
+
+.TBReconcileHeader {
+    background-color: darkgray;
+    color:black;
+    font-weight:bolder;
+}
+
+.TbReconTitle {
+    color:black;
+    font-weight:bolder;
+    font-size:larger;
+}
+
+
+.OMSExposureWarningMaxAlert {
+    background-color: orange;
+    color:white;
+    font-weight:bolder;
+}
+.OMSExposureMaxAlert {
+    background-color: red;
+    color:white;
+    font-weight:bolder;
+}
+
+.OMSExposureCashAndAum {
+    color:royalblue;
+    font-size:x-large;
+}
+
+.OMSEquityBySectorUnrealizedPlus {
+    background-color: green;
+    color:white;
+    font-weight:bolder;
+}
+
+.OMSEquityBySectorUnrealizedMin {
+    background-color: red;
+    color:white;
+    font-weight:bolder;
+}
+
+.OMSEquityByInstrumentYellow {
+    background-color: darkorange;
+    color:white;
+    font-weight:bolder;
+}
+
+.OMSBondByInstrumentYellow {
+    background-color: darkorange;
+    color:white;
+    font-weight:bolder;
+}
+
+
+.LastUpdateReadOnly{
+    background-color:gray;
+}
+
+.OMSGridHeader {
+   background-color:black;
+   color:white;
+   font-size:large;
+   padding:5px;
+}
+
+.OMSGridHeaderBuy {
+   background-color:green;
+   color:white;
+   font-size:large;
+   padding:5px;
+}
+
+.OMSGridHeaderSell {
+   background-color:red;
+   color:white;
+   font-size:large;
+   padding:5px;
+}
+
+.OMSGridHeaderSummaryEquity {
+    background-color: black;
+    color: white;
+    font-size: large;
+    padding: 5px;
+}
+
+.highRiskSuspend{
+   background-color:red;
+   color:white;
+   font-size:large;
+   padding:5px;
+
+}
+
+.highRiskRowWaiting{
+    background-color: lightblue;
+
+}
+
+.k-window-titlebar.k-header {
+    background: #275CAB;  /*set background to the titlebar*/
+    color: white; /*set color to the titlebar*/
+    font-weight: bold; /*set font-weight to the titlebar*/
+}
+
+body {
+    font-size: 90%;
+   
+
+
+background: #ff6e7f; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, white , darkgray); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, lightgray , white); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+    font-family: 'Calibri';
+    color: black;
+
+}
+
+.k-input {
+    background: white;
+    color:black;
+    font-weight:bold;
+    
+}
+
+/*FORM STYLE*/
+
+.FormHeaderButton {
+    margin-top: 55px;
+}
+
+.FormGrid {
+    margin-top: 15px;
+    padding-left:10px;
+
+}
+.MarginTop10 {
+    margin-top:10px;
+}
+
+.Margin15 {
+    margin:15px;
+}
+
+.formNameHeader {
+    text-align:right;
+    font-size:xx-large;
+    color:royalblue;
+    padding-right:30px;
+}
+
+.formNameHeaderDashboard {
+    text-align:left;
+    font-size:xx-large;
+    color:white;
+    padding-right:310px;
+    background-color:darkgray;
+}
+
+/*NUMBER*/
+
+/*.textboxSmallNumberReadOnly {
+    border: 1px solid darkgray;
+    background-color: darkgray;
+    height: 25px;
+    width: 150px;
+    text-align: right;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: bold;
+}*/
+
+.textboxSmallNumberReadOnly {
+    background-color: darkgray;
+    width: 150px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxSmallNumber {
+    width: 150px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxMediumNumber {
+    width: 250px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxMediumNumberReadOnly {
+    background-color: darkgray;
+    width: 250px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxLongNumber {
+    width: 350px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxLongNumberReadOnly {
+    background-color: darkgray;
+    width: 350px;
+    text-align: right;
+    color: black;
+    font-weight: normal;
+}
+
+/*TEXT*/
+
+.textboxSmall {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 150px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxSmallReadOnly {
+    border: 1px solid darkgray;
+    background-color: darkgray;
+    height: 25px;
+    width: 150px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxMedium {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 250px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+
+.textboxRightMedium {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 250px;
+    /*padding: 0px 7px 2px 4px;*/
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxMediumReadOnly {
+    border: 1px solid darkgray;
+    background-color: darkgray;
+    height: 25px;
+    width: 250px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: Black;
+    font-weight: normal;
+}
+
+.textboxLong {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 350px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxLong500 {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 500px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+
+.textboxLong800 {
+    border: 1px solid darkgray;
+    background-color: white;
+    height: 25px;
+    width: 700px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+
+.textboxNotesReadOnlyForm {
+    border: 1px solid darkgray;
+    background-color: #f3eeee;
+    height: 50px;
+    width: 500px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxLongReadOnly {
+    border: 1px solid darkgray;
+    background-color: lightgray;
+    height: 25px;
+    width: 350px;
+    padding: 0px 7px 2px 4px;
+    border-radius: 2px;
+    color: black;
+    font-weight: normal;
+}
+
+.textboxAddress {
+    border: 1px solid #c4c4c4;
+    height: 75px;
+    width: 337px;
+    font-size: 12px;
+    color: black;
+    font-weight: normal;
+    vertical-align: top;
+    padding: 2px 7px 2px 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-weight: normal;
+    border: 1px solid darkgray;
+    background-color: white;
+}
+
+/*COMBO*/
+.SmallCombo {
+    background-color: white;
+    width: 150px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.SmallComboReadOnly {
+    background-color: darkgray;
+    width: 150px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+
+.MediumComboAndDate {
+    background-color: white;
+    width: 250px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.MediumComboAndDateReadOnly {
+    background-color: darkgray;
+    width: 250px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo300 {
+    background-color: white;
+    width: 300px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo500 {
+    background-color: white;
+    width: 500px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo800 {
+    background-color: white;
+    width: 800px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo500ReadOnly {
+    background-color: darkgray;
+    width: 500px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+
+.LongCombo350 {
+    background-color: white;
+    width: 350px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo350ReadOnly {
+    background-color: darkgray;
+    width: 350px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo400 {
+    background-color: white;
+    width: 400px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+.LongCombo450 {
+    background-color: white;
+    width: 450px;
+    color: black;
+    font-weight: normal;
+    border: 0.5px solid darkgray;
+}
+
+
+.FormHeaderDetail {
+    margin-top:10px;
+    margin-bottom:10px;
+    color:black; 
+    border-radius: 5px;
+    border: 1px solid black;
+    font-weight:normal;
+}
+
+.FormHeaderState {
+    background-color: aliceblue;
+    border-radius: 2px;
+    border: 1px solid black;
+    padding-left:10px;
+    color:black;
+}
+
+.ContentDetail {
+    background-color:whitesmoke;
+    color:black;
+    font-weight:normal;
+
+}
+
+.sysAndHisLabel {
+    text-align: right;
+}
+
+.CompareDataLabel {
+    color:limegreen;
+    font-size:100%;
+}
+
+.FormLabel150 {
+    width: 150px;
+}
+
+.FormLabel200 {
+    width: 200px;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width20 {
+    width: 20%;
+}
+
+.width10 {
+    width: 10%;
+}
+
+.width30 {
+    width: 30%;
+}
+
+.width40 {
+    width: 40%;
+}
+
+.historyRowPending {
+    background-color: lightgray;
+}
+
+.historyRowApprove{
+    background-color: lightgray;
+
+}
+
+.historyRowVoid{
+    background-color: red;
+    color:black;
+}
+.historyRowWaiting{
+    background-color: lightblue;
+
+}
+
+.approvedRowPending {
+    background-color: lightgray;
+}
+
+.approvedRowPosted {
+    background-color: lightgreen;
+    color: black;
+}
+
+.approvedRowRevised {
+    background-color: lightblue;
+}
+
+.pendingRowApproveBuy {
+    background-color: lightgreen;
+    color: black;
+}
+
+
+.pendingRowApproveSell {
+    background-color: lightblue;
+}
+
+.pendingRowApprove {
+    background-color: lightsalmon;
+    color: black;
+}
+
+.pendingRowWaiting{
+    background-color: lightgray;
+    color:black;
+}
+
+.pendingRowVoid{
+    background-color: red;
+
+}
+
+.pendingRowPartial {
+    background-color: lightblue;
+}
+
+.RowRegular {
+    background-color: lightsalmon;
+}
+
+.primary {
+    background-color: #64a1d5;
+    background-image: linear-gradient(to bottom, #64a1d5, #428bca);
+    color: #fff;
+    border-color: #428bca;
+    min-width: 70px;
+}
+
+.RightPosition {
+    position: absolute;
+    right: 10px;
+}
+html,body{height:100%;margin:0;padding:0;overflow:hidden}
+
+#vertical{height:100%;border-width:0;}
+#horizontal{width:100%;height:100%;}
+
+.k-grid  .k-grid-header  .k-header  .k-link {
+    height: auto;
+}
+  
+.k-grid  .k-grid-header  .k-header {
+    white-space: normal;
+}
+
+.OMSBondByInstrumentCross {
+    background-color: darkviolet;
+    color: white;
+    font-weight: bolder;
+}
+
+.Onyet {
+    color: black;
+}
+
+.tblSplitAcq tr {
+    height: 35px;
+}
+

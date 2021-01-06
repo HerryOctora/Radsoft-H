@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsRiskProfileMonitoring.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+    <!--<div class="HeaderMaster">
+        <div>Dormant Account List</div>
+    </div>
+
+    <div class="FormBackground">
+        <div>
+            <button type="button" class="k-button FormBackgroundButton" id="BtnRefresh"><p class="FormBackground-p">Refresh</p></button>
+            <button type="button" class="k-button FormBackgroundButton100" id="BtnAutoSuspend"><p class="FormBackground-p">Auto Suspend</p></button>
+            <a href="http://localhost:17050/WEB/Masters/RiskProfileMonitoring.html" target="_blank">
+                <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+            </a>
+        </div>
+    </div>-->
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+
+                    <a href="http://localhost:17050/WEB/Masters/RiskProfileMonitoring.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    Risk Profile Monitoring
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="FormGrid">
+        <table>
+            <tr>
+                <td>
+                    Date :
+                </td>
+                <td>
+                    <input type="text" class="MediumComboAndDate" name="ValueDate" id="ValueDate" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <div id="gridRiskProfileMonitoring"></div>
+    </div>
+
+</body>
+</html>

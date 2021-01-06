@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <link href="../../styles/alertify.core.css" rel="stylesheet" />
+    <link href="../../styles/alertify.default.css" rel="stylesheet" id="toggleCSS" />
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../styles/kendo.custom.css" rel="stylesheet" />
+    <link href="../../styles/core.css" rel="stylesheet" />
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/JPluggins/blockUI.js"></script>
+    <script src="../../js/JPluggins/alertify.min.js"></script>
+    <script src="../../js/Jlogic/JsUtility.js"></script>
+    <script src="../../js/Jlogic/Masters/JsPayableCard.js"></script>
+    <script src="../../js/web.all.min.js"></script>
+    <script src="../../js/jszip.min.js"></script>
+
+
+    <div class="FormHeaderButton">
+        <table class="width100">
+            <tr>
+                <td>
+                    <button type="button" id="BtnNew">Add</button>
+                    <button type="button" id="BtnRefresh">Refresh</button>
+                    <a href="http://localhost:17050/WEB/Masters/PayableCard.html" target="_blank">
+                        <button type="button" id="BtnOpenNewTab">Open New Tab</button>
+                    </a>
+                </td>
+                <td class="formNameHeader">
+                    Payable Card
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div id="TabPayableCard" class="FormGrid">
+        <ul>
+            <li class="k-state-active">
+                <img src="../../Images/Icon/IcApproved.png" />Approved
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcPending.png" />Pending
+            </li>
+            <li>
+                <img src="../../Images/Icon/IcHistory.png" />History
+            </li>
+        </ul>
+        <div>
+            <div id="gridPayableCardApproved"></div>
+        </div>
+        <div>
+            <div id="gridPayableCardPending"></div>
+        </div>
+        <div>
+            <div id="gridPayableCardHistory"></div>
+        </div>
+    </div>
+
+    <div id="WinOldData">
+        <div id="gridOldData"></div>
+    </div>
+
+    <div id="WinPayableCard" class="ContentDetail">
+        <div class="FormHeaderDetail">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="sysAndHisLabel">Status</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="StatusHeader" id="StatusHeader" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Sys No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="PayableCardPK" id="PayableCardPK" /></td>
+                            </tr>
+                            <tr>
+                                <td class="sysAndHisLabel">Hist No</td>
+                                <td><input type="text" readonly class="textboxSmallNumberReadOnly" name="HistoryPK" id="HistoryPK" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><button id="BtnCancel" type="button">Close</button></td>
+                                <td><button id="BtnOldData" type="button">Compare Data</button></td>
+                                <td><button id="BtnUpdate" type="button">Update</button></td>
+                                <td><button id="BtnAdd" type="button">Save</button></td>
+                                <td><button id="BtnVoid" type="button">Void</button></td>
+                                <td><button id="BtnApproved" type="button">Approved</button></td>
+                                <td><button id="BtnReject" type="button">Reject</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="width100">
+            <tr class="width100">
+                <td class="width10">Consignee</td>
+                <td class="width100">
+                    <input type="text" class="LongCombo450" name="ConsigneePK" id="ConsigneePK" required validationmessage="*" /> <span class="k-invalid-msg" data-for="ConsigneePK"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>PO. No</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="PoNo" id="PoNo" /> <span class="k-invalid-msg" data-for="PoNo"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <textarea class="textboxAddress" name="Description" id="Description" required validationmessage="*"></textarea>
+                    <span class="k-invalid-msg" data-for="Description"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Total Amount</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="TotalAmount" id="TotalAmount" required validationmessage="*" /> <span class="k-invalid-msg" data-for="TotalAmount"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Term Desc1</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="TermDesc1" id="TermDesc1" /> <span class="k-invalid-msg" data-for="TermDesc1"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount Term1</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="AmountTerm1" id="AmountTerm1" required validationmessage="*" /> <span class="k-invalid-msg" data-for="AmountTerm1"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Term Desc2</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="TermDesc2" id="TermDesc2" /> <span class="k-invalid-msg" data-for="TermDesc2"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount Term2</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="AmountTerm2" id="AmountTerm2" required validationmessage="*" /> <span class="k-invalid-msg" data-for="AmountTerm2"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Term Desc3</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="TermDesc3" id="TermDesc3" /> <span class="k-invalid-msg" data-for="TermDesc3"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount Term3</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="AmountTerm3" id="AmountTerm3" required validationmessage="*" /> <span class="k-invalid-msg" data-for="AmountTerm3"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Term Desc4</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="TermDesc4" id="TermDesc4" /> <span class="k-invalid-msg" data-for="TermDesc4"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount Term4</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="AmountTerm4" id="AmountTerm4" required validationmessage="*" /> <span class="k-invalid-msg" data-for="AmountTerm4"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Term Desc5</td>
+                <td>
+                    <input type="text" class="textboxMedium" name="TermDesc5" id="TermDesc5" /> <span class="k-invalid-msg" data-for="TermDesc5"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount Term5</td>
+                <td>
+                    <input type="number" min="0" class="textboxMediumNumber" name="AmountTerm5" id="AmountTerm5" required validationmessage="*" /> <span class="k-invalid-msg" data-for="AmountTerm5"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Total Paid</td>
+                <td>
+                    <input disabled="disabled" type="number" min="0" class="textboxMediumNumberReadOnly" name="TotalPaid" id="TotalPaid" required validationmessage="*" />
+                    <span class="k-invalid-msg" data-for="TotalPaid"></span>
+                </td>
+            </tr>
+
+        <!--AUDIT TRAIL-->
+        <div class="FormHeaderDetail">
+            <div>
+                <table>
+                    <tr>
+                        <td><label>Entry</label></td>
+                        <td><label>Update</label></td>
+                        <td><label>Approved</label></td>
+                        <td><label>Void</label></td>
+                        <td><label>Last Update</label></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryTime" id="EntryTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateTime" id="UpdateTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedTime" id="ApprovedTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidTime" id="VoidTime">
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="LastUpdate" id="LastUpdate"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="EntryUsersID" id="EntryUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="UpdateUsersID" id="UpdateUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="ApprovedUsersID" id="ApprovedUsersID"><br />
+                        </td>
+                        <td>
+                            <input type="text" readonly class="textboxSmallReadOnly" name="VoidUsersID" id="VoidUsersID"><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <label>Notes</label><br />
+                            <textarea readonly class="textboxNotesReadOnlyForm" name="Notes" id="Notes"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
