@@ -23,460 +23,7 @@ namespace RFSRepository
 
         public Boolean Investment_ListingRpt(string _userID, InvestmentRpt _investmentRpt)
         {
-            #region Investment Listing
-            if (_investmentRpt.ReportName.Equals("Investment Listing"))
-            {
-                try
-                {
-                    using (SqlConnection DbCon = new SqlConnection(Tools.conString))
-                    {
-                        DbCon.Open();
-                        using (SqlCommand cmd = DbCon.CreateCommand())
-                        {
-                            string _paramFund = "";
-
-                            if (!_host.findString(_investmentRpt.FundFrom.ToLower(), "0", ",") && !string.IsNullOrEmpty(_investmentRpt.FundFrom))
-                            {
-                                _paramFund = "And F.FundPK in ( " + _investmentRpt.FundFrom + " ) ";
-                            }
-                            else
-                            {
-                                _paramFund = "";
-                            }
-                            cmd.CommandText = @" 
-Select * from perubahan dari VM
-";
-
-
-                            cmd.Parameters.AddWithValue("@ValueDateFrom", _investmentRpt.ValueDateFrom);
-                            cmd.Parameters.AddWithValue("@ValueDateTo", _investmentRpt.ValueDateTo);
-                            using (SqlDataReader dr0 = cmd.ExecuteReader())
-                            {
-                                if (!dr0.HasRows)
-                                {
-                                    return false;
-                                }
-                                else
-                                {
-                                    string filePath = Tools.ReportsPath + "InvestmentListing" + "_" + Convert.ToDateTime(_investmentRpt.ValueDateFrom).ToShortDateString().Replace("/", "-") + "_" + _userID + ".xlsx";
-                                    string pdfPath = Tools.ReportsPath + "InvestmentListing" + "_" + Convert.ToDateTime(_investmentRpt.ValueDateFrom).ToShortDateString().Replace("/", "-") + "_" + _userID + ".pdf";
-                                    FileInfo excelFile = new FileInfo(filePath);
-                                    if (excelFile.Exists)
-                                    {
-                                        excelFile.Delete();  // MASTIIN INI FILE BARU, JADI KITA HAPUS YANG LAMA
-                                        excelFile = new FileInfo(filePath);
-                                    }
-
-                                    // SETUP EXCEL FILENYA DAN KASI NILAI KE PROPERTIES
-                                    using (ExcelPackage package = new ExcelPackage(excelFile))
-                                    {
-                                        package.Workbook.Properties.Title = "InvestmentReport";
-                                        package.Workbook.Properties.Author = Tools.DefaultReportAuthor();
-                                        package.Workbook.Properties.Comments = Tools.DefaultReportComments();
-                                        package.Workbook.Properties.Company = Tools.DefaultReportCompany();
-                                        package.Workbook.Properties.SetCustomPropertyValue("Checked by", _userID);
-                                        package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", Tools.DefaultReportAssemblyName());
-
-                                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Investment Listing");
-
-
-                                        //ATUR DATA GROUPINGNYA DULU
-                                        List<InvestmentListing> rList = new List<InvestmentListing>();
-                                        while (dr0.Read())
-                                        {
-                                            InvestmentListing rSingle = new InvestmentListing();
-                                            rSingle.ValueDate = Convert.ToDateTime(dr0["ValueDate"]);
-                                            rSingle.FundID = Convert.ToString(dr0["FundID"]);
-                                            rSingle.InstrumentType = Convert.ToString(dr0["InstrumentType"]);
-                                            rSingle.InstrumentID = Convert.ToString(dr0["InstrumentID"]);
-                                            rSingle.InstrumentName = Convert.ToString(dr0["InstrumentName"]);
-                                            rSingle.TrxTypeID = Convert.ToString(dr0["TrxTypeID"]);
-                                            rSingle.InvestmentPK = Convert.ToInt32(dr0["InvestmentPK"]);
-                                            if (rSingle.InstrumentType == "Equity Reguler")
-                                            {
-                                                rSingle.RangePrice = Convert.ToString(dr0["RangePrice"]);
-                                                rSingle.OrderPrice = Convert.ToDecimal(dr0["OrderPrice"]);
-
-                                            }
-                                            else if (rSingle.InstrumentType == "Government Bond" || rSingle.InstrumentType == "Corporate Bond")
-                                            {
-
-                                                rSingle.RangePrice = Convert.ToString(dr0["RangePrice"]);
-                                                rSingle.OrderPrice = Convert.ToDecimal(dr0["OrderPrice"]);
-                                                rSingle.InterestPercent = Convert.ToDecimal(dr0["InterestPercent"]);
-
-                                            }
-                                            else
-                                            {
-
-                                                rSingle.MaturityDate = Convert.ToDateTime(dr0["MaturityDate"]);
-                                                if (rSingle.TrxTypeID != "PLACEMENT")
-                                                {
-                                                    rSingle.AcqDateDeposito = Convert.ToDateTime(dr0["AcqDate"]);
-                                                }
-                                            }
-                                            rSingle.Volume = Convert.ToDecimal(dr0["Volume"]);
-                                            rSingle.Amount = Convert.ToDecimal(dr0["Amount"]);
-                                            rSingle.Notes = Convert.ToString(dr0["Notes"]);
-
-                                            rList.Add(rSingle);
-
-                                        }
-
-                                        var GroupByFundID =
-                                             from r in rList
-                                             orderby r.ValueDate, r.InstrumentType
-                                             group r by new { r.ValueDate, r.FundID, r.InstrumentType, r.TrxTypeID } into rGroup
-                                             select rGroup;
-
-
-
-                                        int incRowExcel = 1;
-
-
-                                        foreach (var rsHeader in GroupByFundID)
-                                        {
-                                            incRowExcel = incRowExcel + 2;
-
-                                            worksheet.Cells[incRowExcel, 1].Style.Font.Bold = true;
-                                            worksheet.Cells[incRowExcel, 1].Value = "TRADE DATE :";
-                                            worksheet.Cells["B" + incRowExcel + ":E" + incRowExcel].Merge = true;
-                                            worksheet.Cells[incRowExcel, 2].Style.Font.Bold = true;
-                                            worksheet.Cells[incRowExcel, 2].Style.Numberformat.Format = "dddd" + ",dd-MMM-yyyy";
-                                            worksheet.Cells[incRowExcel, 2].Value = Convert.ToDateTime(rsHeader.Key.ValueDate);
-                                            worksheet.Cells[incRowExcel, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-                                            incRowExcel = incRowExcel + 1;
-                                            worksheet.Cells[incRowExcel, 1].Style.Font.Bold = true;
-                                            worksheet.Cells[incRowExcel, 1].Value = "FUND :";
-                                            worksheet.Cells[incRowExcel, 2].Value = rsHeader.Key.FundID;
-
-                                            incRowExcel++;
-                                            worksheet.Cells[incRowExcel, 1].Style.Font.Bold = true;
-                                            worksheet.Cells[incRowExcel, 1].Value = "INS. TYPE :";
-                                            worksheet.Cells[incRowExcel, 2].Value = rsHeader.Key.InstrumentType;
-                                            incRowExcel++;
-                                            worksheet.Cells[incRowExcel, 1].Style.Font.Bold = true;
-                                            worksheet.Cells[incRowExcel, 1].Value = "TRX. TYPE :";
-                                            worksheet.Cells[incRowExcel, 2].Value = rsHeader.Key.TrxTypeID;
-                                            incRowExcel = incRowExcel + 1;
-                                            if (rsHeader.Key.InstrumentType == "Equity Reguler")
-                                            {
-                                                worksheet.Cells[incRowExcel, 1].Value = "Ticket ID"; ;
-                                                worksheet.Cells[incRowExcel, 2].Value = "Stock ID";
-                                                worksheet.Cells[incRowExcel, 3].Value = "Volume / Shares";
-                                                worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-                                                worksheet.Cells[incRowExcel, 5].Value = "Range Price";
-                                                worksheet.Cells[incRowExcel, 6].Value = "Price";
-                                                worksheet.Cells[incRowExcel, 7].Value = "Amount";
-                                            }
-                                            else if (rsHeader.Key.InstrumentType == "Government Bond" || rsHeader.Key.InstrumentType == "Corporate Bond")
-                                            {
-                                                worksheet.Cells[incRowExcel, 1].Value = "Ticket ID"; ;
-                                                worksheet.Cells[incRowExcel, 2].Value = "Stock ID";
-                                                worksheet.Cells[incRowExcel, 3].Value = "Nominal";
-                                                worksheet.Cells[incRowExcel, 4].Value = "Range Price";
-                                                worksheet.Cells[incRowExcel, 5].Value = "Price";
-                                                worksheet.Cells[incRowExcel, 6].Value = "Coupon %";
-                                                worksheet.Cells[incRowExcel, 7].Value = "Amount";
-                                            }
-                                            else
-                                            {
-                                                if (rsHeader.Key.TrxTypeID == "LIQUIDATE" || rsHeader.Key.TrxTypeID == "ROLLOVER")
-                                                {
-                                                    worksheet.Cells[incRowExcel, 1].Value = "Ticket ID"; ;
-                                                    worksheet.Cells[incRowExcel, 2].Value = "Stock ID";
-                                                    worksheet.Cells[incRowExcel, 3].Value = "Nominal";
-                                                    worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-                                                    worksheet.Cells[incRowExcel, 5].Value = "Value Date";
-                                                    worksheet.Cells[incRowExcel, 6].Value = "Maturity Date";
-                                                    worksheet.Cells[incRowExcel, 7].Value = "Amount";
-                                                }
-                                                else
-                                                {
-                                                    worksheet.Cells[incRowExcel, 1].Value = "Ticket ID"; ;
-                                                    worksheet.Cells[incRowExcel, 2].Value = "Stock ID";
-                                                    worksheet.Cells[incRowExcel, 3].Value = "Nominal";
-                                                    worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-                                                    worksheet.Cells[incRowExcel, 5].Value = "Value Date";
-                                                    worksheet.Cells[incRowExcel, 6].Value = "Maturity Date";
-                                                    worksheet.Cells[incRowExcel, 7].Value = "Amount";
-                                                }
-
-                                            }
-
-                                            //THICK BOX HEADER
-                                            worksheet.Cells["A" + incRowExcel + ":G" + incRowExcel].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["A" + incRowExcel + ":G" + incRowExcel].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["A" + incRowExcel + ":G" + incRowExcel].Style.Border.Left.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["A" + incRowExcel + ":G" + incRowExcel].Style.Border.Right.Style = ExcelBorderStyle.Medium;
-
-
-                                            string _range = "A" + incRowExcel + ":G" + incRowExcel;
-                                            using (ExcelRange r = worksheet.Cells[_range]) // KALO  KOLOM 1 SAMPE 9 A-I
-                                            {
-                                                //NILAINYA NGAMBIL DARI DEFAULT DI TOOLS, KLO MAU BEDA SENDIRI BOLEH2 AJA.
-                                                r.Style.Font.Color.SetColor(Tools.DefaultReportColumnHeaderFontColor());
-                                                r.Style.HorizontalAlignment = Tools.DefaultReportColumnHeaderHorizontalAlignment();
-                                                r.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                                r.Style.Fill.BackgroundColor.SetColor(Tools.DefaultReportColumnHeaderBackgroundColor());
-                                                r.Style.Font.Size = 14;
-                                                r.Style.Font.Bold = Tools.DefaultReportColumnHeaderFontBold();
-                                                //r.Style.Border.Top.Style = Tools.DefaultReportColumnHeaderBorderTop();
-                                                r.Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                                r.Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            }
-                                            incRowExcel++;
-                                            int _no = 1;
-
-                                            int _startRowDetail = incRowExcel;
-                                            int _endRowDetail = 0;
-
-
-
-                                            //end area header
-                                            foreach (var rsDetail in rsHeader)
-                                            {
-                                                _range = "A" + incRowExcel + ":G" + incRowExcel;
-                                                using (ExcelRange r = worksheet.Cells[_range]) // KALO  KOLOM 1 SAMPE 9 A-I
-                                                {
-                                                    r.Style.Font.Size = 14;
-                                                    r.Style.Border.Bottom.Style = ExcelBorderStyle.Dashed;
-                                                }
-                                                //area detail
-                                                if (rsHeader.Key.InstrumentType == "Equity Reguler")
-                                                {
-                                                    worksheet.Cells[incRowExcel, 1].Value = rsDetail.InvestmentPK;
-                                                    worksheet.Cells[incRowExcel, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                                    worksheet.Cells[incRowExcel, 2].Value = rsDetail.InstrumentID;
-                                                    worksheet.Cells[incRowExcel, 3].Style.Numberformat.Format = "#,##0";
-                                                    worksheet.Cells[incRowExcel, 3].Value = rsDetail.Volume;
-                                                    worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-                                                    worksheet.Cells[incRowExcel, 5].Value = rsDetail.RangePrice;
-                                                    worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "#,##0.0000";
-                                                    worksheet.Cells[incRowExcel, 6].Value = rsDetail.OrderPrice;
-                                                    worksheet.Cells[incRowExcel, 7].Style.Numberformat.Format = "#,##0";
-                                                    worksheet.Cells[incRowExcel, 7].Value = rsDetail.Amount;
-                                                }
-                                                else if (rsHeader.Key.InstrumentType == "Government Bond" || rsHeader.Key.InstrumentType == "Corporate Bond")
-                                                {
-                                                    worksheet.Cells[incRowExcel, 1].Value = rsDetail.InvestmentPK;
-                                                    worksheet.Cells[incRowExcel, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                                    worksheet.Cells[incRowExcel, 2].Value = rsDetail.InstrumentID;
-                                                    worksheet.Cells[incRowExcel, 3].Style.Numberformat.Format = "#,##0";
-                                                    worksheet.Cells[incRowExcel, 3].Value = rsDetail.Volume;
-                                                    worksheet.Cells[incRowExcel, 4].Value = rsDetail.RangePrice;
-                                                    worksheet.Cells[incRowExcel, 5].Style.Numberformat.Format = "#,##0.0000";
-                                                    worksheet.Cells[incRowExcel, 5].Value = rsDetail.OrderPrice;
-                                                    worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "#,##0.0000";
-                                                    worksheet.Cells[incRowExcel, 6].Value = rsDetail.InterestPercent;
-                                                    worksheet.Cells[incRowExcel, 6].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                                    worksheet.Cells[incRowExcel, 7].Style.Numberformat.Format = "#,##0";
-                                                    worksheet.Cells[incRowExcel, 7].Value = rsDetail.Amount;
-                                                }
-
-
-                                                else
-                                                {
-                                                    worksheet.Cells[incRowExcel, 1].Value = rsDetail.InvestmentPK;
-                                                    worksheet.Cells[incRowExcel, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                                    worksheet.Cells[incRowExcel, 2].Value = rsDetail.InstrumentID;
-                                                    worksheet.Cells[incRowExcel, 3].Style.Numberformat.Format = "#,##0";
-                                                    worksheet.Cells[incRowExcel, 3].Value = rsDetail.Volume;
-                                                    worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-
-                                                    if (rsHeader.Key.TrxTypeID == "LIQUIDATE" || rsHeader.Key.TrxTypeID == "ROLLOVER")
-                                                    {
-                                                        worksheet.Cells[incRowExcel, 5].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 5].Value = rsDetail.ValueDate;
-                                                        worksheet.Cells[incRowExcel, 5].Style.Numberformat.Format = "dd/MM/yyyy";
-                                                        worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 6].Value = rsDetail.MaturityDate;
-                                                        worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "dd/MM/yyyy";
-                                                        worksheet.Cells[incRowExcel, 7].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 7].Value = rsDetail.Amount;
-                                                    }
-                                                    else
-                                                    {
-                                                        worksheet.Cells[incRowExcel, 5].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 5].Value = rsDetail.ValueDate;
-                                                        worksheet.Cells[incRowExcel, 5].Style.Numberformat.Format = "dd/MM/yyyy";
-                                                        worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 6].Value = rsDetail.MaturityDate;
-                                                        worksheet.Cells[incRowExcel, 6].Style.Numberformat.Format = "dd/MM/yyyy";
-                                                        worksheet.Cells[incRowExcel, 7].Style.Numberformat.Format = "#,##0";
-                                                        worksheet.Cells[incRowExcel, 7].Value = rsDetail.Amount;
-                                                    }
-
-
-                                                }
-
-
-
-
-
-                                                _endRowDetail = incRowExcel;
-                                                _no++;
-                                                incRowExcel++;
-
-
-
-
-
-                                            }
-
-                                            _range = "A" + incRowExcel + ":G" + incRowExcel;
-                                            using (ExcelRange s = worksheet.Cells[_range]) // KALO  KOLOM 1 SAMPE 9 A-I
-                                            {
-                                                s.Style.Font.Size = 14;
-                                                s.Style.Border.Bottom.Style = ExcelBorderStyle.Dashed;
-                                            }
-
-                                            //THICK BOX DETAIL
-                                            _endRowDetail = incRowExcel - 1;
-                                            worksheet.Cells["A" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["A" + _startRowDetail + ":A" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["A" + _startRowDetail + ":A" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["A" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["B" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["B" + _startRowDetail + ":B" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["B" + _startRowDetail + ":B" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["B" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["C" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["C" + _startRowDetail + ":C" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["C" + _startRowDetail + ":C" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["C" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["D" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["D" + _startRowDetail + ":D" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["D" + _startRowDetail + ":D" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["D" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["E" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["E" + _startRowDetail + ":E" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["E" + _startRowDetail + ":E" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["E" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["F" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["F" + _startRowDetail + ":F" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["F" + _startRowDetail + ":F" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["F" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells["G" + _startRowDetail].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["G" + _startRowDetail + ":G" + _endRowDetail].Style.Border.Left.Style = ExcelBorderStyle.Dashed;
-                                            worksheet.Cells["G" + _startRowDetail + ":G" + _endRowDetail].Style.Border.Right.Style = ExcelBorderStyle.Medium;
-                                            worksheet.Cells["G" + _endRowDetail].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-
-                                            worksheet.Cells[incRowExcel, 2].Value = "Total :";
-                                            worksheet.Cells[incRowExcel, 3].Style.Numberformat.Format = "#,##0";
-                                            worksheet.Cells[incRowExcel, 3].Formula = "SUM(C" + _startRowDetail + ":C" + _endRowDetail + ")";
-                                            if (rsHeader.Key.InstrumentType != "BOND")
-                                            {
-                                                worksheet.Cells["C" + incRowExcel + ":D" + incRowExcel].Merge = true;
-                                            }
-                                            worksheet.Cells[incRowExcel, 7].Style.Numberformat.Format = "#,##0";
-                                            worksheet.Cells[incRowExcel, 7].Formula = "SUM(G" + _startRowDetail + ":G" + _endRowDetail + ")";
-                                            worksheet.Cells[incRowExcel, 3].Calculate();
-                                            worksheet.Cells[incRowExcel, 7].Calculate();
-
-                                            worksheet.Row(incRowExcel).PageBreak = _investmentRpt.PageBreak;
-                                            incRowExcel++;
-                                        }
-
-                                        incRowExcel = incRowExcel + 2;
-                                        worksheet.Cells[incRowExcel, 1].Value = "Notes :";
-                                        //worksheet.Cells[incRowExcel, 2].Value = _listing.Message;
-                                        worksheet.Cells[incRowExcel, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                                        worksheet.Cells[incRowExcel, 2].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                                        worksheet.Cells[incRowExcel, 2].Style.WrapText = true;
-
-                                        worksheet.Cells["B" + incRowExcel + ":G" + (incRowExcel + 7)].Merge = true;
-                                        int _rowNotes = incRowExcel + 10;
-                                        worksheet.Cells["B" + incRowExcel + ":G" + incRowExcel].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["B" + _rowNotes + ":G" + _rowNotes].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["B" + incRowExcel + ":B" + _rowNotes].Style.Border.Left.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["G" + incRowExcel + ":G" + _rowNotes].Style.Border.Right.Style = ExcelBorderStyle.Medium;
-                                        incRowExcel = incRowExcel + 13;
-
-                                        worksheet.Cells[incRowExcel, 1].Value = "Prepare By";
-                                        worksheet.Cells[incRowExcel, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                        worksheet.Cells["A" + incRowExcel + ":B" + incRowExcel].Merge = true;
-                                        worksheet.Cells[incRowExcel, 4].Value = "Approval";
-                                        worksheet.Cells[incRowExcel, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                        worksheet.Cells["D" + incRowExcel + ":E" + incRowExcel].Merge = true;
-                                        incRowExcel = incRowExcel + 5;
-                                        worksheet.Cells[incRowExcel, 1].Value = "(    ";
-                                        worksheet.Cells[incRowExcel, 3].Value = ")";
-                                        worksheet.Cells[incRowExcel, 4].Value = "(    ";
-                                        worksheet.Cells[incRowExcel, 6].Value = ")";
-                                        //worksheet.Row(incRowExcel).PageBreak = _listing.PageBreak;
-
-                                        string _rangeA = "A1:G" + incRowExcel;
-                                        using (ExcelRange r = worksheet.Cells[_rangeA]) // KALO  KOLOM 1 SAMPE 9 A-I
-                                        {
-                                            r.Style.Font.Size = 18;
-                                            r.Style.Font.Bold = Tools.DefaultReportColumnHeaderFontBold();
-                                        }
-
-                                        // BAGIAN INI DI EDIT MANUAL PER REPORT SESUAI KEBUTUHAN
-                                        worksheet.PrinterSettings.FitToPage = true;
-                                        worksheet.PrinterSettings.FitToWidth = 1;
-                                        worksheet.PrinterSettings.FitToHeight = 0;
-                                        worksheet.PrinterSettings.PrintArea = worksheet.Cells[1, 1, incRowExcel, 8];
-                                        worksheet.Column(1).AutoFit();
-                                        worksheet.Column(2).Width = 20;
-                                        worksheet.Column(3).Width = 25;
-                                        worksheet.Column(4).AutoFit();
-                                        worksheet.Column(5).AutoFit();
-                                        worksheet.Column(6).AutoFit();
-                                        worksheet.Column(7).AutoFit();
-                                        worksheet.PrinterSettings.Orientation = eOrientation.Portrait; // INI PER REPORT BEDA2 KEBUTUHANNYA JADI DI CEK WAKTU DESIGN REPORTNYA
-                                        // worksheet.PrinterSettings.RepeatRows = new ExcelAddress("1:1");// INI PERLU AGAR BARIS 1 MUNCUL TERUS WAKTU PRINT DI TIAP HALAMAN
-                                        // worksheet.PrinterSettings.FitToPage = true;
-                                        //worksheet.HeaderFooter.OddHeader.RightAlignedText = "&14 PAYMENT VOUCHER";
-                                        // BAGIAN INI BIASANYA AMBIL DARI DEFAULT SETTING DI TOOLS, TPI BISA DIUBAH SENDIRI SESUAI KEBUTUHAN PER REPORT
-                                        worksheet.PrinterSettings.TopMargin = Tools.DefaultReportTopMargin();
-                                        worksheet.PrinterSettings.PaperSize = Tools.DefaultReportPaperSize();
-                                        //worksheet.View.PageLayoutView = Tools.DefaultReportPageLayoutView();
-                                        worksheet.View.ShowGridLines = Tools.DefaultReportShowGridLines();
-                                        worksheet.HeaderFooter.OddHeader.CenteredText = "&34 INVESTMENT APPROVAL";
-                                        //worksheet.HeaderFooter.OddHeader.LeftAlignedText = Tools.DefaultReportHeaderLeftText();
-
-                                        worksheet.HeaderFooter.OddFooter.RightAlignedText =
-                                        string.Format("Page {0} of {1}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
-
-                                        //worksheet.HeaderFooter.OddFooter.CenteredText = Tools.DefaultReportFooterCenterText();
-                                        //worksheet.HeaderFooter.OddFooter.LeftAlignedText = Tools.DefaultReportFooterLeftText();
-
-                                        package.Save();
-                                        if (_investmentRpt.DownloadMode == "PDF")
-                                        {
-                                            Tools.ExportFromExcelToPDF(filePath, pdfPath);
-                                        }
-                                        return true;
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception err)
-                {
-                    return false;
-                    throw err;
-                }
-
-            }
-            #endregion
-
-
-
-
-
+            
 
             #region Dealing Listing
             if (_investmentRpt.ReportName.Equals("Dealing Listing"))
@@ -2548,7 +2095,67 @@ INI PERUBAHAN KE 2 DARI PC
             }
         }
 
+ // SETUP EXCEL FILENYA DAN KASI NILAI KE PROPERTIES
+                                    using (ExcelPackage package = new ExcelPackage(excelFile))
+                                    {
+                                        package.Workbook.Properties.Title = "InvestmentReport";
+                                        package.Workbook.Properties.Author = Tools.DefaultReportAuthor();
+                                        package.Workbook.Properties.Comments = Tools.DefaultReportComments();
+                                        package.Workbook.Properties.Company = Tools.DefaultReportCompany();
+                                        package.Workbook.Properties.SetCustomPropertyValue("Checked by", _userID);
+                                        package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", Tools.DefaultReportAssemblyName());
 
+                                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Dealing Listing");
+
+
+                                        //ATUR DATA GROUPINGNYA DULU
+                                        List<InvestmentListing> rList = new List<InvestmentListing>();
+                                        while (dr0.Read())
+                                        {
+                                            InvestmentListing rSingle = new InvestmentListing();
+                                            rSingle.ValueDate = Convert.ToDateTime(dr0["ValueDate"]);
+                                            rSingle.FundID = Convert.ToString(dr0["FundID"]);
+                                            rSingle.InstrumentType = Convert.ToString(dr0["InstrumentType"]);
+                                            rSingle.InstrumentID = Convert.ToString(dr0["InstrumentID"]);
+                                            rSingle.InstrumentName = Convert.ToString(dr0["InstrumentName"]);
+                                            rSingle.TrxTypeID = Convert.ToString(dr0["TrxTypeID"]);
+                                            rSingle.InvestmentPK = Convert.ToInt32(dr0["InvestmentPK"]);
+                                            rSingle.DealingPK = Convert.ToInt32(dr0["DealingPK"]);
+                                            if (rSingle.InstrumentType != "Deposito Money Market")
+                                            {
+                                                rSingle.DoneVolume = Convert.ToDecimal(dr0["DoneVolume"]);
+                                                rSingle.OrderPrice = Convert.ToDecimal(dr0["OrderPrice"]);
+                                                rSingle.DonePrice = Convert.ToDecimal(dr0["DonePrice"]);
+                                                rSingle.InterestPercent = Convert.ToDecimal(dr0["InterestPercent"]);
+
+                                            }
+                                            else
+                                            {
+                                                rSingle.DoneVolume = Convert.ToDecimal(dr0["DoneVolume"]);
+                                                rSingle.MaturityDate = Convert.ToDateTime(dr0["MaturityDate"]);
+                                                if (rSingle.TrxTypeID != "PLACEMENT")
+                                                {
+                                                    rSingle.AcqDateDeposito = Convert.ToDateTime(dr0["AcqDate"]);
+                                                }
+                                            }
+                                            rSingle.DoneAmount = Convert.ToDecimal(dr0["DoneAmount"]);
+                                            rSingle.Notes = Convert.ToString(dr0["Notes"]);
+                                            rSingle.InterestPercent = Convert.ToDecimal(dr0["InterestPercent"]);
+                                            rSingle.CounterpartID = Convert.ToString(dr0["CounterpartID"]);
+
+                                            rList.Add(rSingle);
+
+                                        }
+
+                                        var GroupByFundID =
+                                             from r in rList
+                                             orderby r.ValueDate, r.FundID, r.InstrumentType
+                                             group r by new { r.ValueDate, r.FundID, r.InstrumentType, r.TrxTypeID } into rGroup
+                                             select rGroup;
+
+
+
+                                        int incRowExcel = 1;
 
 
 
