@@ -76,7 +76,7 @@ namespace RFSRepository
         public const string _sinvestH2HUrl = "https://10.112.6.105:443";
         // 
         public const string _urlResetPassword = "http://localhost:17050";
-        public const string ClientCode = "03";
+        public const string ClientCode = "20";
         public const string _fxdPathAutoNAV = "\\\\10.74.2.38\\temp\\FXD11.txt"; 
 
 
@@ -88,7 +88,7 @@ namespace RFSRepository
         public const string Path = "D:\\RADSOFT\\CORE"; 
         //public const string Path = "D:\\Radsoft\\RFS\\LAST SOURCE\\CORE";
         //public const string conString = "Data Source=DESKTOP-EUFV9MN\\MSSQLSERVER01;Initial Catalog=RFS_INSIGHT;Persist Security Info=True;Integrated Security=SSPI"; //AZIZ SETTING
-        public const string conString = "Data Source=.;Initial Catalog=RFS_INSIGHT;Persist Security Info=True;User ID=sa;Password=as";
+        public const string conString = "Data Source=.;Initial Catalog=RFS_NIKKO;Persist Security Info=True;User ID=sa;Password=as";
 
 
         //ini diamin aja gpp, untuk setting bukalapak mandiri

@@ -19468,6 +19468,7 @@ select ResultText from #Text
 																worksheet.Column(12).Width = 25;
 																worksheet.Column(13).Width = 25;
 																worksheet.Column(14).Width = 25;
+																worksheet.Column(15).Width = 25;
 																string _range = "A" + incRowExcel + ":O" + incRowExcel;
 
 																using (ExcelRange r = worksheet.Cells[_range]) // KALO  KOLOM 1 SAMPE 9 A-I
@@ -19677,6 +19678,7 @@ select ResultText from #Text
 
 
 
+
 																//end area header
 																foreach (var rsDetail in rsHeader1)
 																{
@@ -19786,7 +19788,9 @@ select ResultText from #Text
 
 
 
+
 																	_endRowDetail = incRowExcel;
+																	_totalRowDetail = _endRowDetail + 1;
 																	_no++;
 																	incRowExcel++;
 
@@ -19801,12 +19805,13 @@ select ResultText from #Text
 																	worksheet.Cells[incRowExcel, 8].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 10].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 11].Style.Numberformat.Format = "#,##0.00";
+																	//worksheet.Cells[incRowExcel, 12].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 13].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 5].Formula = "SUM(E" + _startRowDetail + ":E" + _endRowDetail + ")";
 																	worksheet.Cells[incRowExcel, 8].Formula = "SUM(H" + _startRowDetail + ":H" + _endRowDetail + ")";
 																	worksheet.Cells[incRowExcel, 10].Formula = "SUM(J" + _startRowDetail + ":J" + _endRowDetail + ")";
 																	worksheet.Cells[incRowExcel, 11].Formula = "SUM(K" + _startRowDetail + ":K" + _endRowDetail + ")";
-																	worksheet.Cells[incRowExcel, 12].Formula = "SUM(L" + _startRowDetail + ":L" + _endRowDetail + ")";
+																	//worksheet.Cells[incRowExcel, 12].Formula = "SUM(L" + _startRowDetail + ":L" + _endRowDetail + ")";
 																	//worksheet.Cells[incRowExcel, 12].Formula = "K" + _endRowDetail + "/H" + _endRowDetail;
 																	worksheet.Cells[incRowExcel, 12].Formula = "=(K" + _totalRowDetail + "/H" + _totalRowDetail + ")" + "*" + 100;
 																	worksheet.Cells[incRowExcel, 13].Formula = "SUM(M" + _startRowDetail + ":M" + _endRowDetail + ")";
@@ -19845,6 +19850,7 @@ select ResultText from #Text
 																	worksheet.Cells[incRowExcel, 10].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 12].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 13].Style.Numberformat.Format = "#,##0.00";
+																	//worksheet.Cells[incRowExcel, 14].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 15].Style.Numberformat.Format = "#,##0.00";
 																	worksheet.Cells[incRowExcel, 5].Formula = "SUM(E" + _startRowDetail + ":E" + _endRowDetail + ")";
 																	worksheet.Cells[incRowExcel, 10].Formula = "SUM(J" + _startRowDetail + ":J" + _endRowDetail + ")";

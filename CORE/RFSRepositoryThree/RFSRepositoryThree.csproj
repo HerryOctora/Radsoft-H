@@ -37,16 +37,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\..\..\..\DLL\EPPlus.dll</HintPath>
+      <HintPath>C:\Users\Aziz\Dropbox\SOURCE_NEW\DLL\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="ExcelFinancialFunctions">
-      <HintPath>..\..\..\..\DLL\ExcelFinancialFunctions.dll</HintPath>
+      <HintPath>C:\Users\Aziz\Dropbox\SOURCE_NEW\DLL\ExcelFinancialFunctions.dll</HintPath>
     </Reference>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\..\..\..\DLL\FSharp.Core.dll</HintPath>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Aziz\Dropbox\SOURCE_NEW\DLL\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\DLL\RestSharp.dll</HintPath>
+      <HintPath>C:\DLL\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

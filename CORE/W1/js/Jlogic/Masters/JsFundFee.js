@@ -345,8 +345,8 @@
             $("#FeeTypeSwitching").val(dataItemX.FeeTypeSwitching);
             $("#DateOfPayment").val(dataItemX.DateOfPayment);
             $("#ValueDate").data("kendoDatePicker").value(dataItemX.Date);
-            $("#BitActDivDays").prop('checked', dataItemX.BitActDivDays);
-            $("#TaxInterestDeposit").prop('checked', dataItemX.TaxInterestDeposit);
+            $("#BitActDivDays").prop('checked', true, dataItemX.BitActDivDays);
+            $("#TaxInterestDeposit").prop('checked', true, dataItemX.TaxInterestDeposit);
 
             //$("#BitMaxRangeTo").prop('checked', dataItemX.BitMaxRangeTo);
             $('#BitMaxRangeTo').change(function () {
