@@ -43,16 +43,9 @@ namespace RFSRepository
                             {
                                 _paramFund = "";
                             }
-                            cmd.CommandText = @" Select Reference, cast(substring(reference,1,charindex('/',reference,1) - 1) as integer) RefNo,IV.valueDate,I.ID InstrumentID, I.Name InstrumentName,  
-                                              F.ID FundID,IT.Name InstrumentType,IV.InvestmentPK,IV.Volume,IV.OrderPrice,IV.InterestPercent,IV.TrxTypeID,  
-                                              IV.Amount,IV.Notes, IV.RangePrice, IV.*   
-                                              from Investment IV      
-                                              left join Fund F on IV.FundPK = F.FundPK and F.status = 2    
-                                              left join Instrument I on IV.InstrumentPK = I.InstrumentPK and I.status = 2     
-                                              left join InstrumentType IT on IV.InstrumentTypePK = IT.InstrumentTypePK and IT.status = 2     
-                                              left join MasterValue MV on IV.InstrumentTypePK = MV.Code and MV.Status = 2 and MV.ID = 'InstrumentType'     
-                                              Where  IV.ValueDate between @ValueDateFrom and @ValueDateTo and IV.StatusInvestment = 2 and IV.InvestmentPK <> 0 and (IV.StatusDealing not in (3,4)) and (IV.StatusSettlement not in (3,4)) 
-                                              " + _paramFund + @"  order by IV.valueDate ";
+                            cmd.CommandText = @" 
+Select * from perubahan dari VM
+";
 
 
                             cmd.Parameters.AddWithValue("@ValueDateFrom", _investmentRpt.ValueDateFrom);
@@ -479,6 +472,11 @@ namespace RFSRepository
 
             }
             #endregion
+
+
+
+
+
 
             #region Dealing Listing
             if (_investmentRpt.ReportName.Equals("Dealing Listing"))
@@ -957,6 +955,11 @@ INI PERUBAHAN KE 2 DARI PC
 
             }
             #endregion
+
+
+
+
+
 
             #region Settlement Listing
             if (_investmentRpt.ReportName.Equals("Settlement Listing"))
