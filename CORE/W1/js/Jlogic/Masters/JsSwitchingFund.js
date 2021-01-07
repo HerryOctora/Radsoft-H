@@ -12,6 +12,15 @@
     //3
     initGrid();
 
+    if (_GlobClientCode == "10") {
+        $("#LblType").show();
+
+    }
+    else {
+        $("#LblType").hide();
+
+    }
+
     function initButton() {
         $("#BtnCancel").kendoButton({
             imageUrl: "../../Images/Icon/IcBtnClose.png"
@@ -159,6 +168,34 @@
             $("#VoidTime").val(kendo.toString(kendo.parseDate(dataItemX.VoidTime), 'dd/MMM/yyyy HH:mm:ss'));
             $("#LastUpdate").val(kendo.toString(kendo.parseDate(dataItemX.LastUpdate), 'dd/MMM/yyyy HH:mm:ss'));
         }
+
+        $("#Type").kendoComboBox({
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: [
+                { text: "APERD", value: 1 },
+                { text: "Non-APERD", value: 2 }
+            ],
+            filter: "contains",
+            suggest: true,
+            change: OnChangeType,
+            value: setCmbType()
+        });
+        function OnChangeType() {
+            if (this.value() && this.selectedIndex == -1) {
+                var dt = this.dataSource._data[0];
+                this.text('');
+            }
+        }
+
+        function setCmbType() {
+            if (e == null) {
+                return 1;
+            } else {
+                return dataItemX.Type;
+            }
+        }
+
         //combo box FundFromPK
         $.ajax({
             url: window.location.origin + "/Radsoft/Fund/GetFundCombo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
@@ -259,6 +296,7 @@
         $("#Notes").val("");
         $("#FundFromPK").val("");
         $("#FundToPK").val("");
+        $("#Type").val("");
         $("#EntryUsersID").val("");
         $("#UpdateUsersID").val("");
         $("#ApprovedUsersID").val("");
@@ -281,48 +319,50 @@
 
     function getDataSource(_url) {
         return new kendo.data.DataSource(
-             {
-                 transport:
-                         {
-                             read:
-                                 {
-                                     url: _url,
-                                     dataType: "json"
-                                 }
-                         },
-                 batch: true,
-                 cache: false,
-                 error: function (e) {
-                     alert(e.errorThrown + " - " + e.xhr.responseText);
-                     this.cancelChanges();
-                 },
-                 pageSize: 100,
-                 schema: {
-                     model: {
-                         fields: {
-                             SwitchingFundPK: { type: "number" },
-                             HistoryPK: { type: "number" },
-                             Status: { type: "number" },
-                             StatusDesc: { type: "string" },
-                             Notes: { type: "string" },
-                             FundFromPK: { type: "number" },
-                             FundFromID: { type: "string" },
-                             FundToPK: { type: "number" },
-                             FundToID: { type: "string" },
-                             EntryUsersID: { type: "string" },
-                             EntryTime: { type: "date" },
-                             UpdateUsersID: { type: "string" },
-                             UpdateTime: { type: "date" },
-                             ApprovedUsersID: { type: "string" },
-                             ApprovedTime: { type: "date" },
-                             VoidUsersID: { type: "string" },
-                             VoidTime: { type: "date" },
-                             LastUpdate: { type: "date" },
-                             Timestamp: { type: "string" }
-                         }
-                     }
-                 }
-             });
+            {
+                transport:
+                {
+                    read:
+                    {
+                        url: _url,
+                        dataType: "json"
+                    }
+                },
+                batch: true,
+                cache: false,
+                error: function (e) {
+                    alert(e.errorThrown + " - " + e.xhr.responseText);
+                    this.cancelChanges();
+                },
+                pageSize: 100,
+                schema: {
+                    model: {
+                        fields: {
+                            SwitchingFundPK: { type: "number" },
+                            HistoryPK: { type: "number" },
+                            Status: { type: "number" },
+                            StatusDesc: { type: "string" },
+                            Notes: { type: "string" },
+                            FundFromPK: { type: "number" },
+                            FundFromID: { type: "string" },
+                            FundToPK: { type: "number" },
+                            FundToID: { type: "string" },
+                            Type: { type: "number" },
+                            TypeDesc: { type: "string" },
+                            EntryUsersID: { type: "string" },
+                            EntryTime: { type: "date" },
+                            UpdateUsersID: { type: "string" },
+                            UpdateTime: { type: "date" },
+                            ApprovedUsersID: { type: "string" },
+                            ApprovedTime: { type: "date" },
+                            VoidUsersID: { type: "string" },
+                            VoidTime: { type: "date" },
+                            LastUpdate: { type: "date" },
+                            Timestamp: { type: "string" }
+                        }
+                    }
+                }
+            });
     }
 
     function refresh() {
@@ -342,47 +382,97 @@
 
     function initGrid() {
         var SwitchingFundApprovedURL = window.location.origin + "/Radsoft/SwitchingFund/GetData/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + 2,
-          dataSourceApproved = getDataSource(SwitchingFundApprovedURL);
+            dataSourceApproved = getDataSource(SwitchingFundApprovedURL);
 
-        $("#gridSwitchingFundApproved").kendoGrid({
-            dataSource: dataSourceApproved,
-            height: gridHeight,
-            scrollable: {
-                virtual: true
-            },
-            groupable: {
-                messages: {
-                    empty: "Form Switching Fund"
-                }
-            },
-            filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
-            columnMenu: false,
-            pageable: {
-                input: true,
-                numeric: false
-            },
-            reorderable: true,
-            sortable: true,
-            resizable: true,
-            toolbar: ["excel"],
-            columns: [
-                { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
-                { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
-                { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
-                { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
-                { field: "FundFromID", title: "Fund From", width: 300 },
-                { field: "FundToID", title: "Fund To", width: 300 },
-                { field: "EntryUsersID", title: "Entry ID", width: 200 },
-                { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                { field: "UpdateUsersID", title: "UpdateID", width: 200 },
-                { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
-                { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                { field: "VoidUsersID", title: "VoidID", width: 200 },
-                { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
-            ]
-        });
+        if (_GlobClientCode == '10') {
+            $("#gridSwitchingFundApproved").kendoGrid({
+                dataSource: dataSourceApproved,
+                height: gridHeight,
+                scrollable: {
+                    virtual: true
+                },
+                groupable: {
+                    messages: {
+                        empty: "Form Switching Fund"
+                    }
+                },
+                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                columnMenu: false,
+                pageable: {
+                    input: true,
+                    numeric: false
+                },
+                reorderable: true,
+                sortable: true,
+                resizable: true,
+                toolbar: ["excel"],
+                columns: [
+                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                    { field: "FundFromID", title: "Fund From", width: 300 },
+                    { field: "FundToID", title: "Fund To", width: 300 },
+                    { field: "Type", title: "Type", hidden: true, width: 200 },
+                    { field: "TypeDesc", title: "Type", width: 200 },
+                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+                ]
+            });
+
+        } else {
+            $("#gridSwitchingFundApproved").kendoGrid({
+                dataSource: dataSourceApproved,
+                height: gridHeight,
+                scrollable: {
+                    virtual: true
+                },
+                groupable: {
+                    messages: {
+                        empty: "Form Switching Fund"
+                    }
+                },
+                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                columnMenu: false,
+                pageable: {
+                    input: true,
+                    numeric: false
+                },
+                reorderable: true,
+                sortable: true,
+                resizable: true,
+                toolbar: ["excel"],
+                columns: [
+                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                    { field: "FundFromID", title: "Fund From", width: 300 },
+                    { field: "FundToID", title: "Fund To", width: 300 },
+                    //{ field: "Type", title: "Type", hidden: true, width: 200 },
+                    //{ field: "TypeDesc", title: "Type", width: 200 },
+                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+                ]
+            });
+
+
+        }
+
 
         //load data pada saat mengganti tab
         var loadedTabs = [0];
@@ -399,94 +489,202 @@
 
                     if (tabindex == 1) {
                         var SwitchingFundPendingURL = window.location.origin + "/Radsoft/SwitchingFund/GetData/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + 1,
-                        dataSourcePending = getDataSource(SwitchingFundPendingURL);
-                        $("#gridSwitchingFundPending").kendoGrid({
-                            dataSource: dataSourcePending,
-                            height: gridHeight,
-                            scrollable: {
-                                virtual: true
-                            },
-                            groupable: {
-                                messages: {
-                                    empty: "Form Switching Fund"
-                                }
-                            },
-                            filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
-                            columnMenu: false,
-                            pageable: {
-                                input: true,
-                                numeric: false
-                            },
-                            reorderable: true,
-                            sortable: true,
-                            resizable: true,
-                            toolbar: ["excel"],
-                            columns: [
-                                { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
-                                { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
-                                { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
-                                { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
-                                { field: "FundFromID", title: "Fund From", width: 300 },
-                                { field: "FundToID", title: "Fund To", width: 300 },
-                                { field: "EntryUsersID", title: "Entry ID", width: 200 },
-                                { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "UpdateUsersID", title: "UpdateID", width: 200 },
-                                { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
-                                { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "VoidUsersID", title: "VoidID", width: 200 },
-                                { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
-                            ]
-                        });
+                            dataSourcePending = getDataSource(SwitchingFundPendingURL);
+
+                        if (_GlobClientCode == '10') {
+                            $("#gridSwitchingFundPending").kendoGrid({
+                                dataSource: dataSourcePending,
+                                height: gridHeight,
+                                scrollable: {
+                                    virtual: true
+                                },
+                                groupable: {
+                                    messages: {
+                                        empty: "Form Switching Fund"
+                                    }
+                                },
+                                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                                columnMenu: false,
+                                pageable: {
+                                    input: true,
+                                    numeric: false
+                                },
+                                reorderable: true,
+                                sortable: true,
+                                resizable: true,
+                                toolbar: ["excel"],
+                                columns: [
+                                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                                    { field: "FundFromID", title: "Fund From", width: 300 },
+                                    { field: "FundToID", title: "Fund To", width: 300 },
+                                    //{ field: "Type", title: "Type", width: 300 },
+                                    //{ field: "Type", title: "Type", width: 200, template: "#= Type ? 'APERD' : 'Non-APERD' #" },
+                                    { field: "Type", title: "Type", hidden: true, width: 200 },
+                                    { field: "TypeDesc", title: "Type", width: 200 },
+                                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+                                ]
+                            });
+
+                        } else {
+                            $("#gridSwitchingFundPending").kendoGrid({
+                                dataSource: dataSourcePending,
+                                height: gridHeight,
+                                scrollable: {
+                                    virtual: true
+                                },
+                                groupable: {
+                                    messages: {
+                                        empty: "Form Switching Fund"
+                                    }
+                                },
+                                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                                columnMenu: false,
+                                pageable: {
+                                    input: true,
+                                    numeric: false
+                                },
+                                reorderable: true,
+                                sortable: true,
+                                resizable: true,
+                                toolbar: ["excel"],
+                                columns: [
+                                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                                    { field: "FundFromID", title: "Fund From", width: 300 },
+                                    { field: "FundToID", title: "Fund To", width: 300 },
+                                    //{ field: "Type", title: "Type", width: 300 },
+                                    //{ field: "Type", title: "Type", width: 200, template: "#= Type ? 'APERD' : 'Non-APERD' #" },
+                                    //{ field: "Type", title: "Type", hidden: true, width: 200 },
+                                    //{ field: "TypeDesc", title: "Type", width: 200 },
+                                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+                                ]
+                            });
+
+                        }
+
                     }
                     if (tabindex == 2) {
 
                         var SwitchingFundHistoryURL = window.location.origin + "/Radsoft/SwitchingFund/GetData/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id") + "/" + 9,
-                          dataSourceHistory = getDataSource(SwitchingFundHistoryURL);
+                            dataSourceHistory = getDataSource(SwitchingFundHistoryURL);
 
-                        $("#gridSwitchingFundHistory").kendoGrid({
-                            dataSource: dataSourceHistory,
-                            height: gridHeight,
-                            scrollable: {
-                                virtual: true
-                            },
-                            groupable: {
-                                messages: {
-                                    empty: "Form Switching Fund"
-                                }
-                            },
-                            filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
-                            columnMenu: false,
-                            pageable: {
-                                input: true,
-                                numeric: false
-                            },
-                            reorderable: true,
-                            sortable: true,
-                            resizable: true,
-                            dataBound: gridHistoryDataBound,
-                            toolbar: ["excel"],
-                            columns: [
-                                { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
-                                { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
-                                { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
-                                { field: "StatusDesc", title: "Status", width: 200 },
-                                { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
-                                { field: "FundFromID", title: "Fund From", width: 300 },
-                                { field: "FundToID", title: "Fund To", width: 300 },
-                                { field: "EntryUsersID", title: "Entry ID", width: 200 },
-                                { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "UpdateUsersID", title: "UpdateID", width: 200 },
-                                { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
-                                { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
-                                { field: "VoidUsersID", title: "VoidID", width: 200 },
-                                { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
 
-                            ]
-                        });
+                        if (_GlobClientCode == '10') {
+                            $("#gridSwitchingFundHistory").kendoGrid({
+                                dataSource: dataSourceHistory,
+                                height: gridHeight,
+                                scrollable: {
+                                    virtual: true
+                                },
+                                groupable: {
+                                    messages: {
+                                        empty: "Form Switching Fund"
+                                    }
+                                },
+                                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                                columnMenu: false,
+                                pageable: {
+                                    input: true,
+                                    numeric: false
+                                },
+                                reorderable: true,
+                                sortable: true,
+                                resizable: true,
+                                dataBound: gridHistoryDataBound,
+                                toolbar: ["excel"],
+                                columns: [
+                                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                                    { field: "StatusDesc", title: "Status", width: 200 },
+                                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                                    { field: "FundFromID", title: "Fund From", width: 300 },
+                                    { field: "FundToID", title: "Fund To", width: 300 },
+                                    { field: "Type", title: "Type", hidden: true, width: 200 },
+                                    { field: "TypeDesc", title: "Type", width: 200 },
+                                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+
+                                ]
+                            });
+
+
+                        } else {
+                            $("#gridSwitchingFundHistory").kendoGrid({
+                                dataSource: dataSourceHistory,
+                                height: gridHeight,
+                                scrollable: {
+                                    virtual: true
+                                },
+                                groupable: {
+                                    messages: {
+                                        empty: "Form Switching Fund"
+                                    }
+                                },
+                                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                                columnMenu: false,
+                                pageable: {
+                                    input: true,
+                                    numeric: false
+                                },
+                                reorderable: true,
+                                sortable: true,
+                                resizable: true,
+                                dataBound: gridHistoryDataBound,
+                                toolbar: ["excel"],
+                                columns: [
+                                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "SwitchingFundPK", title: "SysNo.", width: 95 },
+                                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 120 },
+                                    { field: "StatusDesc", title: "Status", width: 200 },
+                                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 120 },
+                                    { field: "FundFromID", title: "Fund From", width: 300 },
+                                    { field: "FundToID", title: "Fund To", width: 300 },
+                                    //{ field: "Type", title: "Type", hidden: true, width: 200 },
+                                    //{ field: "TypeDesc", title: "Type", width: 200 },
+                                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 },
+                                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 180 }
+
+                                ]
+                            });
+
+                        }
+
                     }
                 } else {
                     refresh();
@@ -533,12 +731,13 @@
     $("#BtnAdd").click(function () {
         var val = validateData();
         if (val == 1) {
-            
+
             alertify.confirm("Are you sure want to Add data?", function (e) {
                 if (e) {
                     var SwitchingFund = {
                         FundFromPK: $('#FundFromPK').val(),
                         FundToPK: $('#FundToPK').val(),
+                        Type: $('#Type').val(),
                         EntryUsersID: sessionStorage.getItem("user")
                     };
                     $.ajax({
@@ -564,8 +763,8 @@
     $("#BtnUpdate").click(function () {
         var val = validateData();
         if (val == 1) {
-            
-            alertify.prompt("Are you sure want to Update, please give notes:","", function (e, str) {
+
+            alertify.prompt("Are you sure want to Update, please give notes:", "", function (e, str) {
                 if (e) {
                     $.ajax({
                         url: window.location.origin + "/Radsoft/Host/GetLastUpdate/" + sessionStorage.getItem("user") + "/" + $("#SwitchingFundPK").val() + "/" + $("#HistoryPK").val() + "/" + "SwitchingFund",
@@ -579,6 +778,7 @@
                                     HistoryPK: $('#HistoryPK').val(),
                                     FundFromPK: $('#FundFromPK').val(),
                                     FundToPK: $('#FundToPK').val(),
+                                    Type: $('#Type').val(),
                                     Notes: str,
                                     EntryUsersID: sessionStorage.getItem("user")
                                 };

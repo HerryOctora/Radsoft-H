@@ -15,8 +15,8 @@ namespace RFSRepository
 
         //1
         string _insertCommand = "INSERT INTO [dbo].[SwitchingFund] " +
-                            "([SwitchingFundPK],[HistoryPK],[Status],[FundFromPK],[FundToPK],";
-        string _paramaterCommand = "@FundFromPK,@FundToPK,";
+                            "([SwitchingFundPK],[HistoryPK],[Status],[FundFromPK],[FundToPK],[Type],";
+        string _paramaterCommand = "@FundFromPK,@FundToPK,@Type,";
 
 
 
@@ -34,6 +34,8 @@ namespace RFSRepository
             M_SwitchingFund.FundFromID = Convert.ToString(dr["FundFromID"]);
             M_SwitchingFund.FundToPK = Convert.ToInt32(dr["FundToPK"]);
             M_SwitchingFund.FundToID = Convert.ToString(dr["FundToID"]);
+            M_SwitchingFund.Type = Convert.ToInt32(dr["Type"]);
+            M_SwitchingFund.TypeDesc = dr["TypeDesc"].ToString();
             M_SwitchingFund.EntryUsersID = dr["EntryUsersID"].ToString();
             M_SwitchingFund.UpdateUsersID = dr["UpdateUsersID"].ToString();
             M_SwitchingFund.ApprovedUsersID = dr["ApprovedUsersID"].ToString();
@@ -65,7 +67,8 @@ namespace RFSRepository
                         if (_status != 9)
                         {
                             cmd.CommandText = @"Select case when A.status=1 then 'PENDING' else Case When A.status = 2 then 'APPROVED' else Case when A.Status = 3 then 'VOID' else 'WAITING' END END END 
-                            StatusDesc,B.FundPK FundFromPK, B.Name FundFromID, C.FundPK FundToPK, C.Name FundToID, * from SwitchingFund A
+                            StatusDesc,B.FundPK FundFromPK, B.Name FundFromID, C.FundPK FundToPK, C.Name FundToID, 
+							case when A.Type = 1 then 'APERD' else 'Non-APERD'  end TypeDesc,* from SwitchingFund A
                             left join Fund B on A.FundFromPK = B.FundPK and B.Status = 2
                             left join Fund C on A.FundToPK = C.FundPK and C.Status = 2
                             where A.status = @status";
@@ -75,7 +78,8 @@ namespace RFSRepository
                         {
 
                             cmd.CommandText = @"Select case when A.status=1 then 'PENDING' else Case When A.status = 2 then 'APPROVED' else Case when A.Status = 3 then 'VOID' else 'WAITING' END END END 
-                            StatusDesc,B.FundPK FundFromPK, B.Name FundFromID, C.FundPK FundToPK, C.Name FundToID, * from SwitchingFund A
+                            StatusDesc,B.FundPK FundFromPK, B.Name FundFromID, C.FundPK FundToPK, C.Name FundToID, 
+							case when A.Type = 1 then 'APERD' else 'Non-APERD'  end TypeDesc,* from SwitchingFund A
                             left join Fund B on A.FundFromPK = B.FundPK and B.Status = 2
                             left join Fund C on A.FundToPK = C.FundPK and C.Status = 2";
                         }
@@ -126,6 +130,7 @@ namespace RFSRepository
                         cmd.Parameters.AddWithValue("@status", _havePrivillege ? 2 : 1);
                         cmd.Parameters.AddWithValue("@FundFromPK", _SwitchingFund.FundFromPK);
                         cmd.Parameters.AddWithValue("@FundToPK", _SwitchingFund.FundToPK);
+                        cmd.Parameters.AddWithValue("@Type", _SwitchingFund.Type);
                         cmd.Parameters.AddWithValue("@EntryUsersID", _SwitchingFund.EntryUsersID);
                         cmd.Parameters.AddWithValue("@EntryTime", _datetimeNow);
                         cmd.Parameters.AddWithValue("@LastUpdate", _datetimeNow);
@@ -157,7 +162,7 @@ namespace RFSRepository
                     {
                         using (SqlCommand cmd = DbCon.CreateCommand())
                         {
-                            cmd.CommandText = "Update SwitchingFund set status=2, Notes=@Notes,FundFromPK=@FundFromPK,FundToPK=@FundToPK,ApprovedUsersID=@ApprovedUsersID, " +
+                            cmd.CommandText = "Update SwitchingFund set status=2, Notes=@Notes,FundFromPK=@FundFromPK,FundToPK=@FundToPK,Type=@Type,ApprovedUsersID=@ApprovedUsersID, " +
                                 "ApprovedTime=@ApprovedTime,UpdateUsersID=@UpdateUsersID,Updatetime=@Updatetime,LastUpdate=@lastupdate " +
                                 "where SwitchingFundPK = @PK and historyPK = @HistoryPK";
                             cmd.Parameters.AddWithValue("@HistoryPK", _SwitchingFund.HistoryPK);
@@ -165,6 +170,7 @@ namespace RFSRepository
                             cmd.Parameters.AddWithValue("@Notes", _SwitchingFund.Notes);
                             cmd.Parameters.AddWithValue("@FundFromPK", _SwitchingFund.FundFromPK);
                             cmd.Parameters.AddWithValue("@FundToPK", _SwitchingFund.FundToPK);
+                            cmd.Parameters.AddWithValue("@Type", _SwitchingFund.Type);
                             cmd.Parameters.AddWithValue("@UpdateUsersID", _SwitchingFund.EntryUsersID);
                             cmd.Parameters.AddWithValue("@Updatetime", _datetimeNow);
                             cmd.Parameters.AddWithValue("@ApprovedUsersID", _SwitchingFund.EntryUsersID);
@@ -190,7 +196,7 @@ namespace RFSRepository
                         {
                             using (SqlCommand cmd = DbCon.CreateCommand())
                             {
-                                cmd.CommandText = "Update SwitchingFund set Notes=@Notes,FundFromPK=@FundFromPK,FundToPK=@FundToPK," +
+                                cmd.CommandText = "Update SwitchingFund set Notes=@Notes,FundFromPK=@FundFromPK,FundToPK=@FundToPK,Type=@Type," +
                                 "UpdateUsersID=@UpdateUsersID,Updatetime=@Updatetime,LastUpdate=@lastupdate " +
                                 "where SwitchingFundPK = @PK and historyPK = @HistoryPK";
                                 cmd.Parameters.AddWithValue("@HistoryPK", _SwitchingFund.HistoryPK);
@@ -198,6 +204,7 @@ namespace RFSRepository
                                 cmd.Parameters.AddWithValue("@Notes", _SwitchingFund.Notes);
                                 cmd.Parameters.AddWithValue("@FundFromPK", _SwitchingFund.FundFromPK);
                                 cmd.Parameters.AddWithValue("@FundToPK", _SwitchingFund.FundToPK);
+                                cmd.Parameters.AddWithValue("@Type", _SwitchingFund.Type);
                                 cmd.Parameters.AddWithValue("@UpdateUsersID", _SwitchingFund.EntryUsersID);
                                 cmd.Parameters.AddWithValue("@Updatetime", _datetimeNow);
                                 cmd.Parameters.AddWithValue("@LastUpdate", _datetimeNow);
@@ -220,6 +227,7 @@ namespace RFSRepository
                                 cmd.Parameters.AddWithValue("@NewHistoryPK", _newHisPK);
                                 cmd.Parameters.AddWithValue("@FundFromPK", _SwitchingFund.FundFromPK);
                                 cmd.Parameters.AddWithValue("@FundToPK", _SwitchingFund.FundToPK);
+                                cmd.Parameters.AddWithValue("@Type", _SwitchingFund.Type);
                                 cmd.Parameters.AddWithValue("@UpdateUsersID", _SwitchingFund.EntryUsersID);
                                 cmd.Parameters.AddWithValue("@UpdateTime", _datetimeNow);
                                 cmd.Parameters.AddWithValue("@LastUpdate", _datetimeNow);

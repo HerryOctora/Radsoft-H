@@ -16,6 +16,8 @@ namespace RFSModel
         public string FundFromID { get; set; }
         public int FundToPK { get; set; }
         public string FundToID { get; set; }
+        public int Type { get; set; }
+        public string TypeDesc { get; set; }
         public string EntryUsersID { get; set; }
         public string EntryTime { get; set; }
         public string UpdateUsersID { get; set; }
