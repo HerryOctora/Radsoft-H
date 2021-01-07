@@ -716,7 +716,106 @@ INI PERUBAHAN KE 2 DARI PC
                                                     worksheet.Cells[incRowExcel, 8].Value = rsDetail.CounterpartID;
                                                     worksheet.Cells[incRowExcel, 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                                                 }
-                                                else if (rsHeader.Key.InstrumentType == "Corporate Bond" || rsHeader.Key.InstrumentType == "Government Bond")
+                                               
+
+                                        incRowExcel = incRowExcel + 2;
+                                        worksheet.Cells[incRowExcel, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                                        worksheet.Cells[incRowExcel, 2].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                                        worksheet.Cells[incRowExcel, 2].Style.WrapText = true;
+
+                                        worksheet.Cells["B" + incRowExcel + ":G" + (incRowExcel + 7)].Merge = true;
+                                        int _rowNotes = incRowExcel + 10;
+                                        worksheet.Cells["B" + incRowExcel + ":G" + incRowExcel].Style.Border.Top.Style = ExcelBorderStyle.Medium;
+                                        worksheet.Cells["B" + _rowNotes + ":G" + _rowNotes].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
+                                        worksheet.Cells["B" + incRowExcel + ":B" + _rowNotes].Style.Border.Left.Style = ExcelBorderStyle.Medium;
+                                        worksheet.Cells["G" + incRowExcel + ":G" + _rowNotes].Style.Border.Right.Style = ExcelBorderStyle.Medium;
+                                        incRowExcel = incRowExcel + 13;
+
+
+                                        int _RowA = incRowExcel;
+                                        int _RowB = incRowExcel + 7;
+                                        worksheet.Cells["A" + _RowB + ":H" + _RowB].Style.Font.Bold = true;
+                                        worksheet.Cells["A" + _RowB + ":H" + _RowB].Style.Font.Size = 15;
+
+                                        worksheet.Cells["A" + _RowA + ":B" + _RowA].Merge = true;
+                                        worksheet.Cells[_RowA, 1].Value = "PrepareBy";
+                                        worksheet.Cells[_RowA, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                        worksheet.Cells["A" + _RowB + ":B" + _RowB].Merge = true;
+                                        worksheet.Cells[_RowB, 1].Value = "(                                  )";
+                                        worksheet.Cells[_RowB, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                        worksheet.Cells["E" + _RowA + ":F" + _RowA].Merge = true;
+                                        worksheet.Cells[_RowA, 5].Value = "Approval";
+                                        worksheet.Cells[_RowA, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                        worksheet.Cells["E" + _RowB + ":F" + _RowB].Merge = true;
+                                        worksheet.Cells[_RowB, 5].Value = "(                             )";
+                                        worksheet.Cells[_RowB, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                        incRowExcel = incRowExcel + 8;
+                                        worksheet.Row(incRowExcel).PageBreak = true;
+
+                                        string _rangeA = "A1:H" + incRowExcel;
+                                        using (ExcelRange r = worksheet.Cells[_rangeA]) // KALO  KOLOM 1 SAMPE 9 A-I
+                                        {
+                                            r.Style.Font.Size = 18;
+                                            r.Style.Font.Bold = Tools.DefaultReportColumnHeaderFontBold();
+                                        }
+
+                                        // BAGIAN INI DI EDIT MANUAL PER REPORT SESUAI KEBUTUHAN
+                                        worksheet.PrinterSettings.FitToPage = true;
+                                        worksheet.PrinterSettings.FitToWidth = 1;
+                                        worksheet.PrinterSettings.FitToHeight = 0;
+                                        worksheet.PrinterSettings.PrintArea = worksheet.Cells[1, 1, incRowExcel, 8];
+                                        worksheet.Column(1).AutoFit();
+                                        worksheet.Column(2).Width = 20;
+                                        worksheet.Column(3).Width = 25;
+                                        worksheet.Column(4).AutoFit();
+                                        worksheet.Column(5).AutoFit();
+                                        worksheet.Column(6).AutoFit();
+                                        worksheet.Column(7).AutoFit();
+                                        worksheet.Column(8).AutoFit();
+                                        worksheet.PrinterSettings.Orientation = eOrientation.Portrait; // INI PER REPORT BEDA2 KEBUTUHANNYA JADI DI CEK WAKTU DESIGN REPORTNYA
+                                        // worksheet.PrinterSettings.RepeatRows = new ExcelAddress("1:1");// INI PERLU AGAR BARIS 1 MUNCUL TERUS WAKTU PRINT DI TIAP HALAMAN
+                                        // worksheet.PrinterSettings.FitToPage = true;
+                                        //worksheet.HeaderFooter.OddHeader.RightAlignedText = "&14 PAYMENT VOUCHER";
+                                        // BAGIAN INI BIASANYA AMBIL DARI DEFAULT SETTING DI TOOLS, TPI BISA DIUBAH SENDIRI SESUAI KEBUTUHAN PER REPORT
+                                        worksheet.PrinterSettings.TopMargin = Tools.DefaultReportTopMargin();
+                                        worksheet.PrinterSettings.PaperSize = Tools.DefaultReportPaperSize();
+                                        //worksheet.View.PageLayoutView = Tools.DefaultReportPageLayoutView();
+                                        worksheet.View.ShowGridLines = Tools.DefaultReportShowGridLines();
+                                        worksheet.HeaderFooter.OddHeader.CenteredText = "&34 DEALING TICKET";
+                                        //worksheet.HeaderFooter.OddHeader.LeftAlignedText = Tools.DefaultReportHeaderLeftText();
+
+                                        Image img = Image.FromFile(Tools.ReportImage);
+                                        worksheet.HeaderFooter.OddHeader.InsertPicture(img, PictureAlignment.Left);
+                                        worksheet.HeaderFooter.OddFooter.RightAlignedText =
+                                        string.Format("Page {0} of {1}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
+
+                                        //worksheet.HeaderFooter.OddFooter.CenteredText = Tools.DefaultReportFooterCenterText();
+                                        //worksheet.HeaderFooter.OddFooter.LeftAlignedText = Tools.DefaultReportFooterLeftText();
+
+                                        package.Save();
+                                        if (_investmentRpt.DownloadMode == "PDF")
+                                        {
+                                            Tools.ExportFromExcelToPDF(filePath, pdfPath);
+                                        }
+                                        return true;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    return false;
+                    throw err;
+                }
+
+ else if (rsHeader.Key.InstrumentType == "Corporate Bond" || rsHeader.Key.InstrumentType == "Government Bond")
                                                 {
                                                     worksheet.Cells[incRowExcel, 1].Value = rsDetail.DealingPK;
                                                     worksheet.Cells[incRowExcel, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -855,103 +954,6 @@ INI PERUBAHAN KE 2 DARI PC
                                             incRowExcel++;
 
                                         }
-
-                                        incRowExcel = incRowExcel + 2;
-                                        worksheet.Cells[incRowExcel, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                                        worksheet.Cells[incRowExcel, 2].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                                        worksheet.Cells[incRowExcel, 2].Style.WrapText = true;
-
-                                        worksheet.Cells["B" + incRowExcel + ":G" + (incRowExcel + 7)].Merge = true;
-                                        int _rowNotes = incRowExcel + 10;
-                                        worksheet.Cells["B" + incRowExcel + ":G" + incRowExcel].Style.Border.Top.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["B" + _rowNotes + ":G" + _rowNotes].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["B" + incRowExcel + ":B" + _rowNotes].Style.Border.Left.Style = ExcelBorderStyle.Medium;
-                                        worksheet.Cells["G" + incRowExcel + ":G" + _rowNotes].Style.Border.Right.Style = ExcelBorderStyle.Medium;
-                                        incRowExcel = incRowExcel + 13;
-
-
-                                        int _RowA = incRowExcel;
-                                        int _RowB = incRowExcel + 7;
-                                        worksheet.Cells["A" + _RowB + ":H" + _RowB].Style.Font.Bold = true;
-                                        worksheet.Cells["A" + _RowB + ":H" + _RowB].Style.Font.Size = 15;
-
-                                        worksheet.Cells["A" + _RowA + ":B" + _RowA].Merge = true;
-                                        worksheet.Cells[_RowA, 1].Value = "PrepareBy";
-                                        worksheet.Cells[_RowA, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                                        worksheet.Cells["A" + _RowB + ":B" + _RowB].Merge = true;
-                                        worksheet.Cells[_RowB, 1].Value = "(                                  )";
-                                        worksheet.Cells[_RowB, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                                        worksheet.Cells["E" + _RowA + ":F" + _RowA].Merge = true;
-                                        worksheet.Cells[_RowA, 5].Value = "Approval";
-                                        worksheet.Cells[_RowA, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                                        worksheet.Cells["E" + _RowB + ":F" + _RowB].Merge = true;
-                                        worksheet.Cells[_RowB, 5].Value = "(                             )";
-                                        worksheet.Cells[_RowB, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                                        incRowExcel = incRowExcel + 8;
-                                        worksheet.Row(incRowExcel).PageBreak = true;
-
-                                        string _rangeA = "A1:H" + incRowExcel;
-                                        using (ExcelRange r = worksheet.Cells[_rangeA]) // KALO  KOLOM 1 SAMPE 9 A-I
-                                        {
-                                            r.Style.Font.Size = 18;
-                                            r.Style.Font.Bold = Tools.DefaultReportColumnHeaderFontBold();
-                                        }
-
-                                        // BAGIAN INI DI EDIT MANUAL PER REPORT SESUAI KEBUTUHAN
-                                        worksheet.PrinterSettings.FitToPage = true;
-                                        worksheet.PrinterSettings.FitToWidth = 1;
-                                        worksheet.PrinterSettings.FitToHeight = 0;
-                                        worksheet.PrinterSettings.PrintArea = worksheet.Cells[1, 1, incRowExcel, 8];
-                                        worksheet.Column(1).AutoFit();
-                                        worksheet.Column(2).Width = 20;
-                                        worksheet.Column(3).Width = 25;
-                                        worksheet.Column(4).AutoFit();
-                                        worksheet.Column(5).AutoFit();
-                                        worksheet.Column(6).AutoFit();
-                                        worksheet.Column(7).AutoFit();
-                                        worksheet.Column(8).AutoFit();
-                                        worksheet.PrinterSettings.Orientation = eOrientation.Portrait; // INI PER REPORT BEDA2 KEBUTUHANNYA JADI DI CEK WAKTU DESIGN REPORTNYA
-                                        // worksheet.PrinterSettings.RepeatRows = new ExcelAddress("1:1");// INI PERLU AGAR BARIS 1 MUNCUL TERUS WAKTU PRINT DI TIAP HALAMAN
-                                        // worksheet.PrinterSettings.FitToPage = true;
-                                        //worksheet.HeaderFooter.OddHeader.RightAlignedText = "&14 PAYMENT VOUCHER";
-                                        // BAGIAN INI BIASANYA AMBIL DARI DEFAULT SETTING DI TOOLS, TPI BISA DIUBAH SENDIRI SESUAI KEBUTUHAN PER REPORT
-                                        worksheet.PrinterSettings.TopMargin = Tools.DefaultReportTopMargin();
-                                        worksheet.PrinterSettings.PaperSize = Tools.DefaultReportPaperSize();
-                                        //worksheet.View.PageLayoutView = Tools.DefaultReportPageLayoutView();
-                                        worksheet.View.ShowGridLines = Tools.DefaultReportShowGridLines();
-                                        worksheet.HeaderFooter.OddHeader.CenteredText = "&34 DEALING TICKET";
-                                        //worksheet.HeaderFooter.OddHeader.LeftAlignedText = Tools.DefaultReportHeaderLeftText();
-
-                                        Image img = Image.FromFile(Tools.ReportImage);
-                                        worksheet.HeaderFooter.OddHeader.InsertPicture(img, PictureAlignment.Left);
-                                        worksheet.HeaderFooter.OddFooter.RightAlignedText =
-                                        string.Format("Page {0} of {1}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
-
-                                        //worksheet.HeaderFooter.OddFooter.CenteredText = Tools.DefaultReportFooterCenterText();
-                                        //worksheet.HeaderFooter.OddFooter.LeftAlignedText = Tools.DefaultReportFooterLeftText();
-
-                                        package.Save();
-                                        if (_investmentRpt.DownloadMode == "PDF")
-                                        {
-                                            Tools.ExportFromExcelToPDF(filePath, pdfPath);
-                                        }
-                                        return true;
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception err)
-                {
-                    return false;
-                    throw err;
-                }
 
             }
             #endregion
