@@ -3129,6 +3129,7 @@ END
             return dt;
         }
 
+
         public string FxdImport(string _fileSource, string _userID)
         {
             string _msg;
@@ -3214,20 +3215,20 @@ END
                                             where B.Date is not null";
                                             cmd0.ExecuteNonQuery();
                                         }
+                                        // tutup sementara
+                                        //                    using (SqlCommand cmd1 = DbCon.CreateCommand())
+                                        //                    {
+                                        //                        cmd1.CommandTimeout = 0;
+                                        //                        cmd1.CommandText = @"insert into fxd11data
+                                        //                        (date,code,InvestmentMoneyMarket,InvestmentOtherDebt,InvestmentEquity,InvestmentWarranRight,Cash,DividendReceivable,InterestReceivable,ReceivableonSecuritySold,
+                                        //OtherReceivable,PrepaidTax,TotalAssets,PayableonSecurityPurchase,OtherPayable,TotalLiabilities,TotalNetAssets,Subscription,Redemption,RetainedEarning,DistributedIncome,
+                                        //UnrealizedGainLoss,RealizedGainLoss,NetIncome,TotalNAV,OutstandingUnitIssued,NAVUnit)  
 
-                                        using (SqlCommand cmd1 = DbCon.CreateCommand())
-                                        {
-                                            cmd1.CommandTimeout = 0;
-                                            cmd1.CommandText = @"insert into fxd11data
-                                            (date,code,InvestmentMoneyMarket,InvestmentOtherDebt,InvestmentEquity,InvestmentWarranRight,Cash,DividendReceivable,InterestReceivable,ReceivableonSecuritySold,
-								            OtherReceivable,PrepaidTax,TotalAssets,PayableonSecurityPurchase,OtherPayable,TotalLiabilities,TotalNetAssets,Subscription,Redemption,RetainedEarning,DistributedIncome,
-								            UnrealizedGainLoss,RealizedGainLoss,NetIncome,TotalNAV,OutstandingUnitIssued,NAVUnit)  
-								
-								            select date,code,InvestmentMoneyMarket,InvestmentOtherDebt,InvestmentEquity,InvestmentWarranRight,Cash,DividendReceivable,InterestReceivable,ReceivableonSecuritySold,
-								            OtherReceivable,PrepaidTax,TotalAssets,PayableonSecurityPurchase,OtherPayable,TotalLiabilities,TotalNetAssets,Subscription,Redemption,RetainedEarning,DistributedIncome,
-								            UnrealizedGainLoss,RealizedGainLoss,NetIncome,TotalNAV,OutstandingUnitIssued,NAVUnit from FxdTemp";
-                                            cmd1.ExecuteNonQuery();
-                                        }
+                                        //select date,code,InvestmentMoneyMarket,InvestmentOtherDebt,InvestmentEquity,InvestmentWarranRight,Cash,DividendReceivable,InterestReceivable,ReceivableonSecuritySold,
+                                        //OtherReceivable,PrepaidTax,TotalAssets,PayableonSecurityPurchase,OtherPayable,TotalLiabilities,TotalNetAssets,Subscription,Redemption,RetainedEarning,DistributedIncome,
+                                        //UnrealizedGainLoss,RealizedGainLoss,NetIncome,TotalNAV,OutstandingUnitIssued,NAVUnit from FxdTemp";
+                                        //                        cmd1.ExecuteNonQuery();
+                                        //                    }
 
                                         conn.Close();
                                         conn.Open();

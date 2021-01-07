@@ -2903,7 +2903,7 @@ B.CurrencyPK,B.TaxExpensePercent,B.MarketPK,A.AcqDate,B2.BankPK,F.AveragePriorit
 Delete A From #ZFundPosition A
 Inner join 
 (
-	Select C.InstrumentPK,A.ValueDate AcqDate from CorporateAction A
+	Select C.InstrumentPK,A.ExDate AcqDate from CorporateAction A
 	left join Instrument B on A.InstrumentPK = B.InstrumentPK and B.status = 2
 	left join Instrument C on C.ID = B.ID + '-R' and C.status = 2
 	where ExpiredDate <= @ValueDate and A.Status = 2 and A.Type = 3
@@ -2912,7 +2912,7 @@ Inner join
 Delete A From #ZFundPosition A
 Inner join 
 (
-	Select C.InstrumentPK,A.ValueDate AcqDate from CorporateAction A
+	Select C.InstrumentPK,A.ExDate AcqDate from CorporateAction A
 	left join Instrument B on A.InstrumentPK = B.InstrumentPK and B.status = 2
 	left join Instrument C on C.ID = B.ID + '-W' and C.status = 2
 	where ExpiredDate <= @ValueDate and A.Status = 2 and A.Type = 5
@@ -4935,7 +4935,7 @@ B.CurrencyPK,B.TaxExpensePercent,B.MarketPK,A.AcqDate
 Delete A From #ZFundPosition A
 Inner join 
 (
-    Select C.InstrumentPK,A.ValueDate AcqDate from CorporateAction A
+    Select C.InstrumentPK,A.ExDate AcqDate from CorporateAction A
     left join Instrument B on A.InstrumentPK = B.InstrumentPK and B.status = 2
     left join Instrument C on C.ID = B.ID + '-R' and C.status = 2
     where ExpiredDate <= @ValueDate and A.Status = 2 and A.Type = 3
@@ -4944,7 +4944,7 @@ Inner join
 Delete A From #ZFundPosition A
 Inner join 
 (
-    Select C.InstrumentPK,A.ValueDate AcqDate from CorporateAction A
+    Select C.InstrumentPK,A.ExDate AcqDate from CorporateAction A
     left join Instrument B on A.InstrumentPK = B.InstrumentPK and B.status = 2
     left join Instrument C on C.ID = B.ID + '-W' and C.status = 2
     where ExpiredDate <= @ValueDate and A.Status = 2 and A.Type = 5

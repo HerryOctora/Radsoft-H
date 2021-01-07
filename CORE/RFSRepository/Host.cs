@@ -3105,7 +3105,27 @@ namespace RFSRepository
                     DbCon.Open();
                     using (SqlCommand cmd = DbCon.CreateCommand())
                     {
-                        cmd.CommandText = "select char(64+@incRowExcel) Alpha";
+                        cmd.CommandText = @"; WITH cte AS
+                         (
+                         SELECT 1 x, CHAR(65) y
+                         UNION ALL
+                         SELECT x + 1, CHAR(x + 65)
+                        FROM cte
+                        WHERE x < 26
+                        ), cte2 AS
+                        (
+                        SELECT CAST(x AS BIGINT) x, CAST(y AS VARCHAR(10)) y
+                        FROM cte
+                        UNION ALL
+                        SELECT(a.x * 26) + b.x, CAST(a.y + b.y AS VARCHAR(10))
+                        FROM cte2 a
+                        CROSS JOIN cte b
+                        WHERE(a.x * 26) + b.x <= @incRowExcel
+                        )
+
+                        SELECT Y Alpha
+                        FROM cte2 where X = @incRowExcel
+                        ORDER BY x ";
                         cmd.Parameters.AddWithValue("@incRowExcel", _incRowExcel);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {

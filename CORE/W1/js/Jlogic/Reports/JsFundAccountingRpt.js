@@ -316,8 +316,6 @@
             }
         }
 
-
-
         //Signature 1
         $.ajax({
             url: window.location.origin + "/Radsoft/Signature/GetDefaultSignature1Combo/" + sessionStorage.getItem("user") + "/" + sessionStorage.getItem("id"),
@@ -481,14 +479,6 @@
                 });
             }
         }
-
-
-
-
-
-
-
-
 
         WinFundClient = $("#WinFundClient").kendoWindow({
             height: 500,
@@ -2699,7 +2689,7 @@
                 }
             }
 
-            else if (_GlobClientCode == '20') { 
+            else if (_GlobClientCode == '20') {
                 $("#Name").kendoComboBox({
                     dataValueField: "text",
                     dataTextField: "text",
@@ -4350,13 +4340,10 @@
                     Signature2: $("#Signature2").data("kendoComboBox").value(),
                     Signature3: $("#Signature3").data("kendoComboBox").value(),
                     Signature4: $("#Signature4").data("kendoComboBox").value(),
-
                     Signature11: $("#Signature11").data("kendoComboBox").value(),
                     Signature22: $("#Signature22").data("kendoComboBox").value(),
                     Signature33: $("#Signature33").data("kendoComboBox").value(),
                     Signature44: $("#Signature44").data("kendoComboBox").value(),
-
-
                     ZeroBalance: $("#ZeroBalance").data("kendoComboBox").value(),
                     TrxType: $('#ParamTrxType').val(),
                     TrxTypeDeposito: $('#ParamTrxTypeDeposito').val(),

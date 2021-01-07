@@ -55,7 +55,7 @@
     // 99 = DEVELOPMENT
     // PASANG SESUAI NO CLIENT
 
-    window._GlobClientCode = '03';
+    window._GlobClientCode = '20';
     window._ParamFundScheme = 'TRUE';
     window._ComplianceEmail = 'TRUE'; //setting email kalau breach dari oms equity
 
