@@ -348,7 +348,7 @@ $(document).ready(function () {
             $("#FeeTypeSwitching").val(dataItemX.FeeTypeSwitching);
             $("#DateOfPayment").val(dataItemX.DateOfPayment);
             $("#ValueDate").data("kendoDatePicker").value(dataItemX.Date);
-            $("#BitActDivDays").prop('checked', true, dataItemX.BitActDivDays); 
+            $("#BitActDivDays").prop('checked', dataItemX.BitActDivDays); 
             $("#TaxInterestDeposit").prop('checked', true, dataItemX.TaxInterestDeposit);
 
             //$("#BitMaxRangeTo").prop('checked', dataItemX.BitMaxRangeTo);
@@ -1315,7 +1315,7 @@ $(document).ready(function () {
         $("#SinvestEquityFeePercent").val("");
         $("#BitPendingSubscription").val("");
         $("#BitPendingSwitchIn").val("");
-        $("#BitActDivDays").prop('checked', true); 
+        //$("#BitActDivDays").prop('checked', true); 
         $("#MovementFeeAmount").val("");
         $("#OtherFeeOneAmount").val("");
         $("#OtherFeeTwoAmount").val("");
@@ -1923,7 +1923,7 @@ $(document).ready(function () {
         $("#lblDateAmortize").hide();
         $("#DateAmortization").val("");
         $("#BitMaxRangeTo").prop('checked', false);
-        $("#BitActDivDays").prop('checked', true);
+        //$("#BitActDivDays").prop('checked');
         $("#TaxInterestDeposit").prop('checked', true);
         $("#RangeTo").attr('readonly', false);
 
