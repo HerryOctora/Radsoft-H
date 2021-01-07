@@ -614,61 +614,118 @@
                 ]
             }).data("kendoGrid");
         }
-        else {
-            var grid = $("#gridHighRiskMonitoringApproved").kendoGrid({
-                dataSource: dataSourceApproved,
-                height: gridHeight,
-                scrollable: {
-                    virtual: true
-                },
-                groupable: {
-                    messages: {
-                        empty: "Form High Risk Monitoring"
-                    }
-                },
-                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
-                columnMenu: false,
-                pageable: {
-                    input: true,
-                    numeric: false
-                },
-                reorderable: true,
-                sortable: true,
-                resizable: true,
-                dataBound: gridApprovedOnDataBound,
-                toolbar: ["excel"],
-                columns: [
-                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
-                    //{ command: { text: "Batch", click: showBatch }, title: " ", width: 80 },
-                    {
-                        field: "Selected",
-                        width: 50,
-                        template: "<input class='cSelectedDetailApproved' type='checkbox'   #= Selected ? 'checked=checked' : '' # />",
-                        headerTemplate: "<input id='SelectedAllApproved' type='checkbox'  />",
-                        filterable: true,
-                        sortable: false,
-                        columnMenu: false
+        else if (_GlobClientCode == "33") {
+                var grid = $("#gridHighRiskMonitoringApproved").kendoGrid({
+                    dataSource: dataSourceApproved,
+                    height: gridHeight,
+                    scrollable: {
+                        virtual: true
                     },
-                    { field: "HighRiskMonitoringPK", title: "SysNo.", width: 125 },
-                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 75 },
-                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 75 },
-                    { field: "InvestmentNo", title: "Key Number", width: 200 },
-                    { field: "FundClientID", title: "Name", width: 200 },
-                    { field: "ClientType", title: "Client Type", width: 200 },
-                    { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
-                    { field: "Reason", title: "Reason", width: 200 },
-                    { field: "BitIsSuspend", title: "Suspend", width: 200, template: "#= BitIsSuspend ? 'Yes' : 'No' #" },
-                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
-                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
-                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
-                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
-                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
-                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
-                    { field: "VoidUsersID", title: "VoidID", width: 200 },
-                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
-                    { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 }
-                ]
-            }).data("kendoGrid");
+                    groupable: {
+                        messages: {
+                            empty: "Form High Risk Monitoring"
+                        }
+                    },
+                    filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                    columnMenu: false,
+                    pageable: {
+                        input: true,
+                        numeric: false
+                    },
+                    reorderable: true,
+                    sortable: true,
+                    resizable: true,
+                    dataBound: gridApprovedOnDataBound,
+                    toolbar: ["excel"],
+                    columns: [
+                        { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                        //{ command: { text: "Batch", click: showBatch }, title: " ", width: 80 },
+                        {
+                            field: "Selected",
+                            width: 50,
+                            template: "<input class='cSelectedDetailApproved' type='checkbox'   #= Selected ? 'checked=checked' : '' # />",
+                            headerTemplate: "<input id='SelectedAllApproved' type='checkbox'  />",
+                            filterable: true,
+                            sortable: false,
+                            columnMenu: false
+                        },
+                        { field: "HighRiskMonitoringPK", title: "SysNo.", width: 125 },
+                        { field: "Status", title: "Status", hidden: true, filterable: false, width: 75 },
+                        { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 75 },
+                        { field: "InvestmentNo", title: "Key Number", width: 200 },
+                        { field: "FundClientID", title: "Name", width: 200 },
+                        { field: "ClientType", title: "Client Type", width: 200 },
+                        { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
+                        { field: "Reason", title: "Reason", width: 400 },
+                        { field: "BitIsSuspend", title: "Suspend", width: 200, template: "#= BitIsSuspend ? 'Yes' : 'No' #" },
+                        { field: "HighRiskMonStatusDesc", title: "High Risk Mon Status", width: 200 },
+                        { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                        { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                        { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                        { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "VoidUsersID", title: "VoidID", width: 200 },
+                        { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 }
+                    ]
+                }).data("kendoGrid");
+        }
+        else {
+                var grid = $("#gridHighRiskMonitoringApproved").kendoGrid({
+                    dataSource: dataSourceApproved,
+                    height: gridHeight,
+                    scrollable: {
+                        virtual: true
+                    },
+                    groupable: {
+                        messages: {
+                            empty: "Form High Risk Monitoring"
+                        }
+                    },
+                    filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                    columnMenu: false,
+                    pageable: {
+                        input: true,
+                        numeric: false
+                    },
+                    reorderable: true,
+                    sortable: true,
+                    resizable: true,
+                    dataBound: gridApprovedOnDataBound,
+                    toolbar: ["excel"],
+                    columns: [
+                        { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                        //{ command: { text: "Batch", click: showBatch }, title: " ", width: 80 },
+                        {
+                            field: "Selected",
+                            width: 50,
+                            template: "<input class='cSelectedDetailApproved' type='checkbox'   #= Selected ? 'checked=checked' : '' # />",
+                            headerTemplate: "<input id='SelectedAllApproved' type='checkbox'  />",
+                            filterable: true,
+                            sortable: false,
+                            columnMenu: false
+                        },
+                        { field: "HighRiskMonitoringPK", title: "SysNo.", width: 125 },
+                        { field: "Status", title: "Status", hidden: true, filterable: false, width: 75 },
+                        { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 75 },
+                        { field: "InvestmentNo", title: "Key Number", width: 200 },
+                        { field: "FundClientID", title: "Name", width: 200 },
+                        { field: "ClientType", title: "Client Type", width: 200 },
+                        { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
+                        { field: "Reason", title: "Reason", width: 200 },
+                        { field: "BitIsSuspend", title: "Suspend", width: 200, template: "#= BitIsSuspend ? 'Yes' : 'No' #" },
+                        { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                        { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                        { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                        { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "VoidUsersID", title: "VoidID", width: 200 },
+                        { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 }
+                    ]
+                }).data("kendoGrid");
         }
 
 
@@ -845,6 +902,63 @@
                 ]
             }).data("kendoGrid");
         }
+        else if (_GlobClientCode == "33") {
+                var grid = $("#gridHighRiskMonitoringPending").kendoGrid({
+                    dataSource: dataSourcePending,
+                    height: gridHeight,
+                    scrollable: {
+                        virtual: true
+                    },
+                    groupable: {
+                        messages: {
+                            empty: "Form High Risk Monitoring"
+                        }
+                    },
+                    filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                    columnMenu: false,
+                    pageable: {
+                        input: true,
+                        numeric: false
+                    },
+                    reorderable: true,
+                    sortable: true,
+                    resizable: true,
+                    dataBound: gridPendingOnDataBound,
+                    toolbar: ["excel"],
+                    columns: [
+                        { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                        //{ command: { text: "Batch", click: showBatch }, title: " ", width: 80 },
+                        {
+                            field: "Selected",
+                            width: 50,
+                            template: "<input class='cSelectedDetailPending' type='checkbox'   #= Selected ? 'checked=checked' : '' # />",
+                            headerTemplate: "<input id='SelectedAllPending' type='checkbox'  />",
+                            filterable: true,
+                            sortable: false,
+                            columnMenu: false
+                        },
+                        { field: "HighRiskMonitoringPK", title: "SysNo.", width: 125 },
+                        { field: "BitIsSuspend", title: "Suspend", width: 200, template: "#= BitIsSuspend ? 'Yes' : 'No' #" },
+                        { field: "Status", title: "Status", hidden: true, filterable: false, width: 75 },
+                        { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 75 },
+                        { field: "InvestmentNo", title: "Key Number", width: 200 },
+                        { field: "FundClientID", title: "Name", width: 200 },
+                        { field: "ClientType", title: "Client Type", width: 200 },
+                        { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
+                        { field: "Reason", title: "Reason", width: 400 },
+                        { field: "HighRiskMonStatusDesc", title: "High Risk Mon Status", width: 200 },
+                        { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                        { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                        { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                        { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "VoidUsersID", title: "VoidID", width: 200 },
+                        { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                        { field: "LastUpdate", title: "LastUpdate", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 }
+                    ]
+                }).data("kendoGrid");
+        }
         else {
             var grid = $("#gridHighRiskMonitoringPending").kendoGrid({
                 dataSource: dataSourcePending,
@@ -988,6 +1102,54 @@
                     { field: "ClientType", title: "Client Type", width: 200 },
                     { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
                     { field: "Reason", title: "Reason", width: 200 },
+                    { field: "HighRiskMonStatusDesc", title: "High Risk Mon Status", width: 200 },
+                    { field: "EntryUsersID", title: "Entry ID", width: 200 },
+                    { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                    { field: "UpdateUsersID", title: "UpdateID", width: 200 },
+                    { field: "UpdateTime", title: "U.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                    { field: "ApprovedUsersID", title: "ApprovedID", width: 200 },
+                    { field: "ApprovedTime", title: "A.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+                    { field: "VoidUsersID", title: "VoidID", width: 200 },
+                    { field: "VoidTime", title: "V.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
+
+                ]
+            });
+        }
+        else if (_GlobClientCode == "33") {
+            $("#gridHighRiskMonitoringHistory").kendoGrid({
+                dataSource: dataSourceHistory,
+                height: gridHeight,
+                scrollable: {
+                    virtual: true
+                },
+                groupable: {
+                    messages: {
+                        empty: "Form High Risk Monitoring"
+                    }
+                },
+                filterable: { extra: true, operators: { string: { contains: "Contain", eq: "Is equal to", neq: "Is not equal to" } } },
+                columnMenu: false,
+                pageable: {
+                    input: true,
+                    numeric: false
+                },
+                reorderable: true,
+                sortable: true,
+                resizable: true,
+                dataBound: gridHistoryDataBound,
+                toolbar: ["excel"],
+                columns: [
+                    { command: { text: "Show", click: showDetails }, title: " ", width: 80 },
+                    { field: "LastUpdate", title: "LastUpdate", format: "{0:MM/dd/yyyy HH:mm:ss}", width: 180 },
+                    { field: "HighRiskMonitoringPK", title: "SysNo.", width: 125 },
+                    { field: "BitIsSuspend", title: "Suspend", width: 200, template: "#= BitIsSuspend ? 'Yes' : 'No' #" },
+                    { field: "Status", title: "Status", hidden: true, filterable: false, width: 75 },
+                    { field: "HistoryPK", title: "HisNo.", filterable: false, hidden: true, width: 75 },
+                    { field: "InvestmentNo", title: "Key Number", width: 200 },
+                    { field: "FundClientID", title: "Name", width: 200 },
+                    { field: "ClientType", title: "Client Type", width: 200 },
+                    { field: "Date", title: "Date", width: 200, template: "#= kendo.toString(kendo.parseDate(Date), 'MM/dd/yyyy')#" },
+                    { field: "Reason", title: "Reason", width: 400 },
                     { field: "HighRiskMonStatusDesc", title: "High Risk Mon Status", width: 200 },
                     { field: "EntryUsersID", title: "Entry ID", width: 200 },
                     { field: "EntryTime", title: "E.Time", format: "{0:dd/MMM/yyyy HH:mm:ss}", width: 200 },
