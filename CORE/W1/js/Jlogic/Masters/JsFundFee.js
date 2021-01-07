@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿//import { checked } from "modernizr";
+
+$(document).ready(function () {
     document.title = 'FORM Fund Fee';
     //Global Variabel
     var win;
@@ -281,6 +283,7 @@
     }
 
     function showDetails(e) {
+
         if (e == null) {
             HideBtnAdd(0);
             $("#BtnUpdate").hide();
@@ -345,7 +348,7 @@
             $("#FeeTypeSwitching").val(dataItemX.FeeTypeSwitching);
             $("#DateOfPayment").val(dataItemX.DateOfPayment);
             $("#ValueDate").data("kendoDatePicker").value(dataItemX.Date);
-            $("#BitActDivDays").prop('checked', true, dataItemX.BitActDivDays);
+            $("#BitActDivDays").prop('checked', true, dataItemX.BitActDivDays); 
             $("#TaxInterestDeposit").prop('checked', true, dataItemX.TaxInterestDeposit);
 
             //$("#BitMaxRangeTo").prop('checked', dataItemX.BitMaxRangeTo);
@@ -372,6 +375,8 @@
             $("#ApprovedTime").val(kendo.toString(kendo.parseDate(dataItemX.ApprovedTime), 'dd/MMM/yyyy HH:mm:ss'));
             $("#VoidTime").val(kendo.toString(kendo.parseDate(dataItemX.VoidTime), 'dd/MMM/yyyy HH:mm:ss'));
             $("#LastUpdate").val(kendo.toString(kendo.parseDate(dataItemX.LastUpdate), 'dd/MMM/yyyy HH:mm:ss'));
+
+            
         }
 
 
@@ -401,21 +406,12 @@
             }
         }
 
-        $("#BitActDivDays").change(function () {
-            if (this.checked) {
+        
 
-                $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
-                $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
-                $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+        //if (e != null) {
+        //    ShowHideLabelByReksadanaInstrumentRptType(dataItemX.BitActDivDays);
+        //}
 
-            }
-            else {
-
-                $("#ManagementFeeDays").data("kendoNumericTextBox").enable(true);
-                $("#CustodiFeeDays").data("kendoNumericTextBox").enable(true);
-                $("#SInvestFeeDays").data("kendoNumericTextBox").enable(true);
-            }
-        });
 
 
 
@@ -1226,9 +1222,59 @@
 
         });
 
+        if ($('#BitActDivDays').is(":checked") == true) {
+
+            $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+            $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+            $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+        }
+        else {
+            $("#ManagementFeeDays").data("kendoNumericTextBox").enable();
+            $("#CustodiFeeDays").data("kendoNumericTextBox").enable();
+            $("#SInvestFeeDays").data("kendoNumericTextBox").enable();
+        }
+
+
+        $('#BitActDivDays').on('change', function () {
+            console.log(this.checked);
+
+            if (this.checked) {
+
+                $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+                $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+                $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+            }
+            else {
+
+                $("#ManagementFeeDays").data("kendoNumericTextBox").enable();
+                $("#CustodiFeeDays").data("kendoNumericTextBox").enable();
+                $("#SInvestFeeDays").data("kendoNumericTextBox").enable();
+            }
+        });
+
         win.center();
         win.open();
     }
+
+    
+
+    //$("#BitActDivDays").change(function () {
+    //    if (this.checked) {
+
+    //        $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+    //    }
+    //    else {
+
+    //        $("#ManagementFeeDays").data("kendoNumericTextBox").enable(true);
+    //        $("#CustodiFeeDays").data("kendoNumericTextBox").enable(true);
+    //        $("#SInvestFeeDays").data("kendoNumericTextBox").enable(true);
+    //    }
+    //});
 
     function onPopUpClose() {
         GlobValidator.hideMessages();
@@ -1238,6 +1284,7 @@
     }
 
     function clearData() {
+        refresh();
         $("#FundFeePK").val("");
         $("#HistoryPK").val("");
         $("#Notes").val("");
@@ -1268,7 +1315,7 @@
         $("#SinvestEquityFeePercent").val("");
         $("#BitPendingSubscription").val("");
         $("#BitPendingSwitchIn").val("");
-        $("#BitActDivDays").prop('checked', true);
+        $("#BitActDivDays").prop('checked', true); 
         $("#MovementFeeAmount").val("");
         $("#OtherFeeOneAmount").val("");
         $("#OtherFeeTwoAmount").val("");
@@ -1279,6 +1326,10 @@
 
         $("#AccruedInterestCalculation").val("");
         $("#TaxInterestDeposit").prop('checked', true);
+
+        $("#ManagementFeeDays").data("kendoNumericTextBox").destroy();
+        $("#CustodiFeeDays").data("kendoNumericTextBox").destroy();
+        $("#SInvestFeeDays").data("kendoNumericTextBox").destroy();
 
         $("#EntryUsersID").val("");
         $("#UpdateUsersID").val("");
@@ -2950,4 +3001,34 @@
 
     //end CustodiFee
 
+    //function ShowHideLabelByReksadanaInstrumentRptType(_type) {
+    //    //ClearRequiredAttribute();
+    //    HideLabel();
+    //    //BOND
+
+    //    if (_type = checked = true) {
+           
+    //        $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+    //    } else (_type = checked = false) {
+
+    //        $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+    //        $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+    //    }
+       
+
+
+
+    //}
+
+    //function HideLabel() {
+    //    $("#ManagementFeeDays").data("kendoNumericTextBox").enable(false);
+    //    $("#CustodiFeeDays").data("kendoNumericTextBox").enable(false);
+    //    $("#SInvestFeeDays").data("kendoNumericTextBox").enable(false);
+
+    //}
 });
