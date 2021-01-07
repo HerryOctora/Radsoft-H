@@ -20,6 +20,7 @@ namespace RFSRepository
     public class ReportsReps
     {
         Host _host = new Host();
+
 {
 1
 2
@@ -32,6 +33,7 @@ namespace RFSRepository
 9
 10
 }
+
 
     }
 }
