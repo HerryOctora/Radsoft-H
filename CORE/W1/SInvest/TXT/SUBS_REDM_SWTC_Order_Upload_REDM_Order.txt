@@ -1,1 +1,0 @@
-Transaction Date|Transaction Type|SA Code|Investor Fund Unit A/C No.|Fund Code|Amount (Nominal)|Amount (Unit)|Amount (All Units)|Fee (Nominal)|Fee (Unit)|Fee (%)|REDM Payment A/C Sequential Code|REDM Payment Bank BIC Code|REDM Payment Bank BI Member Code|REDM Payment A/C No.|Payment Date|Transfer Type|SA Reference No.
